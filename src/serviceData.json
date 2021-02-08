@@ -1,0 +1,426 @@
+{
+  "0000": {
+    "data": {
+      "funAndAdventure": {
+        "description": "Explore the area with local guides, and adventures organized by Easy Alfred!",
+        "icon": "accessibility_new",
+        "image": "/assets/images/easyAlfred/funAndAdventure.jpg",
+        "title": "Fun & Adventure",
+        "serviceOptions": {
+          "motorcross": {
+            "priceMax": "150",
+            "priceMin": "50",
+            "serviceId": "motorcross",
+            "serviceTitle": "Motorcross"
+          },
+          "buggyRental": {
+            "priceMax": "300",
+            "priceMin": "200",
+            "serviceId": "buggyRental",
+            "serviceTitle": "Buggy Rental"
+          },
+          "desertTour": {
+            "priceMax": "100",
+            "priceMin": "50",
+            "serviceId": "desertTour",
+            "serviceTitle": "Desert Tour"
+          },
+          "shootingRange": {
+            "priceMax": "150",
+            "priceMin": "60",
+            "serviceId": "shootingRange",
+            "serviceTitle": "Shooting Range"
+          },
+          "catchAndRelease": {
+            "priceMax": "350",
+            "priceMin": "175",
+            "serviceId": "catchAndRelease",
+            "serviceTitle": "Catch and Release"
+          },
+          "makeup": {
+            "priceMax": "150",
+            "priceMin": "75",
+            "serviceId": "makeup",
+            "serviceTitle": "Makeup"
+          }
+        }
+      },
+      "housekeeping": {
+        "description": "In need of a quick clean-up, launder, grocery run, or extra towels, let your Alfred know.",
+        "icon": "local_laundry_service",
+        "image": "assets/images/easyAlfred/housekeeping.jpg",
+        "title": "Housekeeping",
+        "serviceOptions": {
+          "kitchen": {
+            "priceMax": "100",
+            "priceMin": "50",
+            "serviceId": "kitchen",
+            "serviceTitle": "Kitchen"
+          },
+          "fullhouse": {
+            "priceMax": "125",
+            "priceMin": "75",
+            "serviceId": "fullhouse",
+            "serviceTitle": "Full house"
+          },
+          "deepClean": {
+            "priceMax": "250",
+            "priceMin": "150",
+            "serviceId": "deepClean",
+            "serviceTitle": "Deep Clean"
+          },
+          "toiletryRun": {
+            "priceMax": "75",
+            "priceMin": "50",
+            "serviceId": "toiletryRun",
+            "serviceTitle": "Toiletry Run"
+          }
+        }
+      },
+      "zfoodAndBeverage": {
+        "description": "Wine and dine with local chefs, caterers, and bartenders serving up their best cuisine without lifting a finger in the kitchen.",
+        "icon": "fastfood",
+        "image": "assets/images/easyAlfred/foodAndBeverage.jpg",
+        "title": "Food & Beverage",
+        "serviceOptions": {
+          "groceryRun": {
+            "priceMax": "75",
+            "priceMin": "25",
+            "serviceId": "groceryRun",
+            "serviceTitle": "Grocery Run"
+          },
+          "bartender": {
+            "priceMax": "175",
+            "priceMin": "150",
+            "serviceId": "bartender",
+            "serviceTitle": "Bartender"
+          },
+          "personalChefLive": {
+            "priceMax": "250",
+            "priceMin": "125",
+            "serviceId": "personalChefLive",
+            "serviceTitle": "Personal Chef Live",
+            "subServiceOptions": {
+              "vegan": {
+                "subServiceId": "vegan",
+                "subServiceTitle": "Vegan"
+              },
+              "vegetarian": {
+                "subServiceId": "vegetarian",
+                "subServiceTitle": "Vegetarian"
+              },
+              "greek": {
+                "subServiceId": "greek",
+                "subServiceTitle": "Greek"
+              },
+              "mediterranean": {
+                "subServiceId": "mediterranean",
+                "subServiceTitle": "Mediterranean"
+              },
+              "korean": {
+                "subServiceId": "korean",
+                "subServiceTitle": "Korean"
+              },
+              "american": {
+                "subServiceId": "american",
+                "subServiceTitle": "American"
+              },
+              "mexican": {
+                "subServiceId": "mexican",
+                "subServiceTitle": "Mexican"
+              },
+              "japanese": {
+                "subServiceId": "japanese",
+                "subServiceTitle": "Japanese"
+              },
+              "chinese": {
+                "subServiceId": "chinese",
+                "subServiceTitle": "Chinese"
+              },
+              "italian": {
+                "subServiceId": "italian",
+                "subServiceTitle": "Italian"
+              },
+              "spanish": {
+                "subServiceId": "Spanish",
+                "subServiceTitle": "spanish"
+              },
+              "french": {
+                "subServiceId": "french",
+                "subServiceTitle": "French"
+              }
+            }
+          },
+          "reservations": {
+            "priceMax": "100",
+            "priceMin": "50",
+            "serviceId": "reservations",
+            "serviceTitle": "Reservations",
+            "subServiceOptions": {
+              "vegan": {
+                "subServiceId": "vegan",
+                "subServiceTitle": "Vegan"
+              },
+              "vegetarian": {
+                "subServiceId": "vegetarian",
+                "subServiceTitle": "Vegetarian"
+              },
+              "greek": {
+                "subServiceId": "greek",
+                "subServiceTitle": "Greek"
+              },
+              "mediterranean": {
+                "subServiceId": "mediterranean",
+                "subServiceTitle": "Mediterranean"
+              },
+              "korean": {
+                "subServiceId": "korean",
+                "subServiceTitle": "Korean"
+              },
+              "american": {
+                "subServiceId": "american",
+                "subServiceTitle": "American"
+              },
+              "mexican": {
+                "subServiceId": "mexican",
+                "subServiceTitle": "Mexican"
+              },
+              "japanese": {
+                "subServiceId": "japanese",
+                "subServiceTitle": "Japanese"
+              },
+              "chinese": {
+                "subServiceId": "chinese",
+                "subServiceTitle": "Chinese"
+              },
+              "italian": {
+                "subServiceId": "italian",
+                "subServiceTitle": "Italian"
+              },
+              "spanish": {
+                "subServiceId": "Spanish",
+                "subServiceTitle": "spanish"
+              },
+              "french": {
+                "subServiceId": "french",
+                "subServiceTitle": "French"
+              }
+            }
+          },
+          "cateredIndividualMeals": {
+            "priceMax": "125",
+            "priceMin": "100",
+            "serviceId": "cateredIndividualMeals",
+            "serviceTitle": "Catered Individual Meals",
+            "subServiceOptions": {
+              "vegan": {
+                "subServiceId": "vegan",
+                "subServiceTitle": "Vegan"
+              },
+              "vegetarian": {
+                "subServiceId": "vegetarian",
+                "subServiceTitle": "Vegetarian"
+              },
+              "greek": {
+                "subServiceId": "greek",
+                "subServiceTitle": "Greek"
+              },
+              "mediterranean": {
+                "subServiceId": "mediterranean",
+                "subServiceTitle": "Mediterranean"
+              },
+              "korean": {
+                "subServiceId": "korean",
+                "subServiceTitle": "Korean"
+              },
+              "american": {
+                "subServiceId": "american",
+                "subServiceTitle": "American"
+              },
+              "mexican": {
+                "subServiceId": "mexican",
+                "subServiceTitle": "Mexican"
+              },
+              "japanese": {
+                "subServiceId": "japanese",
+                "subServiceTitle": "Japanese"
+              },
+              "chinese": {
+                "subServiceId": "chinese",
+                "subServiceTitle": "Chinese"
+              },
+              "italian": {
+                "subServiceId": "italian",
+                "subServiceTitle": "Italian"
+              },
+              "spanish": {
+                "subServiceId": "Spanish",
+                "subServiceTitle": "spanish"
+              },
+              "french": {
+                "subServiceId": "french",
+                "subServiceTitle": "French"
+              }
+            }
+          },
+          "cateredFamilyMeal": {
+            "priceMax": "350",
+            "priceMin": "175",
+            "serviceId": "cateredFamilyMeal",
+            "serviceTitle": "Catered Family Meal",
+            "subServiceOptions": {
+              "vegan": {
+                "subServiceId": "vegan",
+                "subServiceTitle": "Vegan"
+              },
+              "vegetarian": {
+                "subServiceId": "vegetarian",
+                "subServiceTitle": "Vegetarian"
+              },
+              "greek": {
+                "subServiceId": "greek",
+                "subServiceTitle": "Greek"
+              },
+              "mediterranean": {
+                "subServiceId": "mediterranean",
+                "subServiceTitle": "Mediterranean"
+              },
+              "korean": {
+                "subServiceId": "korean",
+                "subServiceTitle": "Korean"
+              },
+              "american": {
+                "subServiceId": "american",
+                "subServiceTitle": "American"
+              },
+              "mexican": {
+                "subServiceId": "mexican",
+                "subServiceTitle": "Mexican"
+              },
+              "japanese": {
+                "subServiceId": "japanese",
+                "subServiceTitle": "Japanese"
+              },
+              "chinese": {
+                "subServiceId": "chinese",
+                "subServiceTitle": "Chinese"
+              },
+              "italian": {
+                "subServiceId": "italian",
+                "subServiceTitle": "Italian"
+              },
+              "spanish": {
+                "subServiceId": "Spanish",
+                "subServiceTitle": "spanish"
+              },
+              "french": {
+                "subServiceId": "french",
+                "subServiceTitle": "French"
+              }
+            }
+          },
+          "personalChefPrecooked": {
+            "priceMax": "200",
+            "priceMin": "100",
+            "serviceId": "personalChefPrecooked",
+            "serviceTitle": "Personal Chef Pre-cooked",
+            "subServiceOptions": {
+              "vegan": {
+                "subServiceId": "vegan",
+                "subServiceTitle": "Vegan"
+              },
+              "vegetarian": {
+                "subServiceId": "vegetarian",
+                "subServiceTitle": "Vegetarian"
+              },
+              "greek": {
+                "subServiceId": "greek",
+                "subServiceTitle": "Greek"
+              },
+              "mediterranean": {
+                "subServiceId": "mediterranean",
+                "subServiceTitle": "Mediterranean"
+              },
+              "korean": {
+                "subServiceId": "korean",
+                "subServiceTitle": "Korean"
+              },
+              "american": {
+                "subServiceId": "american",
+                "subServiceTitle": "American"
+              },
+              "mexican": {
+                "subServiceId": "mexican",
+                "subServiceTitle": "Mexican"
+              },
+              "japanese": {
+                "subServiceId": "japanese",
+                "subServiceTitle": "Japanese"
+              },
+              "chinese": {
+                "subServiceId": "chinese",
+                "subServiceTitle": "Chinese"
+              },
+              "italian": {
+                "subServiceId": "italian",
+                "subServiceTitle": "Italian"
+              },
+              "spanish": {
+                "subServiceId": "Spanish",
+                "subServiceTitle": "spanish"
+              },
+              "french": {
+                "subServiceId": "french",
+                "subServiceTitle": "French"
+              }
+            }
+          }
+        }
+      },
+      "spaAndLuxury": {
+        "description": "Relaxation, rest, or beauty? Necessity or luxury… Rest Easy. Alfred’s here to help.",
+        "icon": "spa",
+        "image": "assets/images/easyAlfred/spaAndLuxury.jpg",
+        "title": "Spa & Luxury",
+        "serviceOptions": {
+          "yoga": {
+            "priceMax": "250",
+            "priceMin": "100",
+            "serviceId": "yoga",
+            "serviceTitle": "Yoga"
+          },
+          "relaxation": {
+            "priceMax": "10",
+            "priceMin": "50",
+            "serviceId": "relaxation",
+            "serviceTitle": "Relaxation"
+          },
+          "mudbath": {
+            "priceMax": "125",
+            "priceMin": "25",
+            "serviceId": "mudbath",
+            "serviceTitle": "Mudbath"
+          },
+          "deepMassage": {
+            "priceMax": "85",
+            "priceMin": "50",
+            "serviceId": "deepMassage",
+            "serviceTitle": "Deep Massage"
+          },
+          "hair": {
+            "priceMax": "150",
+            "priceMin": "25",
+            "serviceId": "hair",
+            "serviceTitle": "Hair"
+          },
+          "makeup": {
+            "priceMax": "150",
+            "priceMin": "75",
+            "serviceId": "makeup",
+            "serviceTitle": "Makeup"
+          }
+        }
+      }
+    }
+  }
+}
