@@ -155,24 +155,25 @@ function FaqPage() {
                         </ExpansionPanelSummary>
 
                         <ExpansionPanelDetails>
-                            <Typography className="">Two ways!</Typography>
-                            <br/>
                             <Typography className="">
+                                <p>Two ways!</p>
+                                <br/>
                                 <ul>
-                                    <li>
+                                    <li style={{"margin-left": "15px"}}>
                                         a. If you know what you’re looking for, you pick the service, budget, and project timeline needs. 
                                         </li>
                                     <br />
-                                    <li>
-                                        f. If you don’t know what you’re looking for, you take our
+                                    <li style={{ "margin-left": "15px" }}>
+                                        b. If you don’t know what you’re looking for, you take our
                                         <a href="https://easyalfred.com/rental-owners/" rel="noopener noreferrer" target="_blank"> Speak to a Connector</a>.
                                         We help you define your needs/missing opportunities for new customers.
                                     </li>
                                 </ul>
+                                <br />
+                                <p>Either way, the end result is multiple proposals from business services that are either in your area or experts in your industries.</p>
+                                <p>We coordinate a better connection between Local Business and Local Business Services.</p>
+                                <br />
                             </Typography>
-                            <Typography className="">Either way, the end result is multiple proposals from business services that are either in your area or experts in your industries.</Typography>
-                            <br />
-                            <Typography className="">We coordinate a better connection between Local Business and Local Business Services.</Typography>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
 
@@ -195,15 +196,14 @@ function FaqPage() {
 
                                 <ExpansionPanelDetails>
                                     <Typography className="">
-                                        We believe in Transparency. Easy Alfred Inc AKA Local Links is a transaction fee service provider helping businesses connect to consumers with more accuracy. We earn a 15%-20% fee from our service- businesses for connecting. 
-                                    </Typography>
-                                    <Typography className="">
+                                        <p>We believe in Transparency. Easy Alfred Inc AKA Local Links is a transaction fee service provider helping businesses connect to consumers with more accuracy. We earn a 15%-20% fee from our service- businesses for connecting. </p>
+                                        <br/>
                                         <ul>
-                                            <li>
+                                    <li style={{ "margin-left": "15px" }}>
                                                 a. B2B based connections are generally 20% off MSRP if the business
                                             </li>
                                             <br />
-                                            <li>
+                                    <li style={{ "margin-left": "15px" }}>
                                                 b. B2C based connections like Food and Beverage are 15% fee to the MSRP of business and a 5% connection fee for our consumers.
                                             </li>
                                         </ul>

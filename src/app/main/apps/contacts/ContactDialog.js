@@ -47,114 +47,78 @@ const defaultFormState = {
 	notes: '',
 };
 
-const categoryMap = 
-{
+const categoryMap = {
 	web: {
 		title: "Website, SEO, Content Creation, Copywriting",
 		description: "Your digital brand needs the right voice. Let’s pair you with the agency who speaks your language.",
 		image: "/assets/images/easyAlfred/web.jpg",
-		icon: ""
+		icon: "tab",
+		serviceOptions: {},
 	},
 	tech: {
 		title: "Apps & Development",
 		description: "The world is now found in 01000001. We connect you to the best tech companies focused on local business.",
 		image: "/assets/images/easyAlfred/tech.jpg",
-		icon: ""
+		icon: "battery_charging_full",
+		serviceOptions: {},
 	},
 	media: {
 		title: "Photographer, Videographer",
 		description: "Picture this: your local brand in all it’s visual glory. All connected to you by Local Links.",
 		image: "/assets/images/easyAlfred/media.jpg",
-		icon: ""
+		icon: "movie",
+		serviceOptions: {},
 	},
 	design: {
 		title: "Logo, Web, Print, Illustration",
 		description: "Paint your customer the picture they wish to see. Get matched with experts who fit your brand.",
 		image: "/assets/images/easyAlfred/design.jpg",
-		icon: ""
+		icon: "design_services",
+		serviceOptions: {},
 	},
 	optimize: {
 		title: "Business Consulting Services",
 		description: "Find order in the chaos. Allow us to introduce your office zen.",
-		image: "",
-		icon: ""
+		image: "/assets/images/easyAlfred/optimize.jpg",
+		icon: "settings_applications",
+		serviceOptions: {},
 	},
 	bamIt: {
-		title: "",
+		title: "BAMit",
 		description: "BAMit has made earning cash back simple. Find a Great Deal Near You, Redeem the Deal, Earn Cash Back!",
-		image: "",
-		icon: ""
+		image: "/assets/images/easyAlfred/bamIt.jpg",
+		icon: "tap_and_play",
+		serviceOptions: {},
 	},
 	legal: {
-		title: "",
-		description: "",
-		image: "",
-		icon: ""
+		title: "Legal Assistance",
+		description: "From contracts to disputes, businesses need the law on their side.",
+		image: "/assets/images/easyAlfred/legal.jpg",
+		icon: "policy",
+		serviceOptions: {},
 	},
 	finance: {
-		title: "",
-		description: "",
-		image: "",
-		icon: ""
+		title: "Finance",
+		description: "Keep your accounts and money in order with the best local business experts.",
+		image: "/assets/images/easyAlfred/finance.jpg",
+		icon: "account_balance",
+		serviceOptions: {},
 	},
 	realEstate: {
-		title: "",
-		description: "",
-		image: "",
-		icon: ""
+		title: "Real Estate",
+		description: "Whether you're looking to buy or sell, commercial or residential, let us match you",
+		image: "/assets/images/easyAlfred/realEstate.jpg",
+		icon: "house",
+		serviceOptions: {},
 	},
 	insurance: {
-		title: "",
-		description: "",
-		image: "",
-		icon: ""
+		title: "Insurance",
+		description: " Insurance saves you a headache when you most need it. We meet, greet and connect you with great agents",
+		image: "/assets/images/easyAlfred/insurance.jpg",
+		icon: "request_quote",
+		serviceOptions: {},
 	}
 }
-
-// const categoryMapOLD = {
-// 	funAndAdventure: {
-// 		description: 'Explore the area with local guides, and adventures organized by Easy Alfred!',
-// 		icon: 'accessibility_new',
-// 		image: '/assets/images/easyAlfred/funAndAdventure.jpg',
-// 		title: 'Fun & Adventure',
-// 		serviceOptions: {},
-// 	},
-// 	spaLuxuryAndWellness: {
-// 		description: 'Relaxation, rest, or beauty? Necessity or luxury… Rest Easy. Alfred’s here to help.',
-// 		icon: 'spa',
-// 		image: 'assets/images/easyAlfred/spaAndLuxury.jpg',
-// 		title: 'Spa & Luxury',
-// 		serviceOptions: {},
-// 	},
-// 	housekeeping: {
-// 		description: 'In need of a quick clean-up, launder, grocery run, or extra towels, let your Alfred know.',
-// 		icon: 'local_laundry_service',
-// 		image: 'assets/images/easyAlfred/housekeeping.jpg',
-// 		title: 'Housekeeping',
-// 		serviceOptions: {},
-// 	},
-// 	foodAndBeverage: {
-// 		description: 'Wine and dine with local chefs, caterers, and bartenders serving up their best cuisine without lifting a finger in the kitchen.',
-// 		icon: 'fastfood',
-// 		image: 'assets/images/easyAlfred/foodAndBeverage.jpg',
-// 		title: 'Food & Beverage',
-// 		serviceOptions: {},
-// 	},
-// 	giftCards: {
-// 		description: 'Support South Bay (LA) Businesses! Help us test our full process. Purchase a gift card to a local business to give away or gift yourself!',
-// 		icon: 'card_membership',
-// 		image: 'assets/images/easyAlfred/giftCards.jpg',
-// 		title: 'Buy a gift card!',
-// 		serviceOptions: {},
-// 	},
-// 	petCare: {
-// 		description: 'Let your pets rest easy on this trip! We connect you to their premier care.',
-// 		icon: 'pets',
-// 		image: 'assets/images/easyAlfred/petCare.jpg',
-// 		title: 'Pet Care',
-// 		serviceOptions: {},
-// 	}
-// }
 
 const useStyles = makeStyles((theme) => ({
 	appBar: {
