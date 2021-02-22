@@ -170,9 +170,9 @@ function OrdersTable(props) {
 											{n.customer.email}
 										</TableCell>
 
-										<TableCell component="th" scope="row">
+										{/* <TableCell component="th" scope="row">
 											{n.date}
-										</TableCell>
+										</TableCell> */}
 
 										<TableCell component="th" scope="row">
 											{/* {n.lastUpdated} */}

@@ -168,10 +168,10 @@ function CalendarApp(props) {
 	const events1 = useSelector(({ auth }) => auth.user.trip.data)
 	const events2 = events1 ? events1.events.data : []
 	const calendarDate = events1 ? Object.keys(events1.events.data)[0] : []
+	console.log('calendarDate', calendarDate);
 	const calendarDate2 = events1 ? events1.events.data[calendarDate]['start'] : []
 	const calendarDate3 = new Date(calendarDate2)
 	// const events1 = useSelector(({ auth }) => auth.user.trip.data.events.data)
-	console.log('calendarDate', calendarDate);
 	console.log('calendarDate2', calendarDate2);
 	console.log('calendarDate3', calendarDate3);
 	console.log('calendarDate4', new Date());
@@ -191,6 +191,7 @@ function CalendarApp(props) {
 			console.log('all day');
 			var style = {
 				backgroundColor: 'rgb(255, 201, 38)',
+				opacity: 0,
 				color: 'black',
 			};
 			return {

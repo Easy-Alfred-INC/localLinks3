@@ -175,10 +175,10 @@ function Order(props) {
 													<Typography className="font-bold mb-4 text-15">Address Displayed</Typography>
 													<Typography>{order.isCartLocked.toString()}</Typography>
 												</div>
-												<div className="mb-24">
+												{/* <div className="mb-24">
 													<Typography className="font-bold mb-4 text-15">Date</Typography>
 													<Typography>{order.date}</Typography>
-												</div>
+												</div> */}
 												<div className="mb-24">
 													<Typography className="font-bold mb-4 text-15">Location Name</Typography>
 													<Typography>{order.customer.locationName}</Typography>

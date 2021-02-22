@@ -37,13 +37,13 @@ const rows = [
 		label: 'Email',
 		sort: true
 	},
-	{
-		id: 'date',
-		align: 'left',
-		disablePadding: false,
-		label: 'Trip Dates',
-		sort: true
-	},
+	// {
+	// 	id: 'date',
+	// 	align: 'left',
+	// 	disablePadding: false,
+	// 	label: 'Trip Dates',
+	// 	sort: true
+	// },
 	{
 		id: 'lastUpdated',
 		align: 'left',

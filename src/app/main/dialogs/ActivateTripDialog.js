@@ -11,11 +11,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from 'app/auth/store/actions';
 import {Link} from 'react-router-dom';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+// import { KeyboardDatePicker } from '@material-ui/pickers';
 import moment from 'moment';
 
 const tripStartDate = moment()
-const tripEndDate = moment().add(2, 'days')
+const tripEndDate = moment().add(2000, 'days')
 // const tripStartDate2 = moment().format()
 
 const defaultFormState = {
@@ -30,7 +30,7 @@ function ActivateTripDialog(props) {
 	const tripDialog = user.trip
 	// console.log('==-=>',tripDialog);
 	
-	const { form, handleChange, setInForm } = useForm(defaultFormState);
+	const { form, handleChange } = useForm(defaultFormState);
 
 	function canBeSubmitted() {
 		return form.tid.length > 0;
@@ -42,7 +42,10 @@ function ActivateTripDialog(props) {
 	}
 
 	function handleSubmit(event) {
-		console.log('in handle submit', form);
+		console.log('in handle submit1', form);
+		form['tripStartDate'] = tripStartDate
+		form['tripEndDate'] = tripEndDate
+		console.log('in handle submit2', form);
 		event.preventDefault();
 		dispatch(Actions.addTrip(form));
 		closeComposeDialog();
@@ -79,7 +82,7 @@ function ActivateTripDialog(props) {
 							autoFocus
 						/>
 
-						<KeyboardDatePicker
+						{/* <KeyboardDatePicker
 							fullWidth
 							margin="normal"
 							id="tripStartDate"
@@ -103,7 +106,7 @@ function ActivateTripDialog(props) {
 							onChange={date => setInForm('tripEndDate', date)}
 							format="MM/DD/YYYY"
 							required
-						/>
+						/> */}
 					</DialogContent>
 	
 					<DialogActions className="justify-between p-8">
