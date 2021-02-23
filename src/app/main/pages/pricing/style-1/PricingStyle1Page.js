@@ -11,6 +11,16 @@ import Icon from '@material-ui/core/Icon';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccessibilityNew from '@material-ui/icons/AccessibilityNew';
+import TapAndPlay from '@material-ui/icons/TapAndPlay';
+import Tab from '@material-ui/icons/Tab';
+import BatteryChargingFull from '@material-ui/icons/BatteryChargingFull';
+import Movie from '@material-ui/icons/Movie';
+import SettingsApplications from '@material-ui/icons/SettingsApplications';
+import Assignment from '@material-ui/icons/Assignment';
+import AccountBalance from '@material-ui/icons/AccountBalance';
+import Home from '@material-ui/icons/Home';
+import LocalAtm from '@material-ui/icons/LocalAtm';
+import AspectRatio from '@material-ui/icons/AspectRatio';
 
 import SpaIcon from '@material-ui/icons/Spa';
 import Fastfood from '@material-ui/icons/Fastfood';
@@ -92,7 +102,48 @@ function PricingStyle1Page() {
 				icon = <CardMembership />
 			} else if (services[i].icon === 'pets'){
 				icon = <Pets />
+			} else if (services[i].icon === 'tap_and_play') {
+				icon = <TapAndPlay />
+			} 
+			else if (services[i].icon === 'tab') {
+				icon = <Tab />
 			}
+			else if (services[i].icon === 'battery_charging_full') {
+				icon = <BatteryChargingFull />
+			}
+			else if (services[i].icon === 'movie') {
+				icon = <Movie />
+			}
+			else if (services[i].icon === 'settings_applications') {
+				icon = <SettingsApplications />
+			}
+			else if (services[i].icon === 'assignment') {
+				icon = <Assignment />
+			}
+			else if (services[i].icon === 'account_balance') {
+				icon = <AccountBalance />
+			}
+			else if (services[i].icon === 'home') {
+				icon = <Home />
+			}
+			else if (services[i].icon === 'local_atm') {
+				icon = <LocalAtm />
+			}
+			else if (services[i].icon === 'aspect_ratio') {
+				icon = <AspectRatio />
+			}
+			// else if (services[i].icon === 'aspect_ratio') {
+			// 	icon = <AspectAatio />
+			// }
+
+			// 
+			// 
+			// 
+			// 
+			// 
+			// 
+			// home
+			// 
 	
 			console.log('services[i]', services[i]);
 			let serviceOptions = services[i].serviceOptions

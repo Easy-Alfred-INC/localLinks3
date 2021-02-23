@@ -48,6 +48,20 @@ const defaultFormState = {
 };
 
 const categoryMap = {
+	bamIt: {
+		title: "BAMit",
+		description: "BAMit has made earning cash back simple. Find a Great Deal Near You, Redeem the Deal, Earn Cash Back!",
+		image: "/assets/images/easyAlfred/bamIt.jpg",
+		icon: "tap_and_play",
+		serviceOptions: {},
+	},
+	design: {
+		title: "Logo, Web, Print, Illustration",
+		description: "Paint your customer the picture they wish to see. Get matched with experts who fit your brand.",
+		image: "/assets/images/easyAlfred/design.jpg",
+		icon: "aspect_ratio",
+		serviceOptions: {},
+	},
 	web: {
 		title: "Website, SEO, Content Creation, Copywriting",
 		description: "Your digital brand needs the right voice. Let’s pair you with the agency who speaks your language.",
@@ -69,13 +83,6 @@ const categoryMap = {
 		icon: "movie",
 		serviceOptions: {},
 	},
-	design: {
-		title: "Logo, Web, Print, Illustration",
-		description: "Paint your customer the picture they wish to see. Get matched with experts who fit your brand.",
-		image: "/assets/images/easyAlfred/design.jpg",
-		icon: "design_services",
-		serviceOptions: {},
-	},
 	optimize: {
 		title: "Business Consulting Services",
 		description: "Find order in the chaos. Allow us to introduce your office zen.",
@@ -83,18 +90,11 @@ const categoryMap = {
 		icon: "settings_applications",
 		serviceOptions: {},
 	},
-	bamIt: {
-		title: "BAMit",
-		description: "BAMit has made earning cash back simple. Find a Great Deal Near You, Redeem the Deal, Earn Cash Back!",
-		image: "/assets/images/easyAlfred/bamIt.jpg",
-		icon: "tap_and_play",
-		serviceOptions: {},
-	},
 	legal: {
 		title: "Legal Assistance",
 		description: "From contracts to disputes, businesses need the law on their side.",
 		image: "/assets/images/easyAlfred/legal.jpg",
-		icon: "policy",
+		icon: "assignment",
 		serviceOptions: {},
 	},
 	finance: {
@@ -108,14 +108,14 @@ const categoryMap = {
 		title: "Real Estate",
 		description: "Whether you're looking to buy or sell, commercial or residential, let us match you",
 		image: "/assets/images/easyAlfred/realEstate.jpg",
-		icon: "house",
+		icon: "home",
 		serviceOptions: {},
 	},
 	insurance: {
 		title: "Insurance",
 		description: " Insurance saves you a headache when you most need it. We meet, greet and connect you with great agents",
 		image: "/assets/images/easyAlfred/insurance.jpg",
-		icon: "request_quote",
+		icon: "local_atm",
 		serviceOptions: {},
 	}
 }
