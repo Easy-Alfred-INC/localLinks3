@@ -133,7 +133,7 @@ function FaqPage() {
                                 </ExpansionPanelSummary>
 
                                 <ExpansionPanelDetails>
-                            <Typography className="">We connect local retail, arts, entertainment, tourism, health, spa, and those places the people love with the business services that best help them connect their ideal customer. We’re an ideal customer connector</Typography>
+                            <Typography className="">We connect local retail, arts, entertainment, tourism, health, spa, and those places the people love with the business services that best help them connect their ideal customer. We’re an ideal customer connector. We’re concierge connections</Typography>
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
 
@@ -164,14 +164,15 @@ function FaqPage() {
                                         </li>
                                     <br />
                                     <li style={{ "margin-left": "15px" }}>
-                                        b. If you don’t know what you’re looking for, you take our
-                                        <a href="https://easyalfred.com/rental-owners/" rel="noopener noreferrer" target="_blank"> Speak to a Connector</a>.
+                                        b. If you don’t know what you’re looking for, 
+                                        {/* <a href="https://easyalfred.com/rental-owners/" rel="noopener noreferrer" target="_blank"> Speak to a Connector</a>. */}
+                                        <a href="tel:1-877-658-1429"> Speak to a Connector</a>
                                         We help you define your needs/missing opportunities for new customers.
                                     </li>
                                 </ul>
                                 <br />
-                                <p>Either way, the end result is multiple proposals from business services that are either in your area or experts in your industries.</p>
-                                <p>We coordinate a better connection between Local Business and Local Business Services.</p>
+                                <p>Either way, the end result is multiple proposals from business services that are either in your area or experts in what you need.</p>
+                                <p>We coordinate a better connection between Local Business, People, and Local Business Services. </p>
                                 <br />
                             </Typography>
                         </ExpansionPanelDetails>
@@ -194,21 +195,26 @@ function FaqPage() {
                                     </div>
                                 </ExpansionPanelSummary>
 
+
                                 <ExpansionPanelDetails>
                                     <Typography className="">
-                                        <p>We believe in Transparency. Easy Alfred Inc AKA Local Links is a transaction fee service provider helping businesses connect to consumers with more accuracy. We earn a 15%-20% fee from our service- businesses for connecting. </p>
-                                        <br/>
                                         <ul>
-                                    <li style={{ "margin-left": "15px" }}>
-                                                a. B2B based connections are generally 20% off MSRP if the business
-                                            </li>
+                                            <li>
+                                        a. Connect and confirm who best fits your team, your brand, your business/personal identity. 
+                                                            </li>
                                             <br />
-                                    <li style={{ "margin-left": "15px" }}>
-                                                b. B2C based connections like Food and Beverage are 15% fee to the MSRP of business and a 5% connection fee for our consumers.
-                                            </li>
+                                            <li>
+                                        b. We schedule a phone and/or Video call with you and our local business services.
+                                                            </li>
+                                            <br />
+                                            <li>
+                                        c. We match your pricing needs by establishing budget alignment right from the start. Skip the negotiation and focus on confirming the ideal match.
+                                                            </li>
                                         </ul>
                                     </Typography>
                                 </ExpansionPanelDetails>
+
+                               
                             </ExpansionPanel>
             
                             <ExpansionPanel
@@ -228,23 +234,22 @@ function FaqPage() {
                                     </div>
                                 </ExpansionPanelSummary>
 
-                                <ExpansionPanelDetails>
-                                    <Typography className="">
-                                        <ul>
-                                            <li>
-                                                a. Connect and confirm who best fits your team, your brand, your business identity.
-                                                    </li>
-                                            <br />
-                                            <li>
-                                                b. We schedule a phone and/ Video call with you and our local business services.
-                                                    </li>
-                                            <br />
-                                            <li>
-                                                c. We match your pricing needs by establishing budget alignment right from the start. Skip the negotiation and focus on confirming ideal match.
-                                                    </li>
-                                        </ul>
-                                    </Typography>
-                                </ExpansionPanelDetails>
+                            <ExpansionPanelDetails>
+                                <Typography className="">
+                                <p>We believe in Transparency. Easy Alfred Inc AKA Local Links is a transaction fee service provider helping businesses connect to consumers with more accuracy. We earn a 15%-20% fee from our service- businesses for connecting.</p>
+                                    <br />
+                                    <ul>
+                                        <li style={{ "margin-left": "15px" }}>
+                                            a. B2B based connections are generally 20% of MSRP 
+                                        </li>
+                                        <br />
+                                        <li style={{ "margin-left": "15px" }}>
+                                            b. B2C based connections like Food and Beverage are 15% of the MSRP + a 5% connection fee for our consumers.
+                                        </li>
+                                    </ul>
+                                </Typography>
+                            </ExpansionPanelDetails>
+
                             </ExpansionPanel>
                             
                             <ExpansionPanel

@@ -47,7 +47,8 @@ const defaultFormState = {
 	notes: '',
 };
 
-const categoryMap = {
+const categoryMap = 
+{
 	bamIt: {
 		title: "BAMit",
 		description: "BAMit has made earning cash back simple. Find a Great Deal Near You, Redeem the Deal, Earn Cash Back!",
@@ -113,9 +114,51 @@ const categoryMap = {
 	},
 	insurance: {
 		title: "Insurance",
-		description: " Insurance saves you a headache when you most need it. We meet, greet and connect you with great agents",
+		description: "Insurance saves you a headache when you most need it. We meet, greet and connect you with great agents",
 		image: "/assets/images/easyAlfred/insurance.jpg",
 		icon: "local_atm",
+		serviceOptions: {},
+	},
+	funAndAdventure: {
+		title: 'Fun & Adventure',
+		description: 'Explore the area with local guides, and adventures organized by Easy Alfred!',
+		image: '/assets/images/easyAlfred/funAndAdventure.jpg',
+		icon: 'accessibility_new',
+		serviceOptions: {},
+	},
+	spaLuxuryAndWellness: {
+		title: 'Spa & Luxury',
+		description: 'Relaxation, rest, or beauty? Necessity or luxury… Rest Easy. Alfred’s here to help.',
+		image: 'assets/images/easyAlfred/spaAndLuxury.jpg',
+		icon: 'spa',
+		serviceOptions: {},
+	},
+	housekeeping: {
+		title: 'Housekeeping',
+		description: 'In need of a quick clean-up, launder, grocery run, or extra towels, let your Alfred know.',
+		image: 'assets/images/easyAlfred/housekeeping.jpg',
+		icon: 'local_laundry_service',
+		serviceOptions: {},
+	},
+	foodAndBeverage: {
+		title: 'Food & Beverage',
+		description: 'Wine and dine with local chefs, caterers, and bartenders serving up their best cuisine without lifting a finger in the kitchen.',
+		image: 'assets/images/easyAlfred/foodAndBeverage.jpg',
+		icon: 'fastfood',
+		serviceOptions: {},
+	},
+	giftCards: {
+		title: 'Buy a gift card!',
+		description: 'Support South Bay (LA) Businesses! Help us test our full process. Purchase a gift card to a local business to give away or gift yourself!',
+		image: 'assets/images/easyAlfred/giftCards.jpg',
+		icon: 'card_membership',
+		serviceOptions: {},
+	},
+	petCare: {
+		title: 'Pet Care',
+		description: 'Let your pets rest easy on this trip! We connect you to their premier care.',
+		image: 'assets/images/easyAlfred/petCare.jpg',
+		icon: 'pets',
 		serviceOptions: {},
 	}
 }
