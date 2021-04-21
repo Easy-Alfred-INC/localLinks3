@@ -92,7 +92,7 @@ function ProfilePage() {
 							classes={{
 								root: 'h-64'
 							}}
-							label={"Trip Id: " + tid}
+							label={"Market Id: " + tid}
 						/>
 						{/* <Tab
 							classes={{

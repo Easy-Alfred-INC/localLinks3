@@ -74,7 +74,7 @@ function Order(props) {
 							<div className="flex flex-col min-w-0 items-center sm:items-start">
 								<FuseAnimate animation="transition.slideLeftIn" delay={300}>
 									<Typography className="text-16 sm:text-20 truncate">
-										{`Trip ID ${order.tid}`}
+										{`Market ID ${order.tid}`}
 									</Typography>
 								</FuseAnimate>
 
@@ -200,7 +200,7 @@ function Order(props) {
 													<Typography>{moment(order.reference).format('MM/DD/YYYY, h:mm:ss')}</Typography>
 												</div>
 												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Trip ID</Typography>
+													<Typography className="font-bold mb-4 text-15">Market ID</Typography>
 													<Typography>{order.tid}</Typography>
 												</div>
 												<div className="mb-24">

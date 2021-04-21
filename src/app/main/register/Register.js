@@ -55,7 +55,7 @@ function Register() {
 							title='test'
 							width="100%;"
 							height="100%;"
-							src='https://www.youtube.com/embed/SGCpGmVQYmA'
+							src='https://www.youtube.com/embed/Mo0RzH0VOfI'
 						/>
 					</Card>
 					:
@@ -65,7 +65,7 @@ function Register() {
 							title='test'
 							width="auto"
 							height="100%;"
-							src='https://www.youtube.com/embed/SGCpGmVQYmA'
+							src='https://www.youtube.com/embed/Mo0RzH0VOfI'
 						/>
 					</Card>
 				}

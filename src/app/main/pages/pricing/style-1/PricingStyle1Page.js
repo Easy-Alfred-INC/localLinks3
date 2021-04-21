@@ -286,7 +286,7 @@ function PricingStyle1Page() {
 				>
 					<FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
 						<Typography color="inherit" variant="h4" className="text-36 sm:text-56 font-light">
-							Your Concierge Connector to Local Business Success
+							Your Local Business Connector
 						</Typography>
 					</FuseAnimate>
 
@@ -296,7 +296,7 @@ function PricingStyle1Page() {
 							color="inherit"
 							className="opacity-75 mt-8 sm:mt-16 mx-auto max-w-512"
 						>
-							Pick the service you need, your budget, estimate your goals and timeline! We evaluate your plan, confirm, & coordinate multiple ideal service providers for you!
+							Pick your service, budget, timeline & goals! We evaluate your plan, confirm, & coordinate a pair of ideal service providers!
 						</Typography>
 					</FuseAnimate>
 				</div>

@@ -49,6 +49,13 @@ const defaultFormState = {
 
 const categoryMap = 
 {
+	leads: {
+		title: "Leads & Networking",
+		description: "Connect with people & the tools necessary to help you find your ideal customer. We’re a connector!",
+		image: "/assets/images/easyAlfred/leads.jpeg",
+		icon: "tap_and_play",
+		serviceOptions: {},
+	},
 	bamIt: {
 		title: "BAMit",
 		description: "BAMit has made earning cash back simple. Find a Great Deal Near You, Redeem the Deal, Earn Cash Back!",

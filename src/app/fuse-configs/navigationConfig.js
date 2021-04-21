@@ -27,7 +27,7 @@ const navigationConfig = [
 		children: [
 			{
 				id: 'profile',
-				title: 'My Business',
+				title: 'My Account',
 				type: 'item',
 				icon: 'person',
 				url: '/pages/profile'
