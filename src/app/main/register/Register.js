@@ -37,13 +37,13 @@ function Register() {
 
 				<FuseAnimate animation="transition.slideUpIn" delay={300}>
 					<Typography variant="h3" color="inherit" className="font-light">
-						Your Vacation Rental Concierge!
+						Welcome to the Local Links Connector!
 					</Typography>
 				</FuseAnimate>
 
 				<FuseAnimate delay={400}>
 					<Typography variant="subtitle1" color="inherit" className="max-w-512 mt-16">
-						Rest Easy! We got you!
+						How can we connect you today?
 					</Typography>
 				</FuseAnimate>
 				<br/>
