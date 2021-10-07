@@ -29,20 +29,35 @@ export function submitRegister({ displayName, password, email }) {
 }
 
 export function registerWithFirebase(model) {
-	console.log('in register');
-	
-
 	if (!firebaseService.auth) {
 		console.warn("Firebase Service didn't initialize, check your configuration");
-
 		return () => false;
 	}
 
 	const { email, password, displayName } = model;
+
+	const fullname = model.displayName.split(' ');
+	const zPayload = {
+		Email: model.email,
+		First_Name: fullname[0],
+		Last_Name: fullname.length > 1 ? fullname[1] : ''
+	};
+
+	/* Must be wait for zoho fix token problem
+	const zoho = new ZContacts();
+	const dataCriteria = zoho.getContactByEmail(zPayload.Email).then(response => {
+		if (response) {
+			zoho.updateContacts(zPayload, response.data[0].id);
+		} else {
+			zoho.createContacts(zPayload);
+		}
+	});
+	*/
 	return dispatch =>
 		firebaseService.auth
 			.createUserWithEmailAndPassword(email, password)
 			.then(response => {
+				console.log('sing up res', response);
 				dispatch(
 					UserActions.createUserSettingsFirebase({
 						...response.user,
@@ -80,21 +95,21 @@ export function registerWithFirebase(model) {
 }
 
 export function resetWithFirebase(model) {
-	
 	if (!firebaseService.auth) {
 		console.warn("Firebase Service didn't initialize, check your configuration");
-		
+
 		return () => false;
 	}
-	
+
 	const { email } = model;
 
 	return dispatch =>
-		firebaseService.auth.sendPasswordResetEmail(email)
-		.then(function() {
-			return dispatch(Actions.showMessage({ message: "Check Your Email" }));
-		})
-		.catch(function(error) {
-			return dispatch(Actions.showMessage({ message: error }));
-		});
+		firebaseService.auth
+			.sendPasswordResetEmail(email)
+			.then(function() {
+				return dispatch(Actions.showMessage({ message: 'Check Your Email' }));
+			})
+			.catch(function(error) {
+				return dispatch(Actions.showMessage({ message: error }));
+			});
 }
