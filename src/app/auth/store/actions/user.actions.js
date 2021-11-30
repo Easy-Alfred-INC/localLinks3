@@ -32,159 +32,198 @@ export const REMOVE_EVENT = '[CALENDAR APP] REMOVE EVENT';
 
 export const GET_EVENTS = '[CALENDAR] GET EVENTS';
 
-
-
-
-export function createUserSettingsFirebase(authUser) {
-	
+export function createUserSettingsFirebase(authUser, utmLink = '') {
 	return (dispatch, getState) => {
 		const guestUser = getState().auth.user;
 		const fuseDefaultSettings = getState().fuse.settings.defaults;
 		const { currentUser } = firebase.auth();
-		
+
 		// console.log('createUserSettingsFirebase=>authUser', authUser);
 		// console.log('createUserSettingsFirebase=>guestUser', guestUser);
 		// console.log('createUserSettingsFirebase=>currentUser', currentUser);
 		/**
 		 * Merge with current Settings
 		 */
-		const user = _.merge({}, guestUser, {
-			uid: authUser.uid,
-			from: 'firebase',
-			role: ['user'],
-			data: {
-				displayName: authUser.displayName,
-				email: authUser.email,
-				settings: { ...fuseDefaultSettings }
-			}
-		});
-		// console.log('createUserSettingsFirebase=>user', user);
-		currentUser.updateProfile(user.data);
+		console.log('utml linkkkkk', utmLink === '');
+		if (utmLink === '') {
+			const user = _.merge({}, guestUser, {
+				uid: authUser.uid,
+				from: 'firebase',
+				role: ['user'],
+				data: {
+					displayName: authUser.displayName,
+					email: authUser.email,
+					settings: { ...fuseDefaultSettings }
+				}
+			});
+			currentUser.updateProfile(user.data);
 
-		updateUserData(user, dispatch);
-		return dispatch(setUserData(user));
+			updateUserData(user, dispatch);
+			return dispatch(setUserData(user));
+		} else {
+			const tripStartDate = moment();
+			const tripEndDate = moment().add(2000, 'days');
+
+			const defaultFormState = {
+				tid: utmLink,
+				tripStartDate: tripStartDate,
+				tripEndDate: tripEndDate
+			};
+
+			firebaseService.getTripData(utmLink, defaultFormState).then(trip => {
+				if (!trip) {
+					return dispatch(MessageActions.showMessage({ message: 'Trip not found, please try again' }));
+				}
+
+				const user = _.merge({}, guestUser, {
+					uid: authUser.uid,
+					from: 'firebase',
+					role: ['user'],
+					trip: {
+						active: true,
+						isCartLocked: false,
+						lastUpdated: moment().format(),
+						openDialog: false,
+						invoiceLink: '',
+						data: {
+							...trip,
+							// phone: user.data.phone ,
+							displayName: authUser.displayName,
+							email: authUser.email
+						}
+					},
+					data: {
+						displayName: authUser.displayName,
+						email: authUser.email,
+						settings: { ...fuseDefaultSettings },
+						tid: utmLink
+					}
+				});
+
+				currentUser.updateProfile(user.data);
+
+				updateUserData(user, dispatch);
+				return dispatch(setUserData(user));
+			});
+		}
+
+		// console.log('createUserSettingsFirebase=>user', user);
 	};
 }
 
 export function getAllUserData() {
 	return (dispatch, getState) => {
-		
 		// const { user } = getState().auth;
-		
+
 		// console.log('in getAllUserData', user);
 
-
 		firebaseService
-		.getAllUsers()
-		.then((users) => {
+			.getAllUsers()
+			.then(users => {
+				console.log('users in actions', users);
 
-			console.log('users in actions', users)
+				if (!users) {
+					return dispatch(MessageActions.showMessage({ message: 'No users found' }));
+				}
 
-			if (!users) {
-				return dispatch(MessageActions.showMessage({ message: 'No users found' }));
-			}
+				dispatch(MessageActions.showMessage({ message: 'users FOUND!' }));
 
-			dispatch(MessageActions.showMessage({ message: 'users FOUND!' }));
+				dispatch({
+					type: SET_ALL_USER_DATA,
+					payload: users
+				});
+				// const newUser = {
+				// 	...user,
+				// 	trip: {
+				// 		active: true,
+				// 		// openDialog: true,
+				// 		openDialog: false,
+				// 		data: {...trip}
+				// 	}
+				// };
 
-			dispatch({
-				type: SET_ALL_USER_DATA,
-				payload: users
+				// const newUser = {
+				// 	...user,
+				// 	trip: {
+				// 		active: true,
+				// 		openDialog: false,
+				// 		...trip
+				// 	}
+				// };
+
+				// updateUserData(newUser, dispatch);
+
+				// return dispatch(setUserData(newUser));
+			})
+			.catch(error => {
+				dispatch(MessageActions.showMessage({ message: error.message }));
 			});
-			// const newUser = {
-			// 	...user,
-			// 	trip: {
-			// 		active: true,
-			// 		// openDialog: true,
-			// 		openDialog: false,
-			// 		data: {...trip}
-			// 	} 
-			// };
-
-			// const newUser = {
-			// 	...user,
-			// 	trip: {
-			// 		active: true,
-			// 		openDialog: false,
-			// 		...trip
-			// 	} 
-			// };
-	
-			// updateUserData(newUser, dispatch);
-	
-			// return dispatch(setUserData(newUser));
-
-		})
-		.catch(error => {
-			dispatch(MessageActions.showMessage({ message: error.message }));
-		});
 	};
 }
 
 export function addTrip(form) {
 	return (dispatch, getState) => {
-		const {tid, tripStartDate, tripEndDate} = form
+		const { tid, tripStartDate, tripEndDate } = form;
 		const { user } = getState().auth;
 
 		firebaseService
-		.getTripData(tid, form)
-		.then((trip) => {
-			if (!trip) {
-				return dispatch(MessageActions.showMessage({ message: 'Trip not found, please try again' }));
-			}
+			.getTripData(tid, form)
+			.then(trip => {
+				if (!trip) {
+					return dispatch(MessageActions.showMessage({ message: 'Trip not found, please try again' }));
+				}
 
-			dispatch(MessageActions.showMessage({ message: 'trip has been found' }));
+				dispatch(MessageActions.showMessage({ message: 'trip has been found' }));
 
-			trip.tripEndDate = tripEndDate.format()
-			trip.tripStartDate = tripStartDate.format()
-			console.log("user==>", user)
+				trip.tripEndDate = tripEndDate.format();
+				trip.tripStartDate = tripStartDate.format();
+				console.log('user==>', user);
 
-			const newUser = {
-				...user,
-				trip: {
-					active: true,
-					isCartLocked: false,
-					lastUpdated: moment().format(),
-					openDialog: false,
-					invoiceLink: '',
-					data: {
-						...trip,
-						// phone: user.data.phone ,
-						email: user.data.email,
-						displayName: user.data.displayName,
+				const newUser = {
+					...user,
+					trip: {
+						active: true,
+						isCartLocked: false,
+						lastUpdated: moment().format(),
+						openDialog: false,
+						invoiceLink: '',
+						data: {
+							...trip,
+							// phone: user.data.phone ,
+							email: user.data.email,
+							displayName: user.data.displayName
+						}
 					}
-				} 
-			};
+				};
 
-			updateUserData(newUser, dispatch);
-	
-			return dispatch(setUserData(newUser));
+				updateUserData(newUser, dispatch);
 
-		})
-		.catch(error => {
-			dispatch(MessageActions.showMessage({ message: error.message }));
-		});
+				return dispatch(setUserData(newUser));
+			})
+			.catch(error => {
+				dispatch(MessageActions.showMessage({ message: error.message }));
+			});
 	};
 }
 
 export function updateUserDataWithModal(userData) {
 	return (dispatch, getState) => {
 		// console.log('action updateUserDataWithModal', userData);
-		
+
 		const { user } = getState().auth;
 
-			const newUser = {
-				...user,
-				data: {
-					...user.data,
-					...userData,
-					openDialog: false
-				}
-			};
-	
-			updateUserData(newUser, dispatch);
-	
-			return dispatch(setUserData(newUser));
+		const newUser = {
+			...user,
+			data: {
+				...user.data,
+				...userData,
+				openDialog: false
+			}
+		};
 
+		updateUserData(newUser, dispatch);
+
+		return dispatch(setUserData(newUser));
 	};
 }
 
@@ -234,30 +273,27 @@ export function setUserData(user) {
 
 export function updateUsers(users) {
 	return (dispatch, getState) => {
-		let {id, isCartLocked, invoiceLink, isAdmin} = users
+		let { id, isCartLocked, invoiceLink, isAdmin } = users;
 		firebaseService
-		.getAllUsers()
-		.then((users) => {
-			const { uid } = getState().auth.user;
-			const isAdminText = isAdmin ? 'admin' : 'user'
-			if (uid === id){
-				console.log('ppp', users[id].role[0])
-				users[id].trip.isCartLocked = isCartLocked
-				users[id].trip.invoiceLink = invoiceLink
-				users[id].role[0] = isAdminText
-				
-				updateUserData(users[id], dispatch);
-				return dispatch(setUserData(users[id]));
-			}
-		
-		})
-		.catch(error => {
-			dispatch(MessageActions.showMessage({ message: error.message }));
-		});
+			.getAllUsers()
+			.then(users => {
+				const { uid } = getState().auth.user;
+				const isAdminText = isAdmin ? 'admin' : 'user';
+				if (uid === id) {
+					console.log('ppp', users[id].role[0]);
+					users[id].trip.isCartLocked = isCartLocked;
+					users[id].trip.invoiceLink = invoiceLink;
+					users[id].role[0] = isAdminText;
 
+					updateUserData(users[id], dispatch);
+					return dispatch(setUserData(users[id]));
+				}
+			})
+			.catch(error => {
+				dispatch(MessageActions.showMessage({ message: error.message }));
+			});
 	};
 }
-
 
 function updateUserData(user, dispatch, isNewService = false) {
 	if (!user.role || user.role.length === 0) {
@@ -270,7 +306,7 @@ function updateUserData(user, dispatch, isNewService = false) {
 			firebaseService
 				.updateUserData(user)
 				.then(() => {
-					if (isNewService){
+					if (isNewService) {
 						dispatch(MessageActions.showMessage({ message: 'or', autoHideDuration: 5000, isNewService }));
 					} else {
 						dispatch(MessageActions.showMessage({ message: 'Success!' }));
@@ -308,9 +344,6 @@ function updateUserData(user, dispatch, isNewService = false) {
 		}
 	}
 }
-
-
-
 
 export function setUserDataAuth0(tokenData) {
 	const user = {
@@ -354,11 +387,9 @@ export function setUserDataFirebase(user, authUser) {
  * Create User Settings with Firebase data
  */
 
-
 /**
  * Set User Data
  */
-
 
 /**
  * Update User Settings
@@ -393,7 +424,6 @@ export function updateUserShortcuts(shortcuts) {
 		return dispatch(setUserData(newUser));
 	};
 }
-
 
 export function removeUserData() {
 	return {
@@ -436,10 +466,9 @@ export function logoutUser() {
 	};
 }
 
-
 export function lockCart() {
 	return (dispatch, getState) => {
-		console.log('in herre ypooo')
+		console.log('in herre ypooo');
 		const oldUser = getState().auth.user;
 		const user = _.merge({}, oldUser, { trip: { isCartLocked: true, lastUpdated: moment().format() } });
 
@@ -448,7 +477,6 @@ export function lockCart() {
 		return dispatch(setUserData(user));
 	};
 }
-
 
 // [][][][][][]
 // below is for calendar
@@ -462,7 +490,7 @@ export function openNewEventDialog(data) {
 
 export function closeNewEventDialog() {
 	console.log('-=closeNewEventDialog');
-	
+
 	return {
 		type: CLOSE_NEW_EVENT_DIALOG
 	};
@@ -481,7 +509,6 @@ export function openEditEventDialogFromAdmin(data) {
 	};
 }
 
-
 export function closeEditEventDialog() {
 	console.log('-=closeEditEventDialog');
 	return {
@@ -491,39 +518,38 @@ export function closeEditEventDialog() {
 
 export function removeEventFromAdmin(uid, eid) {
 	return (dispatch, getState) => {
-		console.log(uid, eid)
+		console.log(uid, eid);
 
 		firebaseService
-		.removeEvent(uid, eid)
-		.then((newUser) => {
-			if (!newUser) {
-				return dispatch(MessageActions.showMessage({ message: 'Error service event not found' }));
-			}
-			return dispatch(OrderActions.getOrder({orderId: uid}));
-
-		})
-		.catch(error => {
-			dispatch(MessageActions.showMessage({ message: error.message }));
-		});
+			.removeEvent(uid, eid)
+			.then(newUser => {
+				if (!newUser) {
+					return dispatch(MessageActions.showMessage({ message: 'Error service event not found' }));
+				}
+				return dispatch(OrderActions.getOrder({ orderId: uid }));
+			})
+			.catch(error => {
+				dispatch(MessageActions.showMessage({ message: error.message }));
+			});
 	};
 }
 
 export function addEventFromAdmin(newEvent) {
 	return (dispatch, getState) => {
-		const user = newEvent.user
+		const user = newEvent.user;
 		const newEvent2 = Object.assign({}, newEvent);
-		delete newEvent2.user
-		const {id} = newEvent2
+		delete newEvent2.user;
+		const { id } = newEvent2;
 
-		console.log('zzz', user.uid)
-		let newEventWithUpdatedDates = {}
+		console.log('zzz', user.uid);
+		let newEventWithUpdatedDates = {};
 		newEventWithUpdatedDates[id] = {
 			...newEvent2,
 			start: newEvent2.start.format(),
 			end: newEvent2.start.format(),
-			uid: user.uid,
-		}
-		
+			uid: user.uid
+		};
+
 		const newUser = {
 			...user,
 			trip: {
@@ -546,11 +572,11 @@ export function addEventFromAdmin(newEvent) {
 				},
 				data: null
 			}
-		}
-		
+		};
+
 		console.log("['orderId']>>", user.uid);
 		updateUserData(newUser, dispatch, false);
-		return dispatch(OrderActions.getOrder({orderId: user.uid}));
+		return dispatch(OrderActions.getOrder({ orderId: user.uid }));
 		// return window.location.reload(true);
 		// return dispatch(setUserData(newUser));
 	};
@@ -558,17 +584,17 @@ export function addEventFromAdmin(newEvent) {
 export function addEvent(newEvent) {
 	return (dispatch, getState) => {
 		const { user } = getState().auth;
-		const {id} = newEvent
-		console.log('date33', newEvent.start)
-		let newEventWithUpdatedDates = {}
+		const { id } = newEvent;
+		console.log('date33', newEvent.start);
+		let newEventWithUpdatedDates = {};
 		newEventWithUpdatedDates[id] = {
 			...newEvent,
 			start: newEvent.start.format(),
 			end: newEvent.start.format(),
-			uid: user.uid,
-		}
+			uid: user.uid
+		};
 		console.log('newEventWithUpdatedDates1', user.trip.data.events.data);
-		
+
 		const newUser = {
 			...user,
 			trip: {
@@ -591,7 +617,7 @@ export function addEvent(newEvent) {
 				},
 				data: null
 			}
-		}
+		};
 
 		updateUserData(newUser, dispatch, true);
 		return dispatch(setUserData(newUser));
@@ -600,27 +626,23 @@ export function addEvent(newEvent) {
 
 export function removeEvent(eid) {
 	return (dispatch, getState) => {
-		
 		const { user } = getState().auth;
 
 		firebaseService
-		.removeEvent(user.uid, eid)
-		.then((newUser) => {
-			if (!newUser) {
-				return dispatch(MessageActions.showMessage({ message: 'Error service event not found' }));
-			}
-			
-			dispatch(MessageActions.showMessage({ message: 'Service Removed' }));
-			return dispatch(setUserData(newUser));
+			.removeEvent(user.uid, eid)
+			.then(newUser => {
+				if (!newUser) {
+					return dispatch(MessageActions.showMessage({ message: 'Error service event not found' }));
+				}
 
-		})
-		.catch(error => {
-			dispatch(MessageActions.showMessage({ message: error.message }));
-		});
+				dispatch(MessageActions.showMessage({ message: 'Service Removed' }));
+				return dispatch(setUserData(newUser));
+			})
+			.catch(error => {
+				dispatch(MessageActions.showMessage({ message: error.message }));
+			});
 	};
 }
-
-
 
 // export function addEventFromAdmin(newEvent) {
 // 	return (dispatch, getState) => {
@@ -666,14 +688,14 @@ export function getEvents() {
 	return (dispatch, getState) => {
 		const { user } = getState().auth;
 		// console.log('yooo in actions getEvents 0', user);
-		
+
 		//hack to get calendar header to render properly, also a hack to show the correct trip dates on calendar
-		if (user.trip.data){
-			for (let i in user.trip.data.events.data ){
+		if (user.trip.data) {
+			for (let i in user.trip.data.events.data) {
 				// console.log('yooo12233', user.trip.data.events.data)
-				if (user.trip.data.events.data[i].isLocked){
-					user.trip.data.events.data[i].start = user.trip.data.tripStartDate
-					user.trip.data.events.data[i].end = user.trip.data.tripEndDate
+				if (user.trip.data.events.data[i].isLocked) {
+					user.trip.data.events.data[i].start = user.trip.data.tripStartDate;
+					user.trip.data.events.data[i].end = user.trip.data.tripEndDate;
 				}
 			}
 		}

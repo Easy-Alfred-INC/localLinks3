@@ -32,7 +32,7 @@ const defaultFormState = {
 	title: '',
 	desc: '',
 	guestCount: '',
-	hourCount: '', 
+	hourCount: '',
 	start: '',
 	end: '',
 	budget: '',
@@ -49,36 +49,49 @@ const defaultFormState = {
 	priceQuantifier2Label: '',
 
 	priceQuantifier2: '',
-	subServiceOptions: '',
+	subServiceOptions: ''
 };
 
 function EventDialog(props) {
 	const dispatch = useDispatch();
 	// const user = useSelector(({ auth }) => auth.user);
 	const eventDialog = useSelector(({ auth }) => auth.user.eventDialog);
-	const eid = eventDialog.data ? eventDialog.data.id : null
-	const modalHasData = eventDialog.data
-	const isOnlyTripDates = eventDialog.data ? eventDialog.data.isLocked : false
+	const eid = eventDialog.data ? eventDialog.data.id : null;
+	const modalHasData = eventDialog.data;
+	const isOnlyTripDates = eventDialog.data ? eventDialog.data.isLocked : false;
 	// console.log('eventDialog.data', eventDialog.data);
-	const uid = eventDialog.data ? eventDialog.data.uid : null
+	const uid = eventDialog.data ? eventDialog.data.uid : null;
 	// const isCartLocked = user.trip.isCartLocked
 	// console.log('jj'), user.trip;
-	const readOnly = false
+	const readOnly = false;
 	// const readOnly = eventDialog.type === 'edit'
-	const serviceOptions = eventDialog.data ? eventDialog.data.serviceOptions : []
+	const serviceOptions = eventDialog.data ? eventDialog.data.serviceOptions : [];
 
-	let tripEndDate = 0
-	let tripStartDate = 0
+	let tripEndDate = 0;
+	let tripStartDate = 0;
 	let tripData = useSelector(({ auth }) => auth.user.trip.data);
+	const actualDate = new Date();
 	if (tripData) {
-		tripEndDate = tripData.tripEndDate
-		tripStartDate = tripData.tripStartDate
+		tripEndDate = tripData.tripEndDate;
+		tripStartDate = tripData.tripStartDate;
 	}
 	// const {tripEndDate, tripStartDate} = useSelector(({ auth }) => auth.user.trip.data);
-	const minDate = moment(tripStartDate).format('MM/DD/YYYY');
+	const dateFormatMinDate = new Date(moment(tripStartDate).format('MM/DD/YYYY'));
+	const dateFormatMaxDate = new Date(moment(tripEndDate).format('MM/DD/YYYY'));
+
+	const Difference_In_Time = dateFormatMaxDate.getTime() - dateFormatMinDate.getTime();
+	const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+	const day = actualDate.getDate();
+	const month = actualDate.getMonth() + 1;
+	const year = actualDate.getFullYear();
+	const hours = actualDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+	const minDate = `${month}/${day}/${year} ${hours}`;
+
 	const maxDate = moment(tripEndDate).format('MM/DD/YYYY');
 	const { form, handleChange, setForm, setInForm } = useForm(defaultFormState);
-	
+
 	const initDialog = useCallback(() => {
 		if (eventDialog.type === 'edit' && eventDialog.data) {
 			setForm({ ...eventDialog.data });
@@ -89,7 +102,7 @@ function EventDialog(props) {
 				...eventDialog.data,
 				id: FuseUtils.generateGUID(),
 				start: minDate,
-				end: minDate,
+				end: minDate
 			});
 		}
 	}, [eventDialog.data, eventDialog.type, setForm, minDate]);
@@ -101,25 +114,34 @@ function EventDialog(props) {
 	}, [eventDialog.props.open, initDialog]);
 
 	function handleChangeDropdown(event) {
-		let { isConfirmed, priceQuantifier1, 
-			
-			priceQuantifier1Label, 
-			serviceLabel,  
+		let {
+			isConfirmed,
+			priceQuantifier1,
+
+			priceQuantifier1Label,
+			serviceLabel,
 			requestsLabel,
 			priceLabel,
 			subServiceLabel,
 			priceQuantifier2Label,
-			
-			priceQuantifier2, serviceTitle, priceMax, priceMin, subServiceOptions, priceType, price} = serviceOptions[event.target.value]
-		let budget = ''
-		if (priceType.includes("exact")){
-			budget = price
+
+			priceQuantifier2,
+			serviceTitle,
+			priceMax,
+			priceMin,
+			subServiceOptions,
+			priceType,
+			price
+		} = serviceOptions[event.target.value];
+		let budget = '';
+		if (priceType.includes('exact')) {
+			budget = price;
 		}
 		setForm({
 			...form,
 			budget,
 			price,
-			priceType, 
+			priceType,
 			priceMax,
 			priceMin,
 			isConfirmed,
@@ -136,23 +158,23 @@ function EventDialog(props) {
 			serviceTitle,
 			subServiceOptions: subServiceOptions || '',
 			serviceId: event.target.value,
-			
+
 			subServiceTitle: '',
 			guestCount: '',
-			hourCount: '', 
+			hourCount: ''
 		});
 	}
 
 	function handleChangeDropdownSubService(event) {
 		// console.log('form=>', form)
 		// console.log('event.target=>', event.target)
-		let subServiceTitle = form.subServiceOptions[event.target.value].subServiceTitle
+		let subServiceTitle = form.subServiceOptions[event.target.value].subServiceTitle;
 		// console.log('subServiceTitle=>', subServiceTitle)
 
 		setForm({
 			...form,
 			subServiceTitle,
-			subServiceId: event.target.value,
+			subServiceId: event.target.value
 		});
 	}
 
@@ -173,8 +195,8 @@ function EventDialog(props) {
 	}
 
 	function handleSubmit(event) {
-		form.start = moment(form.start)
-		form.end = moment(form.end)
+		form.start = moment(form.start);
+		form.end = moment(form.end);
 		event.preventDefault();
 		// console.log('form', form)
 		// console.log('eventDialog.fromAdmin', eventDialog.fromAdmin)
@@ -208,110 +230,106 @@ function EventDialog(props) {
 	}
 
 	function isBudgetError(form) {
-		let {priceMax, priceMin, budget, priceType} = form
-		if (priceType ? priceType.includes("exact") : false) return false
-		if (!budget) return false
-		if (+budget < +priceMin || +budget > +priceMax) return true
-		return false
+		let { priceMax, priceMin, budget, priceType } = form;
+		if (priceType ? priceType.includes('exact') : false) return false;
+		if (!budget) return false;
+		if (+budget < +priceMin || +budget > +priceMax) return true;
+		return false;
 	}
 
-	function handlePrice (form){
+	function handlePrice(form) {
 		return form.budget;
 	}
 
 	function isExactPrice(form) {
-		return form.priceType ? form.priceType.includes("exact") : false
+		return form.priceType ? form.priceType.includes('exact') : false;
 	}
 
 	function canBeSubmitted(form) {
 		// console.log('form', form)
 		// console.log('form.priceQuantifier1', form.priceQuantifier1, form.guestCount)
 		// console.log('form.priceQuantifier2', form.priceQuantifier2, form.hourCount)
-		if (!form.budget) return false
-		if (!form.priceType) return false
-		if (form.priceQuantifier1 && !form.guestCount) return false
-		if (form.priceQuantifier2 && !form.hourCount) return false
-		if (form.priceType === "range" && isBudgetError(form)) return false
-		return true
+		if (!form.budget) return false;
+		if (!form.priceType) return false;
+		if (form.priceQuantifier1 && !form.guestCount) return false;
+		if (form.priceQuantifier2 && !form.hourCount) return false;
+		if (form.priceType === 'range' && isBudgetError(form)) return false;
+		return true;
 	}
 
-	function handleBudgetHelperText (form){
-		if (form.priceType === "range") return `min: $${form.priceMin} max: $${form.priceMax}`
-		return null
+	function handleBudgetHelperText(form) {
+		if (form.priceType === 'range') return `min: $${form.priceMin} max: $${form.priceMax}`;
+		return null;
 	}
 
-	function handlePriceLabel (form){
-		if (!form.priceType) return null
+	function handlePriceLabel(form) {
+		if (!form.priceType) return null;
 
 		if (form.priceLabel) return form.priceLabel;
 
-		let name = form.priceType === "exact" ? 'flat rate' : 'range'
-		let priceQuantifier1 = form.priceQuantifier1 ? `per ${form.priceQuantifier1}` : ''
-		let priceQuantifier2 = form.priceQuantifier2 ? `per ${form.priceQuantifier2}` : ''
-		return `${name} ${priceQuantifier1} ${priceQuantifier2}`
+		let name = form.priceType === 'exact' ? 'flat rate' : 'range';
+		let priceQuantifier1 = form.priceQuantifier1 ? `per ${form.priceQuantifier1}` : '';
+		let priceQuantifier2 = form.priceQuantifier2 ? `per ${form.priceQuantifier2}` : '';
+		return `${name} ${priceQuantifier1} ${priceQuantifier2}`;
 	}
 
-	if (!modalHasData){
-		return null
+	if (!modalHasData) {
+		return null;
 	}
 
-	if (tripEndDate === 0){
-		return null
+	if (tripEndDate === 0) {
+		return null;
 	}
 
 	if (isOnlyTripDates) {
 		return (
 			<Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
-			<AppBar position="static">
-				<Toolbar className="flex w-full">
-					<Typography variant="subtitle1" color="inherit">
-						{form.title}
-					</Typography>
-				</Toolbar>
-			</AppBar>
-			<form noValidate>
-				<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
-					<Typography variant="subtitle1" color="inherit">
-						{`${moment(tripStartDate).format('MM/DD/YYYY')} - ${moment(tripEndDate).format('MM/DD/YYYY')}`}
-					</Typography>
-				</DialogContent>
-				<DialogActions className="justify-between px-8 sm:px-16">
-					<Button onClick={closeComposeDialog} variant="contained" color="primary">
-						Close
-					</Button>
-				</DialogActions>
-			</form>
-		</Dialog>
-		)
-	} 
+				<AppBar position="static">
+					<Toolbar className="flex w-full">
+						<Typography variant="subtitle1" color="inherit">
+							{form.title}
+						</Typography>
+					</Toolbar>
+				</AppBar>
+				<form noValidate>
+					<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
+						<Typography variant="subtitle1" color="inherit">
+							{`${moment(tripStartDate).format('MM/DD/YYYY')} - ${moment(tripEndDate).format(
+								'MM/DD/YYYY'
+							)}`}
+						</Typography>
+					</DialogContent>
+					<DialogActions className="justify-between px-8 sm:px-16">
+						<Button onClick={closeComposeDialog} variant="contained" color="primary">
+							Close
+						</Button>
+					</DialogActions>
+				</form>
+			</Dialog>
+		);
+	}
 
 	// console.log('eventDialog.data.fromAdmin', eventDialog.data);
-	if (eventDialog.fromAdmin){
+	if (eventDialog.fromAdmin) {
 		return (
-			<Dialog
-				{...eventDialog.props}
-				onClose={closeComposeDialog}
-				fullWidth
-				maxWidth="xs"
-				component="form"
-			>
+			<Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
 				<AppBar position="static">
 					<Toolbar className="px-8">
-						<Typography style={{ marginLeft: 5 }} variant="subtitle1" color="inherit" className="flex-1 px-10">
+						<Typography
+							style={{ marginLeft: 5 }}
+							variant="subtitle1"
+							color="inherit"
+							className="flex-1 px-10"
+						>
 							{form.title}
 						</Typography>
 						<div style={{ marginRight: 10 }}>${handleCostColumn(form)}</div>
 					</Toolbar>
 				</AppBar>
 
-				<form noValidate onSubmit={handleSubmit} autoComplete="off" >
+				<form noValidate onSubmit={handleSubmit} autoComplete="off">
 					<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
-
-						<FormControl
-							fullWidth
-							size="small"
-							disabled={eventDialog.fromAdmin}
-							variant="outlined">
+						<FormControl fullWidth size="small" disabled={eventDialog.fromAdmin} variant="outlined">
 							<InputLabel id="demo-simple-select-label">{form.serviceLabel || 'Service'}</InputLabel>
 							<Select
 								labelId="demo-simple-select-label"
@@ -323,89 +341,107 @@ function EventDialog(props) {
 							>
 								{serviceOptions &&
 									Object.keys(serviceOptions).map(item => {
-										let serviceTitle = serviceOptions[item]['serviceTitle']
-										return <MenuItem key={item} value={item}>{serviceTitle}</MenuItem>
-									})
-								}
+										let serviceTitle = serviceOptions[item]['serviceTitle'];
+										return (
+											<MenuItem key={item} value={item}>
+												{serviceTitle}
+											</MenuItem>
+										);
+									})}
 							</Select>
 						</FormControl>
 
-						{form.subServiceOptions && <FormControl
-							fullWidth
-							size="small"
-							// disabled={eventDialog.fromAdmin}
-							variant="outlined">
-							<InputLabel id="demo-simple-select-label">{form.subServiceLabel || 'Sub Service'}</InputLabel>
-							<Select
-								labelId="demo-simple-select-label"
-								id="demo-simple-select"
-								rows={4}
-								className="mt-8 mb-16 w-full"
-								value={form.subServiceId}
-
-								onChange={handleChangeDropdownSubService}
+						{form.subServiceOptions && (
+							<FormControl
+								fullWidth
+								size="small"
+								// disabled={eventDialog.fromAdmin}
+								variant="outlined"
 							>
-								{form.subServiceOptions &&
-									Object.keys(form.subServiceOptions).map(item => {
-										let subServiceTitle = form.subServiceOptions[item]['subServiceTitle']
-										return <MenuItem key={item} value={item}>{subServiceTitle}</MenuItem>
-									})
-								}
-							</Select>
-						</FormControl>}
+								<InputLabel id="demo-simple-select-label">
+									{form.subServiceLabel || 'Sub Service'}
+								</InputLabel>
+								<Select
+									labelId="demo-simple-select-label"
+									id="demo-simple-select"
+									rows={4}
+									className="mt-8 mb-16 w-full"
+									value={form.subServiceId}
+									onChange={handleChangeDropdownSubService}
+								>
+									{form.subServiceOptions &&
+										Object.keys(form.subServiceOptions).map(item => {
+											let subServiceTitle = form.subServiceOptions[item]['subServiceTitle'];
+											return (
+												<MenuItem key={item} value={item}>
+													{subServiceTitle}
+												</MenuItem>
+											);
+										})}
+								</Select>
+							</FormControl>
+						)}
 
-						{form.priceQuantifier1 && <TextField
-							id="guestCount"
-							// label={form.priceQuantifier1}
-							label={form.priceQuantifier1Label || `number of ${form.priceQuantifier1}s`}
-							// label="Number Of Guests"
-							className="mt-8 mb-16"
-							InputLabelProps={{
-								shrink: true, max: 100, min: 10
-							}}
-							InputProps={{
-								readOnly,
-								inputProps: {
-									min: 1,
-									max: 50,
-								}
-							}}
-							// disabled={readOnly}
-							name="guestCount"
-							value={form.guestCount}
-							onChange={handleChange}
-							variant="outlined"
-							type="number"
-							size="small"
-							fullWidth
-						// disabled={eventDialog.fromAdmin}
-						/>}
+						{form.priceQuantifier1 && (
+							<TextField
+								id="guestCount"
+								// label={form.priceQuantifier1}
+								label={form.priceQuantifier1Label || `number of ${form.priceQuantifier1}s`}
+								// label="Number Of Guests"
+								className="mt-8 mb-16"
+								InputLabelProps={{
+									shrink: true,
+									max: 100,
+									min: 10
+								}}
+								InputProps={{
+									readOnly,
+									inputProps: {
+										min: 1,
+										max: 50
+									}
+								}}
+								// disabled={readOnly}
+								name="guestCount"
+								value={form.guestCount}
+								onChange={handleChange}
+								variant="outlined"
+								type="number"
+								size="small"
+								fullWidth
+								// disabled={eventDialog.fromAdmin}
+							/>
+						)}
 
-						{form.priceQuantifier2 && <TextField
-							id="hourCount"
-							label={form.priceQuantifier2Label || `number of ${form.priceQuantifier2}s`}
-							// label="Number Of Hours"
-							className="mt-8 mb-16"
-							InputLabelProps={{
-								shrink: true, max: 100, min: 10
-							}}
-							InputProps={{
-								readOnly,
-								inputProps: {
-									min: 1,
-									max: 50,
-								}
-							}}
-							// disabled={readOnly}
-							name="hourCount"
-							value={form.hourCount}
-							onChange={handleChange}
-							variant="outlined"
-							type="number"
-							size="small"
-							fullWidth
-						// disabled={eventDialog.fromAdmin}
-						/>}
+						{form.priceQuantifier2 && (
+							<TextField
+								id="hourCount"
+								label={form.priceQuantifier2Label || `number of ${form.priceQuantifier2}s`}
+								// label="Number Of Hours"
+								className="mt-8 mb-16"
+								InputLabelProps={{
+									shrink: true,
+									max: 100,
+									min: 10
+								}}
+								InputProps={{
+									readOnly,
+									inputProps: {
+										min: 1,
+										max: 50
+									}
+								}}
+								// disabled={readOnly}
+								name="hourCount"
+								value={form.hourCount}
+								onChange={handleChange}
+								variant="outlined"
+								type="number"
+								size="small"
+								fullWidth
+								// disabled={eventDialog.fromAdmin}
+							/>
+						)}
 
 						<TextField
 							fullWidth
@@ -424,19 +460,19 @@ function EventDialog(props) {
 							InputProps={{
 								readOnly,
 								inputProps: {
-									min: 1,
+									min: 1
 								},
 								startAdornment: <InputAdornment position="start">$</InputAdornment>
 							}}
 							disabled={isExactPrice(form)}
-						// disabled={isExactPrice(form) || eventDialog.fromAdmin}
-						// disabled={readOnly || isExactPrice(form)}
+							// disabled={isExactPrice(form) || eventDialog.fromAdmin}
+							// disabled={readOnly || isExactPrice(form)}
 						/>
 
 						<TextField
 							id="desc"
 							className="mt-8 mb-16"
-							label={form.requestsLabel || "Special Requests"}
+							label={form.requestsLabel || 'Special Requests'}
 							type="text"
 							name="desc"
 							variant="outlined"
@@ -447,7 +483,7 @@ function EventDialog(props) {
 							onChange={handleChange}
 							InputProps={{ readOnly }}
 							value={form.desc}
-						// disabled={eventDialog.fromAdmin}
+							// disabled={eventDialog.fromAdmin}
 						/>
 
 						<DateTimePicker
@@ -459,7 +495,7 @@ function EventDialog(props) {
 							className="mt-8 mb-16 w-full"
 							minDate={minDate}
 							maxDate={maxDate}
-						// disabled={eventDialog.fromAdmin}
+							// disabled={eventDialog.fromAdmin}
 						/>
 					</DialogContent>
 
@@ -467,145 +503,156 @@ function EventDialog(props) {
 						<div className="px-16">
 							<Button variant="contained" color="primary" type="submit" disabled={!canBeSubmitted(form)}>
 								Save to My Plan
-						</Button>
+							</Button>
 							<IconButton onClick={closeComposeDialog}>
 								<Icon>close</Icon>
 							</IconButton>
 						</div>
-						{!eventDialog.fromAdmin && eventDialog.type === 'edit' && <IconButton onClick={() => handleRemove(eid)}>
-							<Icon>delete</Icon>
-						</IconButton>}
-						{eventDialog.fromAdmin && <IconButton onClick={() => handleRemoveFromAdmin(uid, eid)}>
-							<Icon>delete</Icon>
-						</IconButton>}
+						{!eventDialog.fromAdmin && eventDialog.type === 'edit' && (
+							<IconButton onClick={() => handleRemove(eid)}>
+								<Icon>delete</Icon>
+							</IconButton>
+						)}
+						{eventDialog.fromAdmin && (
+							<IconButton onClick={() => handleRemoveFromAdmin(uid, eid)}>
+								<Icon>delete</Icon>
+							</IconButton>
+						)}
 					</DialogActions>
 				</form>
 			</Dialog>
 		);
-		
 	}
 
 	// console.log('eventDialog=2>', eventDialog);
-	if (eventDialog.data.isConfirmed){
+	if (eventDialog.data.isConfirmed) {
 		return (
-			<Dialog 
-				{...eventDialog.props} 
-				onClose={closeComposeDialog} 
-				fullWidth 
-				maxWidth="xs" 
-				component="form"
-			>
+			<Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
 				<AppBar position="static">
 					<Toolbar className="px-8">
-						<Typography style={{marginLeft: 5}} variant="subtitle1" color="inherit" className="flex-1 px-10">
+						<Typography
+							style={{ marginLeft: 5 }}
+							variant="subtitle1"
+							color="inherit"
+							className="flex-1 px-10"
+						>
 							{form.title} (confirmed)
 						</Typography>
-						<div style={{marginRight: 10}}>{handleCostColumn(form)}</div>
+						<div style={{ marginRight: 10 }}>{handleCostColumn(form)}</div>
 					</Toolbar>
 				</AppBar>
-	
-				<form noValidate onSubmit={handleSubmit} autoComplete="off" >
+
+				<form noValidate onSubmit={handleSubmit} autoComplete="off">
 					<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
-	
-						<FormControl 
-						fullWidth
-						size="small"
-						disabled={true}
-						variant="outlined">
+						<FormControl fullWidth size="small" disabled={true} variant="outlined">
 							<InputLabel id="demo-simple-select-label">{form.serviceLabel || 'Service'}</InputLabel>
 							<Select
-							labelId="demo-simple-select-label"
-							id="demo-simple-select"
-							rows={4}
-							className="mt-8 mb-16 w-full"
-							value={form.serviceId}
-							onChange={handleChangeDropdown}
+								labelId="demo-simple-select-label"
+								id="demo-simple-select"
+								rows={4}
+								className="mt-8 mb-16 w-full"
+								value={form.serviceId}
+								onChange={handleChangeDropdown}
 							>
-							{serviceOptions && 
-								Object.keys(serviceOptions).map(item=> {
-									let serviceTitle = serviceOptions[item]['serviceTitle']
-									return <MenuItem key={item} value={item}>{serviceTitle}</MenuItem>
-								})
-							}
+								{serviceOptions &&
+									Object.keys(serviceOptions).map(item => {
+										let serviceTitle = serviceOptions[item]['serviceTitle'];
+										return (
+											<MenuItem key={item} value={item}>
+												{serviceTitle}
+											</MenuItem>
+										);
+									})}
 							</Select>
 						</FormControl>
 
-						{form.subServiceOptions && <FormControl 
-						fullWidth
-						size="small"
-						disabled={true}
-						variant="outlined">
-							<InputLabel id="demo-simple-select-label">{form.subServiceLabel || 'Sub Service'}</InputLabel>
-							<Select
-							labelId="demo-simple-select-label"
-							id="demo-simple-select"
-							rows={4}
-							className="mt-8 mb-16 w-full"
-							value={form.subServiceId}
-							// name={form.subServiceTitle}
-							onChange={handleChangeDropdownSubService}
-							>
-							{form.subServiceOptions && 
-								Object.keys(form.subServiceOptions).map(item=> {
-									let subServiceTitle = form.subServiceOptions[item]['subServiceTitle']
-									return <MenuItem key={item} value={item}>{subServiceTitle}</MenuItem>
-								})
-							}
-							</Select>
-						</FormControl>}
-						
-						{form.priceQuantifier1 && <TextField
-							id="guestCount"
-							// label={form.priceQuantifier1}
-							label={form.priceQuantifier1Label || `number of ${form.priceQuantifier1}s`}
-							// label="Number Of Guests"
-							className="mt-8 mb-16"
-							InputLabelProps={{
-								shrink: true, max: 100, min: 10
-							}}
-							InputProps={{
-								readOnly,
-								inputProps: { 
-									min: 1,
-									max: 50, 
-								}
-							}}
-							disabled={true}
-							name="guestCount"
-							value={form.guestCount}
-							onChange={handleChange}
-							variant="outlined"
-							type="number"
-							size="small"
-							fullWidth
-						/>}
-						
-						{form.priceQuantifier2 && <TextField
-							id="hourCount"
-							// label="Number Of Hours"
-							// label={form.priceQuantifier2}
-							label={form.priceQuantifier2Label || `number of ${form.priceQuantifier2}s`}
-							className="mt-8 mb-16"
-							InputLabelProps={{
-								shrink: true, max: 100, min: 10
-							}}
-							InputProps={{
-								readOnly,
-								inputProps: { 
-									min: 1,
-									max: 50, 
-								}
-							}}
-							disabled={true}
-							name="hourCount"
-							value={form.hourCount}
-							onChange={handleChange}
-							variant="outlined"
-							type="number"
-							size="small"
-							fullWidth
-						/>}
-	
+						{form.subServiceOptions && (
+							<FormControl fullWidth size="small" disabled={true} variant="outlined">
+								<InputLabel id="demo-simple-select-label">
+									{form.subServiceLabel || 'Sub Service'}
+								</InputLabel>
+								<Select
+									labelId="demo-simple-select-label"
+									id="demo-simple-select"
+									rows={4}
+									className="mt-8 mb-16 w-full"
+									value={form.subServiceId}
+									// name={form.subServiceTitle}
+									onChange={handleChangeDropdownSubService}
+								>
+									{form.subServiceOptions &&
+										Object.keys(form.subServiceOptions).map(item => {
+											let subServiceTitle = form.subServiceOptions[item]['subServiceTitle'];
+											return (
+												<MenuItem key={item} value={item}>
+													{subServiceTitle}
+												</MenuItem>
+											);
+										})}
+								</Select>
+							</FormControl>
+						)}
+
+						{form.priceQuantifier1 && (
+							<TextField
+								id="guestCount"
+								// label={form.priceQuantifier1}
+								label={form.priceQuantifier1Label || `number of ${form.priceQuantifier1}s`}
+								// label="Number Of Guests"
+								className="mt-8 mb-16"
+								InputLabelProps={{
+									shrink: true,
+									max: 100,
+									min: 10
+								}}
+								InputProps={{
+									readOnly,
+									inputProps: {
+										min: 1,
+										max: 50
+									}
+								}}
+								disabled={true}
+								name="guestCount"
+								value={form.guestCount}
+								onChange={handleChange}
+								variant="outlined"
+								type="number"
+								size="small"
+								fullWidth
+							/>
+						)}
+
+						{form.priceQuantifier2 && (
+							<TextField
+								id="hourCount"
+								// label="Number Of Hours"
+								// label={form.priceQuantifier2}
+								label={form.priceQuantifier2Label || `number of ${form.priceQuantifier2}s`}
+								className="mt-8 mb-16"
+								InputLabelProps={{
+									shrink: true,
+									max: 100,
+									min: 10
+								}}
+								InputProps={{
+									readOnly,
+									inputProps: {
+										min: 1,
+										max: 50
+									}
+								}}
+								disabled={true}
+								name="hourCount"
+								value={form.hourCount}
+								onChange={handleChange}
+								variant="outlined"
+								type="number"
+								size="small"
+								fullWidth
+							/>
+						)}
+
 						<TextField
 							fullWidth
 							id="budget"
@@ -619,23 +666,23 @@ function EventDialog(props) {
 							value={handlePrice(form)}
 							label={handlePriceLabel(form)}
 							helperText={handleBudgetHelperText(form)}
-							InputLabelProps={{shrink: true}}
+							InputLabelProps={{ shrink: true }}
 							InputProps={{
 								readOnly,
-								inputProps: { 
-									min: 1,
+								inputProps: {
+									min: 1
 								},
 								startAdornment: <InputAdornment position="start">$</InputAdornment>
 							}}
 							disabled={true}
 						/>
-					
+
 						<TextField
 							id="desc"
 							className="mt-8 mb-16"
-							label={form.requestsLabel || "Special Requests"}
+							label={form.requestsLabel || 'Special Requests'}
 							type="text"
-							InputProps={{readOnly}}
+							InputProps={{ readOnly }}
 							disabled={true}
 							name="desc"
 							value={form.desc}
@@ -646,7 +693,7 @@ function EventDialog(props) {
 							size="small"
 							fullWidth
 						/>
-	
+
 						<DateTimePicker
 							label="Start"
 							inputVariant="outlined"
@@ -659,139 +706,145 @@ function EventDialog(props) {
 							disabled={true}
 						/>
 					</DialogContent>
-	
+
 					<DialogActions className="justify-between px-8 sm:px-16">
 						<Button onClick={closeComposeDialog} variant="contained" color="primary">
 							Close
 						</Button>
 					</DialogActions>
-		
 				</form>
 			</Dialog>
-		)
+		);
 	}
 
 	console.log('eventDialog=1>', eventDialog);
 	console.log('form=1>', form);
 	return (
-		<Dialog 
-			{...eventDialog.props} 
-			onClose={closeComposeDialog} 
-			fullWidth 
-			maxWidth="xs" 
-			component="form"
-		>
+		<Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
 			<AppBar position="static">
 				<Toolbar className="px-8">
-					<Typography style={{marginLeft: 5}} variant="subtitle1" color="inherit" className="flex-1 px-10">
+					<Typography style={{ marginLeft: 5 }} variant="subtitle1" color="inherit" className="flex-1 px-10">
 						{form.title}
 					</Typography>
-					<div style={{marginRight: 10}}>${handleCostColumn(form)}</div>
+					<div style={{ marginRight: 10 }}>${handleCostColumn(form)}</div>
 				</Toolbar>
 			</AppBar>
 
-			<form noValidate onSubmit={handleSubmit} autoComplete="off" >
+			<form noValidate onSubmit={handleSubmit} autoComplete="off">
 				<DialogContent classes={{ root: 'p-16 pb-0 sm:p-24 sm:pb-0' }}>
-
-					<FormControl 
-					fullWidth
-					size="small"
-					disabled={eventDialog.fromAdmin}
-					variant="outlined">
-						<InputLabel id="demo-simple-select-label">{ form.serviceLabel ||'Service'}</InputLabel>
+					<FormControl fullWidth size="small" disabled={eventDialog.fromAdmin} variant="outlined">
+						<InputLabel id="demo-simple-select-label">{form.serviceLabel || 'Service'}</InputLabel>
 						<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						rows={4}
-						className="mt-8 mb-16 w-full"
-						value={form.serviceId}
-						onChange={handleChangeDropdown}
+							labelId="demo-simple-select-label"
+							id="demo-simple-select"
+							rows={4}
+							className="mt-8 mb-16 w-full"
+							value={form.serviceId}
+							onChange={handleChangeDropdown}
 						>
-						{serviceOptions && 
-							Object.keys(serviceOptions).map(item=> {
-								let serviceTitle = serviceOptions[item]['serviceTitle']
-								return <MenuItem key={item} value={item}>{serviceTitle}</MenuItem>
-							})
-						}
+							{serviceOptions &&
+								Object.keys(serviceOptions).map(item => {
+									let serviceTitle = serviceOptions[item]['serviceTitle'];
+									return (
+										<MenuItem key={item} value={item}>
+											{serviceTitle}
+										</MenuItem>
+									);
+								})}
 						</Select>
 					</FormControl>
 
-					{form.subServiceOptions && <FormControl 
-					fullWidth
-					size="small"
-					// disabled={eventDialog.fromAdmin}
-					variant="outlined">
-						<InputLabel id="demo-simple-select-label">{form.subServiceLabel || 'Sub Service'}</InputLabel>
-						<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						rows={4}
-						className="mt-8 mb-16 w-full"
-						value={form.subServiceId}
-						
-							onChange={handleChangeDropdownSubService}
+					{form.subServiceOptions && (
+						<FormControl
+							fullWidth
+							size="small"
+							// disabled={eventDialog.fromAdmin}
+							variant="outlined"
 						>
-						{form.subServiceOptions && 
-							Object.keys(form.subServiceOptions).map(item=> {
-								let subServiceTitle = form.subServiceOptions[item]['subServiceTitle']
-								return <MenuItem key={item} value={item}>{subServiceTitle}</MenuItem>
-							})
-						}
-						</Select>
-					</FormControl>}
-					
-					{form.priceQuantifier1 && <TextField
-						id="guestCount"
-						// label={form.priceQuantifier1}
-						label={form.priceQuantifier1Label || `number of ${form.priceQuantifier1}s`}
-						// label="Number Of Guests"
-						className="mt-8 mb-16"
-						InputLabelProps={{
-							shrink: true, max: 100, min: 10
-						}}
-						InputProps={{
-							readOnly,
-							inputProps: { 
-								min: 1,
-								max: 50, 
-							}
-						}}
-						// disabled={readOnly}
-						name="guestCount"
-						value={form.guestCount}
-						onChange={handleChange}
-						variant="outlined"
-						type="number"
-						size="small"
-						fullWidth
-						// disabled={eventDialog.fromAdmin}
-					/>}
-					
-					{form.priceQuantifier2 && <TextField
-						id="hourCount"
-						label={form.priceQuantifier2Label || `number of ${form.priceQuantifier2}s`}
-						// label="Number Of Hours"
-						className="mt-8 mb-16"
-						InputLabelProps={{
-							shrink: true, max: 100, min: 10
-						}}
-						InputProps={{
-							readOnly,
-							inputProps: { 
-								min: 1,
-								max: 50, 
-							}
-						}}
-						// disabled={readOnly}
-						name="hourCount"
-						value={form.hourCount}
-						onChange={handleChange}
-						variant="outlined"
-						type="number"
-						size="small"
-						fullWidth
-						// disabled={eventDialog.fromAdmin}
-					/>}
+							<InputLabel id="demo-simple-select-label">
+								{form.subServiceLabel || 'Sub Service'}
+							</InputLabel>
+							<Select
+								labelId="demo-simple-select-label"
+								id="demo-simple-select"
+								rows={4}
+								className="mt-8 mb-16 w-full"
+								value={form.subServiceId}
+								onChange={handleChangeDropdownSubService}
+							>
+								{form.subServiceOptions &&
+									Object.keys(form.subServiceOptions).map(item => {
+										let subServiceTitle = form.subServiceOptions[item]['subServiceTitle'];
+										return (
+											<MenuItem key={item} value={item}>
+												{subServiceTitle}
+											</MenuItem>
+										);
+									})}
+							</Select>
+						</FormControl>
+					)}
+
+					{form.priceQuantifier1 && (
+						<TextField
+							id="guestCount"
+							// label={form.priceQuantifier1}
+							label={form.priceQuantifier1Label || `number of ${form.priceQuantifier1}s`}
+							// label="Number Of Guests"
+							className="mt-8 mb-16"
+							InputLabelProps={{
+								shrink: true,
+								max: 100,
+								min: 10
+							}}
+							InputProps={{
+								readOnly,
+								inputProps: {
+									min: 1,
+									max: 50
+								}
+							}}
+							// disabled={readOnly}
+							name="guestCount"
+							value={form.guestCount}
+							onChange={handleChange}
+							variant="outlined"
+							type="number"
+							size="small"
+							fullWidth
+							// disabled={eventDialog.fromAdmin}
+						/>
+					)}
+
+					{form.priceQuantifier2 && (
+						<TextField
+							id="hourCount"
+							label={form.priceQuantifier2Label || `number of ${form.priceQuantifier2}s`}
+							// label="Number Of Hours"
+							className="mt-8 mb-16"
+							InputLabelProps={{
+								shrink: true,
+								max: 100,
+								min: 10
+							}}
+							InputProps={{
+								readOnly,
+								inputProps: {
+									min: 1,
+									max: 50
+								}
+							}}
+							// disabled={readOnly}
+							name="hourCount"
+							value={form.hourCount}
+							onChange={handleChange}
+							variant="outlined"
+							type="number"
+							size="small"
+							fullWidth
+							// disabled={eventDialog.fromAdmin}
+						/>
+					)}
 
 					<TextField
 						fullWidth
@@ -806,11 +859,11 @@ function EventDialog(props) {
 						value={handlePrice(form)}
 						label={handlePriceLabel(form)}
 						helperText={handleBudgetHelperText(form)}
-						InputLabelProps={{shrink: true}}
+						InputLabelProps={{ shrink: true }}
 						InputProps={{
 							readOnly,
-							inputProps: { 
-								min: 1,
+							inputProps: {
+								min: 1
 							},
 							startAdornment: <InputAdornment position="start">$</InputAdornment>
 						}}
@@ -818,11 +871,11 @@ function EventDialog(props) {
 						// disabled={isExactPrice(form) || eventDialog.fromAdmin}
 						// disabled={readOnly || isExactPrice(form)}
 					/>
-				
+
 					<TextField
 						id="desc"
 						className="mt-8 mb-16"
-						label={form.requestsLabel || "Special Requests"}
+						label={form.requestsLabel || 'Special Requests'}
 						type="text"
 						name="desc"
 						variant="outlined"
@@ -831,7 +884,7 @@ function EventDialog(props) {
 						multiline
 						rows={2}
 						onChange={handleChange}
-						InputProps={{readOnly}}
+						InputProps={{ readOnly }}
 						value={form.desc}
 						// disabled={eventDialog.fromAdmin}
 					/>
@@ -858,12 +911,16 @@ function EventDialog(props) {
 							<Icon>close</Icon>
 						</IconButton>
 					</div>
-					{!eventDialog.fromAdmin && eventDialog.type === 'edit' && <IconButton onClick={()=>handleRemove(eid)}>
-						<Icon>delete</Icon>
-					</IconButton>}
-					{eventDialog.fromAdmin && <IconButton onClick={()=>handleRemoveFromAdmin(uid, eid)}>
-						<Icon>delete</Icon>
-					</IconButton>}
+					{!eventDialog.fromAdmin && eventDialog.type === 'edit' && (
+						<IconButton onClick={() => handleRemove(eid)}>
+							<Icon>delete</Icon>
+						</IconButton>
+					)}
+					{eventDialog.fromAdmin && (
+						<IconButton onClick={() => handleRemoveFromAdmin(uid, eid)}>
+							<Icon>delete</Icon>
+						</IconButton>
+					)}
 				</DialogActions>
 			</form>
 		</Dialog>

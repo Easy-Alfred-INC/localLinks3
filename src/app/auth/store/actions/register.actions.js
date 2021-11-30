@@ -31,10 +31,10 @@ export function submitRegister({ displayName, password, email }) {
 
 export function registerWithFirebase(model) {
 	console.log('in register');
-
+	const queryParams = new URLSearchParams(window.location.search); // this is for the utm_id we can get all the utm paramethers
+	const pathWitParamether = queryParams.get('utm_id') ? queryParams.get('utm_id') : '';
 	if (!firebaseService.auth) {
 		console.warn("Firebase Service didn't initialize, check your configuration");
-
 		return () => false;
 	}
 
@@ -61,13 +61,15 @@ export function registerWithFirebase(model) {
 			.createUserWithEmailAndPassword(email, password)
 			.then(response => {
 				dispatch(
-					UserActions.createUserSettingsFirebase({
-						...response.user,
-						displayName,
-						email
-					})
+					UserActions.createUserSettingsFirebase(
+						{
+							...response.user,
+							displayName,
+							email
+						},
+						pathWitParamether
+					)
 				);
-
 				return dispatch({
 					type: REGISTER_SUCCESS
 				});
