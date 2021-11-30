@@ -31,7 +31,6 @@ export function submitRegister({ displayName, password, email }) {
 
 export function registerWithFirebase(model) {
 	console.log('in register');
-	
 
 	if (!firebaseService.auth) {
 		console.warn("Firebase Service didn't initialize, check your configuration");
@@ -98,21 +97,21 @@ export function registerWithFirebase(model) {
 }
 
 export function resetWithFirebase(model) {
-	
 	if (!firebaseService.auth) {
 		console.warn("Firebase Service didn't initialize, check your configuration");
-		
+
 		return () => false;
 	}
-	
+
 	const { email } = model;
 
 	return dispatch =>
-		firebaseService.auth.sendPasswordResetEmail(email)
-		.then(function() {
-			return dispatch(Actions.showMessage({ message: "Check Your Email" }));
-		})
-		.catch(function(error) {
-			return dispatch(Actions.showMessage({ message: error }));
-		});
+		firebaseService.auth
+			.sendPasswordResetEmail(email)
+			.then(function() {
+				return dispatch(Actions.showMessage({ message: 'Check Your Email' }));
+			})
+			.catch(function(error) {
+				return dispatch(Actions.showMessage({ message: error }));
+			});
 }

@@ -10,7 +10,8 @@ const routes = {
 export default class ZService {
 	constructor() {
 		this.zConfig = new Config();
-		this.baseApi = '/crm/v2/';
+		this.baseApi = 'https://www.zohoapis.com/crm/v2/';
+		this.baseAPIGateway = ' https://4t1m6bslik.execute-api.us-east-1.amazonaws.com/default';
 	}
 
 	async getRecord(module) {
@@ -51,18 +52,27 @@ export default class ZService {
 	}
 
 	async getRecordByCriteria(module, criteria, value) {
+		const urlGetRecord = '/get-record';
 		const actualToken = await this.zConfig.getToken();
-
-		return await fetch(`${this.baseApi}${routes.searchByCriteria(module, criteria, value)}`, {
+		const payload = {
+			url: `${this.baseApi}${routes.searchByCriteria(module, criteria, value)}`,
+			token: actualToken
+		};
+		return await fetch(this.baseAPIGateway + urlGetRecord, {
+			method: 'POST',
 			headers: {
-				Authorization: `Zoho-oauthtoken ${actualToken}`
-			}
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify(payload)
 		})
 			.then(response => {
 				return response
 					.json()
 					.then(data => {
-						return data;
+						if (data['errorType']) {
+							return undefined;
+						}
+						return JSON.parse(data.body);
 					})
 					.catch(err => console.log(err));
 			})
@@ -70,14 +80,23 @@ export default class ZService {
 	}
 
 	async putRecord(module, body, id) {
+		const urlPUTRecord = '/test';
 		const actualToken = await this.zConfig.getToken();
+
 		let requestBody = {};
 		requestBody['data'] = [body];
-		fetch(`${this.baseApi}${routes.putRecord(module, id)}`, {
+
+		const payload = {
+			url: `${this.baseApi}${routes.putRecord(module, id)}`,
+			token: actualToken,
+			data: requestBody
+		};
+
+		fetch(this.baseAPIGateway + urlPUTRecord, {
 			method: 'PUT',
-			body: JSON.stringify(requestBody),
+			body: JSON.stringify(payload),
 			headers: {
-				Authorization: `Zoho-oauthtoken ${actualToken}`
+				'Content-type': 'application/json'
 			}
 		})
 			.then(response => {
@@ -92,14 +111,22 @@ export default class ZService {
 	}
 
 	async postRedord(module, body) {
+		const urlPOSTRecord = '/test';
 		const actualToken = await this.zConfig.getToken();
+
 		let requestBody = {};
 		requestBody['data'] = [body];
-		fetch(`${this.baseApi}${routes.postRecord(module)}`, {
+
+		const payload = {
+			url: `${this.baseApi}${routes.postRecord(module)}`,
+			token: actualToken,
+			data: requestBody
+		};
+		fetch(this.baseAPIGateway + urlPOSTRecord, {
+			body: JSON.stringify(payload),
 			method: 'POST',
-			body: JSON.stringify(requestBody),
 			headers: {
-				Authorization: `Zoho-oauthtoken ${actualToken}`
+				'Content-type': 'application/json'
 			}
 		})
 			.then(response => {
