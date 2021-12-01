@@ -2,6 +2,8 @@ import firebaseService from 'app/services/firebaseService';
 import jwtService from 'app/services/jwtService';
 import * as Actions from 'app/store/actions';
 import * as UserActions from './user.actions';
+import ZContacts from '../../../services/zohoService/contacts/index';
+
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 
@@ -28,6 +30,7 @@ export function submitRegister({ displayName, password, email }) {
 }
 
 export function registerWithFirebase(model) {
+	console.log('in register');
 	const queryParams = new URLSearchParams(window.location.search); // this is for the utm_id we can get all the utm paramethers
 	const pathWitParamether = queryParams.get('utm_id') ? queryParams.get('utm_id') : '';
 	if (!firebaseService.auth) {
@@ -44,7 +47,6 @@ export function registerWithFirebase(model) {
 		Last_Name: fullname.length > 1 ? fullname[1] : ''
 	};
 
-	/* Must be wait for zoho fix token problem
 	const zoho = new ZContacts();
 	const dataCriteria = zoho.getContactByEmail(zPayload.Email).then(response => {
 		if (response) {
@@ -53,7 +55,6 @@ export function registerWithFirebase(model) {
 			zoho.createContacts(zPayload);
 		}
 	});
-	*/
 
 	return dispatch =>
 		firebaseService.auth
