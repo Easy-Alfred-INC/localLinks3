@@ -19,7 +19,7 @@ function NavbarFoldedToggleButton(props) {
 					)
 				);
 			}}
-			color="inherit"
+			color="primary"
 		>
 			{props.children}
 		</IconButton>

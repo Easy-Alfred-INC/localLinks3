@@ -22,14 +22,14 @@ const useStyles = makeStyles(theme => ({
 		paddingLeft: props.itemPadding > 80 ? 80 : props.itemPadding,
 		'&.active': {
 			backgroundColor: theme.palette.secondary.main,
-			color: `${theme.palette.secondary.contrastText}!important`,
+			color: `white !important`,
 			pointerEvents: 'none',
 			transition: 'border-radius .15s cubic-bezier(0.4,0.0,0.2,1)',
 			'& .list-item-text-primary': {
-				color: 'inherit'
+				color: 'white'
 			},
 			'& .list-item-icon': {
-				color: 'inherit'
+				color: 'white'
 			}
 		},
 		'& .list-item-icon': {
@@ -66,12 +66,13 @@ function FuseNavVerticalItem(props) {
 			exact={item.exact}
 		>
 			{item.icon && (
-				<Icon className="list-item-icon text-16 flex-shrink-0" color="action">
+				<Icon className="list-item-icon text-16 flex-shrink-0" color="primary">
 					{item.icon}
 				</Icon>
 			)}
 
 			<ListItemText
+				style={{ color: '#0097CC' }}
 				className="list-item-text"
 				primary={item.translate ? t(item.translate) : item.title}
 				classes={{ primary: 'text-14 list-item-text-primary' }}

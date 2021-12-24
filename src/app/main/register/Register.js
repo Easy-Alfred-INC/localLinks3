@@ -12,11 +12,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 const useStyles = makeStyles(theme => ({
 	root: {
-		background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${darken(
-			theme.palette.primary.dark,
-			0.5
-		)} 100%)`,
-		color: theme.palette.primary.contrastText
+		background: `#F7F7F7`,
+		color: theme.palette.primary.dark
 	}
 }));
 
@@ -30,45 +27,45 @@ function Register() {
 
 	return (
 		<div className={clsx(classes.root, 'flex flex-col flex-1 flex-shrink-0 p-24 md:flex-row md:p-0')}>
-			<div className="flex flex-col flex-grow-0 items-center text-white p-16 text-center md:p-128 md:items-start md:flex-shrink-0 md:flex-1 md:text-left">
+			<div className="flex flex-col flex-grow-0 items-center text-white p-16 text-center md:p-128 md:items-center md:flex-shrink-0 md:flex-1 md:text-left">
 				<FuseAnimate animation="transition.expandIn">
-					<img src="assets/images/logos/easyAlfredLong2.png" alt="logo" />
+					<img width="60%" src="assets/images/logos/easyAlfredLong2.png" alt="logo" />
 				</FuseAnimate>
 
 				<FuseAnimate animation="transition.slideUpIn" delay={300}>
-					<Typography variant="h3" color="inherit" className="font-light">
+					<Typography variant="h4" color="secondary" className="font-light">
 						Welcome to the Local Links Connector!
 					</Typography>
 				</FuseAnimate>
 
 				<FuseAnimate delay={400}>
-					<Typography variant="subtitle1" color="inherit" className="max-w-512 mt-16">
+					<Typography variant="subtitle1" color="secondary" className="max-w-512 mt-16">
 						How can we connect you today?
 					</Typography>
 				</FuseAnimate>
-				<br/>
-				{console.log(window.screen.width < 1000, window.screen.width, (typeof window.screen.width))}
-				{window.screen.width < 1000 ?
+				<br />
+				{console.log(window.screen.width < 1000, window.screen.width, typeof window.screen.width)}
+				{window.screen.width < 1000 ? (
 					<Card className="h-256 rounded-8 shadow-none border-1">
 						<CardMedia
-							component='iframe'
-							title='test'
+							component="iframe"
+							title="test"
 							width="100%;"
 							height="100%;"
-							src='https://www.youtube.com/embed/Mo0RzH0VOfI'
+							src="https://www.youtube.com/embed/Mo0RzH0VOfI"
 						/>
 					</Card>
-					:
+				) : (
 					<Card className="w-full h-512 rounded-8 shadow-none border-1">
 						<CardMedia
-							component='iframe'
-							title='test'
+							component="iframe"
+							title="test"
 							width="auto"
 							height="100%;"
-							src='https://www.youtube.com/embed/Mo0RzH0VOfI'
+							src="https://www.youtube.com/embed/Mo0RzH0VOfI"
 						/>
 					</Card>
-				}
+				)}
 			</div>
 
 			<FuseAnimate animation={{ translateX: [0, '100%'] }}>

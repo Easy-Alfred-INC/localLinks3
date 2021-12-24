@@ -42,8 +42,6 @@ import ActivateTripDialog from 'app/main/dialogs/ActivateTripDialog';
 import GetUserDataDialog from 'app/main/dialogs/GetUserDataDialog';
 import EventDialog from 'app/main/apps/calendar/EventDialog';
 
-
-
 const useStyles = makeStyles(theme => ({
 	header: {
 		// height: 500,
@@ -59,17 +57,17 @@ const useStyles = makeStyles(theme => ({
 function PricingStyle1Page() {
 	const dispatch = useDispatch();
 	const user = useSelector(({ auth }) => auth.user);
-	const openActivateTripDialog = user.trip.openDialog
+	const openActivateTripDialog = user.trip.openDialog;
 	// // const isCartLocked = user.trip.isCartLocked
-	const openGetUserDataDialog = user.data.openDialog
-	const services = user.trip.data ? user.trip.data.services.data : {}
+	const openGetUserDataDialog = user.data.openDialog;
+	const services = user.trip.data ? user.trip.data.services.data : {};
 
-	let tripEndDate = 0
-	let tripStartDate = 0
+	let tripEndDate = 0;
+	let tripStartDate = 0;
 	let tripData = useSelector(({ auth }) => auth.user.trip.data);
-	if (tripData){
-		tripEndDate = tripData.tripEndDate
-		tripStartDate = tripData.tripStartDate
+	if (tripData) {
+		tripEndDate = tripData.tripEndDate;
+		tripStartDate = tripData.tripStartDate;
 	}
 	// const {tripEndDate, tripStartDate} = useSelector(({ auth }) => auth.user.trip.data);
 	// const {tripEndDate, tripStartDate} = useSelector(({ auth }) => auth.user.trip.data);
@@ -80,96 +78,92 @@ function PricingStyle1Page() {
 	const [open, setOpen] = React.useState(true);
 
 	const handleClick = () => {
-	  setOpen(!open);
+		setOpen(!open);
 	};
 
 	function generate(services, dispatch) {
-		let arr = []
+		let arr = [];
 		let length = 0;
 		console.log('services', services);
-		for (let i in services){
-	
-			let icon = <ArrowRightIcon />
-			if (services[i].icon === 'spa'){
-				icon = <SpaIcon />
-			} else if (services[i].icon === 'accessibility_new'){
-				icon = <AccessibilityNew />
-			} else if (services[i].icon === 'fastfood'){
-				icon = <Fastfood />
-			} else if (services[i].icon === 'local_laundry_service'){
-				icon = <LocalLaundryService />
-			} else if (services[i].icon === 'card_membership'){
-				icon = <CardMembership />
-			} else if (services[i].icon === 'pets'){
-				icon = <Pets />
+		for (let i in services) {
+			let icon = <ArrowRightIcon />;
+			if (services[i].icon === 'spa') {
+				icon = <SpaIcon />;
+			} else if (services[i].icon === 'accessibility_new') {
+				icon = <AccessibilityNew />;
+			} else if (services[i].icon === 'fastfood') {
+				icon = <Fastfood />;
+			} else if (services[i].icon === 'local_laundry_service') {
+				icon = <LocalLaundryService />;
+			} else if (services[i].icon === 'card_membership') {
+				icon = <CardMembership />;
+			} else if (services[i].icon === 'pets') {
+				icon = <Pets />;
 			} else if (services[i].icon === 'tap_and_play') {
-				icon = <TapAndPlay />
-			} 
-			else if (services[i].icon === 'tab') {
-				icon = <Tab />
-			}
-			else if (services[i].icon === 'battery_charging_full') {
-				icon = <BatteryChargingFull />
-			}
-			else if (services[i].icon === 'movie') {
-				icon = <Movie />
-			}
-			else if (services[i].icon === 'settings_applications') {
-				icon = <SettingsApplications />
-			}
-			else if (services[i].icon === 'assignment') {
-				icon = <Assignment />
-			}
-			else if (services[i].icon === 'account_balance') {
-				icon = <AccountBalance />
-			}
-			else if (services[i].icon === 'home') {
-				icon = <Home />
-			}
-			else if (services[i].icon === 'local_atm') {
-				icon = <LocalAtm />
-			}
-			else if (services[i].icon === 'aspect_ratio') {
-				icon = <AspectRatio />
+				icon = <TapAndPlay />;
+			} else if (services[i].icon === 'tab') {
+				icon = <Tab />;
+			} else if (services[i].icon === 'battery_charging_full') {
+				icon = <BatteryChargingFull />;
+			} else if (services[i].icon === 'movie') {
+				icon = <Movie />;
+			} else if (services[i].icon === 'settings_applications') {
+				icon = <SettingsApplications />;
+			} else if (services[i].icon === 'assignment') {
+				icon = <Assignment />;
+			} else if (services[i].icon === 'account_balance') {
+				icon = <AccountBalance />;
+			} else if (services[i].icon === 'home') {
+				icon = <Home />;
+			} else if (services[i].icon === 'local_atm') {
+				icon = <LocalAtm />;
+			} else if (services[i].icon === 'aspect_ratio') {
+				icon = <AspectRatio />;
 			}
 			// else if (services[i].icon === 'aspect_ratio') {
 			// 	icon = <AspectAatio />
 			// }
 
-			// 
-			// 
-			// 
-			// 
-			// 
-			// 
+			//
+			//
+			//
+			//
+			//
+			//
 			// home
-			// 
-	
+			//
+
 			console.log('services[i]', services[i]);
-			let serviceOptions = services[i].serviceOptions
-			let listItem = []
-			for (let j in serviceOptions){
-				
+			let serviceOptions = services[i].serviceOptions;
+			let listItem = [];
+			for (let j in serviceOptions) {
 				let {
-					
 					priceQuantifier1Label,
-					serviceLabel, 
+					serviceLabel,
 					requestsLabel,
 					priceLabel,
 					subServiceLabel,
 					priceQuantifier2Label,
 
-					
-					priceQuantifier1,priceQuantifier2,serviceTitle, serviceId, priceMax, priceMin, price, priceType, subServiceOptions = ''} = serviceOptions[j]
-				let budget = ''
-				if (priceType.includes("exact")){
-					budget = price
+					priceQuantifier1,
+					priceQuantifier2,
+					serviceTitle,
+					serviceId,
+					priceMax,
+					priceMin,
+					price,
+					priceType,
+					subServiceOptions = ''
+				} = serviceOptions[j];
+				let budget = '';
+				if (priceType.includes('exact')) {
+					budget = price;
 				}
 				listItem.push(
-					<ListItem 
-					button
-						key={serviceId} 
-						onClick={() =>{
+					<ListItem
+						button
+						key={serviceId}
+						onClick={() => {
 							let obj = {
 								...services[i],
 								budget,
@@ -191,61 +185,49 @@ function PricingStyle1Page() {
 								subServiceOptions,
 								serviceId,
 								start: minDate,
-								end: maxDate,
-							}
-							dispatch(Actions.openNewEventDialog(obj))
-						}
-					}
+								end: maxDate
+							};
+							dispatch(Actions.openNewEventDialog(obj));
+						}}
 					>
-	
 						<ListItemAvatar>
-							<Avatar>
-								{icon}
-							</Avatar>
+							<Avatar>{icon}</Avatar>
 						</ListItemAvatar>
-	
+
 						<ListItemText primary={serviceTitle} />
-						
-							<Button 
-							size="small"
-							variant="outlined"
-							className="w-128">
+
+						<Button size="small" variant="outlined" className="w-128">
 							<Icon className="text-16">launch</Icon>
 							<span className="mx-4">CHOOSE SERVICE</span>
-							</Button>
-	
+						</Button>
 					</ListItem>
-				)
+				);
 			}
-			
 
-			const serviceOptionLength = Object.keys(services[i].serviceOptions).length 
+			const serviceOptionLength = Object.keys(services[i].serviceOptions).length;
 			console.log('serviceOptionLength', serviceOptionLength, length);
 			if (serviceOptionLength > length) {
-				length = serviceOptionLength
+				length = serviceOptionLength;
 				arr.unshift(
 					<div className="w-full sm:w-1/2 p-24" key={services[i].title}>
 						<Typography className="text-20 mb-8">{services[i].title}</Typography>
-						<Typography className="text-16" color="textSecondary">
-						</Typography>
+						<Typography className="text-16" color="textSecondary"></Typography>
 						{listItem}
 					</div>
-				)
+				);
 			} else {
 				arr.push(
 					<div className="w-full sm:w-1/2 p-24" key={services[i].title}>
-							<Typography className="text-20 mb-8">{services[i].title}</Typography>
-							<Typography className="text-16" color="textSecondary">
-							</Typography>
-								{listItem}
-						</div>
-				)
+						<Typography className="text-20 mb-8">{services[i].title}</Typography>
+						<Typography className="text-16" color="textSecondary"></Typography>
+						{listItem}
+					</div>
+				);
 				console.log('here');
 			}
-	
 		}
-		return arr
-	  }
+		return arr;
+	}
 
 	// function handleDescirptionLength(length) {
 	// 	console.log('length', length)
@@ -254,54 +236,49 @@ function PricingStyle1Page() {
 	// 	return 17
 	// }
 
-	function handleOpenEventDialoge(n){
-		console.log('stop', n)
+	function handleOpenEventDialoge(n) {
+		console.log('stop', n);
 		dispatch(
 			Actions.openNewEventDialog({
 				...n,
 				start: new Date(),
-				end: new Date(),
+				end: new Date()
 			})
-		)
+		);
 	}
-	
-	if (!user) return null
 
-	if (openActivateTripDialog){
-		return (
-			<>
-			{openActivateTripDialog && <ActivateTripDialog />}
-			</>
-		)
+	if (!user) return null;
+
+	if (openActivateTripDialog) {
+		return <>{openActivateTripDialog && <ActivateTripDialog />}</>;
 	}
 
 	return (
 		<>
 			<div>
 				<div
+					style={{ backgroundColor: '#F7F7F7' }}
 					className={clsx(
-						classes.header,
 						'flex flex-col flex-shrink-0 items-center justify-center text-center p-16 sm:p-24 h-200 sm:h-360'
 					)}
 				>
 					<FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
-						<Typography color="inherit" variant="h4" className="text-36 sm:text-56 font-light">
-							Your Local Business Connector
-						</Typography>
+						<img width="20%" src="assets/images/logos/easyAlfredLong2.png" alt="logo" />
 					</FuseAnimate>
 
 					<FuseAnimate duration={400} delay={600}>
 						<Typography
 							variant="subtitle1"
-							color="inherit"
+							color="primary"
 							className="opacity-75 mt-8 sm:mt-16 mx-auto max-w-512"
 						>
-							Pick your service, budget, timeline & goals! We evaluate your plan, confirm, & coordinate a pair of ideal service providers!
+							Pick your service, budget, timeline & goals! We evaluate your plan, confirm, & coordinate a
+							pair of ideal service providers!
 						</Typography>
 					</FuseAnimate>
 				</div>
 
-			<div className="flex flex-col flex-1 flex-shrink-0 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
+				<div className="flex flex-col flex-1 flex-shrink-0 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
 					<div className="w-full max-w-2xl mx-auto">
 						<FuseAnimateGroup
 							enter={{
@@ -309,46 +286,51 @@ function PricingStyle1Page() {
 							}}
 							className="flex items-center justify-center flex-wrap"
 						>
-							
-						{Object.entries(services).map(([key, n]) => {
-							// console.log(key, '///', n.description.length)
-							return (
-								<div className="w-full max-w-320 sm:w-1/3 p-12" key={key} >
-									<Card raised square>
-										<div
-											className={clsx(
-												classes.cardHeader,
-												'flex items-center justify-between px-24 py-16'
-											)}
-										>
-											<Typography variant="subtitle1" color="inherit">
-												{n.title}
-											</Typography>
-										</div>
-
-										<CardContent className="p-32">
-											<img src={n.image} alt={n.title}/>
-											<Divider className="my-32" />
-											<div className="flex flex-col" style={{ 'height': 120, 'marginBottom': 10 }}>
-												<Typography variant='subtitle1' className="">
-													{n.description}
+							{Object.entries(services).map(([key, n]) => {
+								// console.log(key, '///', n.description.length)
+								return (
+									<div className="w-full max-w-320 sm:w-1/3 p-12" key={key}>
+										<Card raised square>
+											<div
+												style={{ backgroundColor: '#0097CC' }}
+												className={clsx(
+													classes.cardHeader,
+													'flex items-center justify-between px-24 py-16'
+												)}
+											>
+												<Typography variant="subtitle1" color="inherit">
+													{n.title}
 												</Typography>
 											</div>
-										</CardContent>
 
-										<div className="flex justify-center pb-32">
-											<Button 
-											onClick={()=> handleOpenEventDialoge(n)}
-											variant="contained" color="secondary" className="w-128">
-												<Icon className="text-16">{n.icon}</Icon>
-												<span className="mx-4">CHOOSE SERVICE</span>
-											</Button>
+											<CardContent className="p-32">
+												<img src={n.image} alt={n.title} />
+												<Divider className="my-32" />
+												<div
+													className="flex flex-col"
+													style={{ height: 120, marginBottom: 10 }}
+												>
+													<Typography variant="subtitle1" className="">
+														{n.description}
+													</Typography>
+												</div>
+											</CardContent>
 
-										</div>
-									</Card>
-								</div>
-							);
-						})}
+											<div className="flex justify-center pb-32">
+												<Button
+													onClick={() => handleOpenEventDialoge(n)}
+													variant="contained"
+													color="secondary"
+													className="w-128"
+												>
+													<Icon className="text-16">{n.icon}</Icon>
+													<span className="mx-4">CHOOSE SERVICE</span>
+												</Button>
+											</div>
+										</Card>
+									</div>
+								);
+							})}
 						</FuseAnimateGroup>
 
 						<div className="flex flex-col items-center py-96 text-center sm:ltr:text-left sm:rtl:text-right max-w-xl mx-auto">
@@ -356,15 +338,14 @@ function PricingStyle1Page() {
 								{open ? 'VIEW ALL SERVICES' : 'HIDE ALL SERVICES'}
 							</Button>
 							<FuseAnimateGroup
-							enter={{
-								animation: 'transition.slideUpBigIn'
-							}}
-							className="flex flex-wrap w-full"
+								enter={{
+									animation: 'transition.slideUpBigIn'
+								}}
+								className="flex flex-wrap w-full"
 							>
 								{!open && generate(services, dispatch)}
 							</FuseAnimateGroup>
 						</div>
-						
 					</div>
 				</div>
 			</div>

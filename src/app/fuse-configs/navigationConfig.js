@@ -38,7 +38,7 @@ const navigationConfig = [
 				type: 'item',
 				icon: 'phone',
 				// icon: 'perm_contact_calendar',
-				url: '/pages/knowledge-base',
+				url: '/pages/knowledge-base'
 			},
 			{
 				id: 'style-1',
@@ -68,7 +68,7 @@ const navigationConfig = [
 				type: 'item',
 				icon: 'help',
 				url: '/pages/faq'
-			},
+			}
 		]
 	},
 	{
@@ -85,7 +85,7 @@ const navigationConfig = [
 				type: 'item',
 				icon: 'assessment',
 				url: '/apps/e-commerce/orders',
-				auth: authRoles.admin,
+				auth: authRoles.admin
 			},
 			{
 				id: 'house-admin',
@@ -93,7 +93,7 @@ const navigationConfig = [
 				type: 'item',
 				icon: 'account_balance',
 				url: '/apps/e-commerce/products',
-				auth: authRoles.admin,
+				auth: authRoles.admin
 			},
 			{
 				id: 'service-admin',
@@ -101,24 +101,10 @@ const navigationConfig = [
 				type: 'item',
 				icon: 'room_service',
 				url: '/apps/contacts/all',
-				auth: authRoles.admin,
-			},
+				auth: authRoles.admin
+			}
 		]
-	},
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
 
 	// {
 	// 	id: 'applications',

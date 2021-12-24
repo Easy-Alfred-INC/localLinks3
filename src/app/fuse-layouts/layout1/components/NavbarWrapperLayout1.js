@@ -124,7 +124,6 @@ function NavbarWrapperLayout1(props) {
 	const navbar = useSelector(({ fuse }) => fuse.navbar);
 
 	const classes = useStyles();
-
 	const { folded } = config.navbar;
 	const foldedAndClosed = folded && !navbar.foldedOpen;
 	const foldedAndOpened = folded && navbar.foldedOpen;
@@ -144,7 +143,7 @@ function NavbarWrapperLayout1(props) {
 							)}
 							onMouseEnter={() => foldedAndClosed && dispatch(Actions.navbarOpenFolded())}
 							onMouseLeave={() => foldedAndOpened && dispatch(Actions.navbarCloseFolded())}
-							style={{ backgroundColor: navbarTheme.palette.background.default }}
+							style={{ backgroundColor: '#F7F7F7' }}
 						>
 							<NavbarLayout1 className={classes.navbarContent} />
 						</div>

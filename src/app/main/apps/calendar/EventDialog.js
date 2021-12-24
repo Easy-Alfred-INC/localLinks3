@@ -285,7 +285,7 @@ function EventDialog(props) {
 		return (
 			<Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
 				<AppBar position="static">
-					<Toolbar className="flex w-full">
+					<Toolbar style={{ backgroundColor: '#0097CC' }} className="flex w-full">
 						<Typography variant="subtitle1" color="inherit">
 							{form.title}
 						</Typography>
@@ -314,7 +314,7 @@ function EventDialog(props) {
 		return (
 			<Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
 				<AppBar position="static">
-					<Toolbar className="px-8">
+					<Toolbar style={{ backgroundColor: '#0097CC' }} className="px-8">
 						<Typography
 							style={{ marginLeft: 5 }}
 							variant="subtitle1"
@@ -529,7 +529,7 @@ function EventDialog(props) {
 		return (
 			<Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
 				<AppBar position="static">
-					<Toolbar className="px-8">
+					<Toolbar style={{ backgroundColor: '#0097CC' }} className="px-8">
 						<Typography
 							style={{ marginLeft: 5 }}
 							variant="subtitle1"
@@ -722,7 +722,7 @@ function EventDialog(props) {
 	return (
 		<Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
 			<AppBar position="static">
-				<Toolbar className="px-8">
+				<Toolbar style={{ backgroundColor: '#0097CC' }} className="px-8">
 					<Typography style={{ marginLeft: 5 }} variant="subtitle1" color="inherit" className="flex-1 px-10">
 						{form.title}
 					</Typography>

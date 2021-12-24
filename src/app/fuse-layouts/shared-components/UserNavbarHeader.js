@@ -45,15 +45,15 @@ function UserNavbarHeader(props) {
 	return (
 		<AppBar
 			position="static"
-			color="primary"
+			style={{ backgroundColor: '#F7F7F7' }}
 			elevation={0}
 			classes={{ root: classes.root }}
 			className="user relative flex flex-col items-center justify-center pt-24 pb-64 mb-32 z-0"
 		>
-			<Typography className="username text-16 whitespace-no-wrap" color="inherit">
+			<Typography className="username text-16 whitespace-no-wrap" color="primary">
 				{user.data.displayName}
 			</Typography>
-			<Typography className="email text-13 mt-8 opacity-50 whitespace-no-wrap" color="inherit">
+			<Typography className="email text-13 mt-8 opacity-50 whitespace-no-wrap" color="primary">
 				{user.data.email}
 			</Typography>
 			<Avatar
