@@ -16,11 +16,8 @@ import * as authActions from 'app/auth/store/actions';
 
 const useStyles = makeStyles(theme => ({
 	root: {
-		background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${darken(
-			theme.palette.primary.dark,
-			0.5
-		)} 100%)`,
-		color: theme.palette.primary.contrastText
+		background: `#F7F7F7`,
+		color: theme.palette.primary.dark
 	}
 }));
 
@@ -42,19 +39,19 @@ function ForgotPassword2Page() {
 
 	return (
 		<div className={clsx(classes.root, 'flex flex-col flex-auto flex-shrink-0 p-24 md:flex-row md:p-0')}>
-			<div className="flex flex-col flex-grow-0 items-center text-white p-16 text-center md:p-128 md:items-start md:flex-shrink-0 md:flex-1 md:text-left">
+			<div className="flex flex-col flex-grow-0 items-center text-white p-16 text-center md:p-128 md:items-center md:flex-shrink-0 md:flex-1 md:text-left">
 				<FuseAnimate animation="transition.expandIn">
-					<img src="assets/images/logos/easyAlfredLong2.png" alt="logo" />
+					<img width="60%" src="assets/images/logos/easyAlfredLong2.png" alt="logo" />
 				</FuseAnimate>
 
 				<FuseAnimate animation="transition.slideUpIn" delay={300}>
-					<Typography variant="h3" color="inherit" className="font-light">
+					<Typography variant="h3" color="secondary" className="font-light">
 						Welcome to the Local Links Connector!
 					</Typography>
 				</FuseAnimate>
 
 				<FuseAnimate delay={400}>
-					<Typography variant="subtitle1" color="inherit" className="max-w-512 mt-16">
+					<Typography variant="subtitle1" color="secondary" className="max-w-512 mt-16">
 						How can we connect you today?
 					</Typography>
 				</FuseAnimate>

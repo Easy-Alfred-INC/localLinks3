@@ -32,10 +32,10 @@ const useStyles = makeStyles(theme => ({
 	navigation: {
 		'& .list-item': {
 			'&:hover': {
-				backgroundColor: theme.palette.type === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0,0,0,.04)'
+				backgroundColor: 'dark'
 			},
 			'&:focus:not(.active)': {
-				backgroundColor: theme.palette.type === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0,0,0,.05)'
+				backgroundColor: 'dark'
 			}
 		}
 	},
@@ -79,6 +79,7 @@ const useStyles = makeStyles(theme => ({
 				padding: '8px 12px 8px 12px',
 				height: 40,
 				minHeight: 40,
+
 				'& .list-item-text': {
 					padding: '0 0 0 8px'
 				}
@@ -99,7 +100,6 @@ const useStyles = makeStyles(theme => ({
 function FuseNavigation(props) {
 	const classes = useStyles(props);
 	const { navigation, layout, active, dense, className } = props;
-
 	const verticalNav = (
 		<List
 			className={clsx(
