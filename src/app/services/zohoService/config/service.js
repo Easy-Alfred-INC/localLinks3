@@ -11,7 +11,7 @@ export default class ZService {
 	constructor() {
 		this.zConfig = new Config();
 		this.baseApi = 'https://www.zohoapis.com/crm/v2/';
-		this.baseAPIGateway = ' https://4t1m6bslik.execute-api.us-east-1.amazonaws.com/default';
+		this.baseAPIGateway = ' https://apr563gtr1.execute-api.us-east-1.amazonaws.com/default';
 	}
 
 	async getRecord(module) {
@@ -80,7 +80,7 @@ export default class ZService {
 	}
 
 	async putRecord(module, body, id) {
-		const urlPUTRecord = '/test';
+		const urlPUTRecord = '/get-zoho-record';
 		const actualToken = await this.zConfig.getToken();
 
 		let requestBody = {};
@@ -111,7 +111,7 @@ export default class ZService {
 	}
 
 	async postRedord(module, body) {
-		const urlPOSTRecord = '/test';
+		const urlPOSTRecord = '/get-zoho-record';
 		const actualToken = await this.zConfig.getToken();
 
 		let requestBody = {};

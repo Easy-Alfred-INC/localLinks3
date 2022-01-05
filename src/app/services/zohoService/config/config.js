@@ -1,8 +1,8 @@
 import firebaseService from 'app/services/firebaseService';
-import axios from 'axios';
+
 export default class Config {
 	constructor() {
-		this.baseAPIGateway = ' https://4t1m6bslik.execute-api.us-east-1.amazonaws.com/default';
+		this.baseAPIGateway = ' https://apr563gtr1.execute-api.us-east-1.amazonaws.com/default';
 	}
 
 	async fetchNewToken() {
