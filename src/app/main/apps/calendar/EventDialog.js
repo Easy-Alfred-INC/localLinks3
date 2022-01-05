@@ -22,6 +22,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from 'app/auth/store/actions';
 import { handleCostColumn } from 'app/services/helper.js';
 import ZDeals from 'app/services/zohoService/leads';
+import ZProducts from 'app/services/zohoService/products';
+import ZContacts from 'app/services/zohoService/contacts';
 
 const defaultFormState = {
 	id: FuseUtils.generateGUID(),
@@ -194,15 +196,35 @@ function EventDialog(props) {
 		closeComposeDialog();
 	}
 
-	function handleSubmit(event) {
+	async function handleSubmit(event) {
 		form.start = moment(form.start);
 		form.end = moment(form.end);
 		event.preventDefault();
 		// console.log('form', form)
 		// console.log('eventDialog.fromAdmin', eventDialog.fromAdmin)
 
+		const zoho = new ZProducts();
+		const zohoContacts = new ZContacts();
+
+		const contact = await zohoContacts.getContactByEmail(tripData.email).then(contact => {
+			if (contact) {
+				return contact.data[0].id;
+			}
+			return contact;
+		});
+		const productsZoho = await zoho.getProductsByName(form.serviceTitle);
+
+		let servicePickID = '';
+		if (productsZoho) {
+			if (productsZoho.data) {
+				servicePickID = productsZoho.data[0].id;
+			}
+		}
+
 		const zPayload = {
-			Deal_Name: `${tripData.displayName} - ${tripData.locationName}`,
+			Contact_Name: contact,
+			Service_Pick: servicePickID != '' ? servicePickID : null,
+			Deal_Name: form.serviceTitle,
 			Stage: 'Qualification',
 			Business_or_Consumer: 'B2B',
 			Closing_Date: form.end.format('YYYY-MM-DD'),
