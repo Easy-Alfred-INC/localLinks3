@@ -230,12 +230,12 @@ function EventDialog(props) {
 			Closing_Date: form.end.format('YYYY-MM-DD'),
 			Pipeline: 'Consumer Pipeline',
 			Account_Name: tripData.locationName,
-			//Service_start_Date_Time: form.start.format('yyyy-mm-dd HH:mm:ss') + '+06:00',
+			Service_start_Date_Time: form.start.format('YYYY-MM-DDTHH:mm:ss'),
 			Description: form.desc,
 			Party_Size_for_Event: form.guestCount,
 			Hours: form.hourCount,
 			Budget1: form.budget,
-			Amount: form.guestCount != '' ? (parseInt(form.guestCount) * parseInt(form.budget)).toString() : form.budget
+			Budget: form.guestCount != '' ? (parseInt(form.guestCount) * parseInt(form.budget)).toString() : form.budget
 		};
 
 		if (eventDialog.fromAdmin) {
