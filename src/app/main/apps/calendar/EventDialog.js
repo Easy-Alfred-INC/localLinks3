@@ -17,7 +17,7 @@ import Select from '@material-ui/core/Select';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import moment from 'moment';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from 'app/auth/store/actions';
 import { handleCostColumn } from 'app/services/helper.js';
@@ -61,14 +61,11 @@ function EventDialog(props) {
 	const eid = eventDialog.data ? eventDialog.data.id : null;
 	const modalHasData = eventDialog.data;
 	const isOnlyTripDates = eventDialog.data ? eventDialog.data.isLocked : false;
-	// console.log('eventDialog.data', eventDialog.data);
 	const uid = eventDialog.data ? eventDialog.data.uid : null;
 	// const isCartLocked = user.trip.isCartLocked
-	// console.log('jj'), user.trip;
 	const readOnly = false;
 	// const readOnly = eventDialog.type === 'edit'
 	const serviceOptions = eventDialog.data ? eventDialog.data.serviceOptions : [];
-
 	let tripEndDate = 0;
 	let tripStartDate = 0;
 	let tripData = useSelector(({ auth }) => auth.user.trip.data);
@@ -93,6 +90,10 @@ function EventDialog(props) {
 
 	const maxDate = moment(tripEndDate).format('MM/DD/YYYY');
 	const { form, handleChange, setForm, setInForm } = useForm(defaultFormState);
+
+	const [priceMin, SetPriceMin] = useState('');
+	const [priceMax, SetPriceMax] = useState('');
+	const [priceExact, SetPriceExact] = useState('');
 
 	const initDialog = useCallback(() => {
 		if (eventDialog.type === 'edit' && eventDialog.data) {
@@ -168,10 +169,22 @@ function EventDialog(props) {
 	}
 
 	function handleChangeDropdownSubService(event) {
-		// console.log('form=>', form)
-		// console.log('event.target=>', event.target)
 		let subServiceTitle = form.subServiceOptions[event.target.value].subServiceTitle;
-		// console.log('subServiceTitle=>', subServiceTitle)
+
+		const minPrice = form.subServiceOptions[event.target.value].priceMin
+			? form.subServiceOptions[event.target.value].priceMin
+			: '';
+		const maxPrice = form.subServiceOptions[event.target.value].priceMax
+			? form.subServiceOptions[event.target.value].priceMax
+			: '';
+
+		const priceExact = form.subServiceOptions[event.target.value].price
+			? form.subServiceOptions[event.target.value].price
+			: '';
+
+		SetPriceMin(minPrice);
+		SetPriceMax(maxPrice);
+		SetPriceExact(priceExact);
 
 		setForm({
 			...form,
@@ -200,8 +213,6 @@ function EventDialog(props) {
 		form.start = moment(form.start);
 		form.end = moment(form.end);
 		event.preventDefault();
-		// console.log('form', form)
-		// console.log('eventDialog.fromAdmin', eventDialog.fromAdmin)
 
 		const zoho = new ZProducts();
 		const zohoContacts = new ZContacts();
@@ -252,7 +263,7 @@ function EventDialog(props) {
 	}
 
 	function isBudgetError(form) {
-		let { priceMax, priceMin, budget, priceType } = form;
+		let { budget, priceType } = form;
 		if (priceType ? priceType.includes('exact') : false) return false;
 		if (!budget) return false;
 		if (+budget < +priceMin || +budget > +priceMax) return true;
@@ -260,6 +271,9 @@ function EventDialog(props) {
 	}
 
 	function handlePrice(form) {
+		if (form?.priceType === 'exact') {
+			return priceExact;
+		}
 		return form.budget;
 	}
 
@@ -268,9 +282,6 @@ function EventDialog(props) {
 	}
 
 	function canBeSubmitted(form) {
-		// console.log('form', form)
-		// console.log('form.priceQuantifier1', form.priceQuantifier1, form.guestCount)
-		// console.log('form.priceQuantifier2', form.priceQuantifier2, form.hourCount)
 		if (!form.budget) return false;
 		if (!form.priceType) return false;
 		if (form.priceQuantifier1 && !form.guestCount) return false;
@@ -280,7 +291,10 @@ function EventDialog(props) {
 	}
 
 	function handleBudgetHelperText(form) {
-		if (form.priceType === 'range') return `min: $${form.priceMin} max: $${form.priceMax}`;
+		const serviceTitle = form.serviceTitle;
+		const serviceSubTitle = form.subServiceTitle;
+
+		if (form.priceType === 'range' && serviceSubTitle != '') return `min: $${priceMin} max: $${priceMax}`;
 		return null;
 	}
 
@@ -331,7 +345,6 @@ function EventDialog(props) {
 		);
 	}
 
-	// console.log('eventDialog.data.fromAdmin', eventDialog.data);
 	if (eventDialog.fromAdmin) {
 		return (
 			<Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
@@ -546,7 +559,6 @@ function EventDialog(props) {
 		);
 	}
 
-	// console.log('eventDialog=2>', eventDialog);
 	if (eventDialog.data.isConfirmed) {
 		return (
 			<Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
@@ -739,8 +751,6 @@ function EventDialog(props) {
 		);
 	}
 
-	console.log('eventDialog=1>', eventDialog);
-	console.log('form=1>', form);
 	return (
 		<Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">
 			<AppBar position="static">
