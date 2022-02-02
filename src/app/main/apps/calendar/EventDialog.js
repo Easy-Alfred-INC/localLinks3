@@ -108,7 +108,9 @@ function EventDialog(props) {
 				end: minDate
 			});
 		}
-	}, [eventDialog.data, eventDialog.type, setForm, minDate]);
+	}, [eventDialog.data, eventDialog.type, setForm]);
+
+	useEffect(() => {}, [form]);
 
 	useEffect(() => {
 		if (eventDialog.props.open) {
@@ -185,9 +187,9 @@ function EventDialog(props) {
 		SetPriceMin(minPrice);
 		SetPriceMax(maxPrice);
 		SetPriceExact(priceExact);
-
 		setForm({
 			...form,
+			budget: priceExact,
 			subServiceTitle,
 			subServiceId: event.target.value
 		});
@@ -226,6 +228,7 @@ function EventDialog(props) {
 		const productsZoho = await zoho.getProductsByName(form.serviceTitle);
 
 		let servicePickID = '';
+
 		if (productsZoho) {
 			if (productsZoho.data) {
 				servicePickID = productsZoho.data[0].id;
