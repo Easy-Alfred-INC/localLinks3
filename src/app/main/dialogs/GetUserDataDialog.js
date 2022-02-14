@@ -17,23 +17,23 @@ import * as Actions from 'app/auth/store/actions';
 const defaultFormState = {
 	phone: '',
 	bio: '',
-	displayName: '',
+	displayName: ''
 };
 
 function GetUserDataDialog(props) {
 	const dispatch = useDispatch();
 	const userDataDialog = useSelector(({ auth }) => auth.user.data);
 	// console.log('-=>', userDataDialog);
-	
+
 	const { form, handleChange, setForm } = useForm(defaultFormState);
 
 	const initDialog = useCallback(() => {
 		console.log('userDataDialog', userDataDialog);
-		
-		setForm({ 
+
+		setForm({
 			...defaultFormState,
 			...userDataDialog
-		 });
+		});
 	}, [userDataDialog, setForm]);
 
 	useEffect(() => {
@@ -42,13 +42,10 @@ function GetUserDataDialog(props) {
 		}
 	}, [userDataDialog.openDialog, initDialog]);
 
-
 	function canBeSubmitted() {
-		console.log('form', form)
+		console.log('form', form);
 
-		return form.phone.length > 9 && 
-			form.bio.length > 0 && 
-			form.displayName.length > 0
+		return form.phone.length > 9 && form.displayName.length > 0;
 	}
 
 	function closeComposeDialog() {
@@ -60,7 +57,6 @@ function GetUserDataDialog(props) {
 		dispatch(Actions.updateUserDataWithModal(form));
 		closeComposeDialog();
 	}
-
 
 	return (
 		<Dialog
@@ -75,79 +71,77 @@ function GetUserDataDialog(props) {
 			<AppBar position="static" elevation={1}>
 				<Toolbar className="flex w-full">
 					<Typography variant="subtitle1" color="inherit">
-						Your Business Profile
+						Your Profile
 					</Typography>
 				</Toolbar>
 			</AppBar>
 			<form noValidate onSubmit={handleSubmit} className="flex flex-col md:overflow-hidden">
 				<DialogContent classes={{ root: 'p-24' }}>
+					<div className="flex">
+						<div className="min-w-48 pt-20">
+							<Icon color="action">assignment</Icon>
+						</div>
 
-				<div className="flex">
-					<div className="min-w-48 pt-20">
-						<Icon color="action">assignment</Icon>
+						<TextField
+							className="mb-24"
+							label="Name"
+							// autoFocus
+							id="displayName"
+							name="displayName"
+							type="text"
+							value={form.displayName}
+							onChange={handleChange}
+							variant="outlined"
+							required
+							fullWidth
+						/>
 					</div>
 
-					<TextField
-						className="mb-24"
-						label="Name"
-						// autoFocus
-						id="displayName"
-						name="displayName"
-						type="text"
-						value={form.displayName}
-						onChange={handleChange}
-						variant="outlined"
-						required
-						fullWidth
-					/>
-				</div>
+					<div className="flex">
+						<div className="min-w-48 pt-20">
+							<Icon color="action">phone</Icon>
+						</div>
 
-
-				<div className="flex">
-					<div className="min-w-48 pt-20">
-						<Icon color="action">phone</Icon>
+						<TextField
+							className="mb-24"
+							label="Phone"
+							autoFocus
+							id="phone"
+							name="phone"
+							type="tel"
+							value={form.phone}
+							onChange={handleChange}
+							variant="outlined"
+							required
+							fullWidth
+						/>
 					</div>
 
-					<TextField
-						className="mb-24"
-						label="Phone"
-						autoFocus
-						id="phone"
-						name="phone"
-						type="tel"
-						value={form.phone}
-						onChange={handleChange}
-						variant="outlined"
-						required
-						fullWidth
-					/>
-				</div>
+					<div className="flex">
+						<div className="min-w-48 pt-20">
+							<Icon color="action">account_circle</Icon>
+						</div>
 
-				<div className="flex">
-					<div className="min-w-48 pt-20">
-						<Icon color="action">account_circle</Icon>
-					</div>
-
-					<TextField
-						className="mb-24"
-						label="Bio"
-						// autoFocus
+						<TextField
+							className="mb-24"
+							label="Bio"
+							// autoFocus
 							placeholder="Tell us about your business, your goals, your plans, and problems. How can we connect you today?"
-						id="bio"
-						name="bio"
-						value={form.bio}
-						onChange={handleChange}
-						variant="outlined"
-						multiline
-						rows={5}
-						required
-						fullWidth
-					/>
-				</div>
+							id="bio"
+							name="bio"
+							value={form.bio}
+							onChange={handleChange}
+							variant="outlined"
+							multiline
+							rows={5}
+							// required
+							fullWidth
+						/>
+					</div>
 				</DialogContent>
 
 				<DialogActions className="justify-between p-8">
-						{/* <div className="px-16">
+					{/* <div className="px-16">
 								<Button
 									component={Link}
 									to={'/pages/faq'}
@@ -159,19 +153,18 @@ function GetUserDataDialog(props) {
 									Cancel
 								</Button>
 							</div> */}
-						<div className="px-16">
-							<Button
-								variant="contained"
-								color="primary"
-								onClick={handleSubmit}
-								type="submit"
-								disabled={!canBeSubmitted()}
-							>
-								OK
-							</Button>
-						</div>
-					</DialogActions>
-
+					<div className="px-16">
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={handleSubmit}
+							type="submit"
+							disabled={!canBeSubmitted()}
+						>
+							OK
+						</Button>
+					</div>
+				</DialogActions>
 			</form>
 		</Dialog>
 	);

@@ -29,8 +29,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import ReactJson from 'react-json-view'
-
+import ReactJson from 'react-json-view';
 
 const defaultFormState = {
 	id: '',
@@ -44,146 +43,147 @@ const defaultFormState = {
 	phone: '',
 	address: '',
 	birthday: '',
-	notes: '',
+	notes: ''
 };
 
-const categoryMap = 
-{
+const categoryMap = {
 	leads: {
-		title: "Leads & Networking",
-		description: "Connect with people & the tools necessary to help you find your ideal customer. We’re a connector!",
-		image: "/assets/images/easyAlfred/leads.jpeg",
-		icon: "tap_and_play",
-		serviceOptions: {},
+		title: 'Leads',
+		description: 'Get connected to networking and other lead generation opportunities.',
+		image: '/assets/images/easyAlfred/leads.jpeg',
+		icon: 'tap_and_play',
+		serviceOptions: {}
 	},
 	bamIt: {
-		title: "BAMit",
-		description: "BAMit has made earning cash back simple. Find a Great Deal Near You, Redeem the Deal, Earn Cash Back!",
-		image: "/assets/images/easyAlfred/bamIt.jpg",
-		icon: "tap_and_play",
-		serviceOptions: {},
+		title: 'BAMit',
+		description:
+			'BAMit has made earning cash back simple. Find a Great Deal Near You, Redeem the Deal, Earn Cash Back!',
+		image: '/assets/images/easyAlfred/bamIt.jpg',
+		icon: 'tap_and_play',
+		serviceOptions: {}
 	},
 	design: {
-		title: "Logo, Web, Print, Illustration",
-		description: "Paint your customer the picture they wish to see. Get matched with experts who fit your brand.",
-		image: "/assets/images/easyAlfred/design.jpg",
-		icon: "aspect_ratio",
-		serviceOptions: {},
+		title: 'Graphic Design',
+		description: 'Paint your customer the picture they wish to see. Get matched with experts who fit your brand.',
+		image: '/assets/images/easyAlfred/design.jpg',
+		icon: 'aspect_ratio',
+		serviceOptions: {}
 	},
 	web: {
-		title: "Website, SEO, Content Creation, Copywriting",
-		description: "Your digital brand needs the right voice. Let’s pair you with the agency who speaks your language.",
-		image: "/assets/images/easyAlfred/web.jpg",
-		icon: "tab",
-		serviceOptions: {},
+		title: 'Digital Marketing',
+		description: 'Your brand needs the right voice. Partner with an agency that speaks your language.',
+		image: '/assets/images/easyAlfred/web.jpg',
+		icon: 'tab',
+		serviceOptions: {}
 	},
 	tech: {
-		title: "Apps & Development",
-		description: "The world is now found in 01000001. We connect you to the best tech companies focused on local business.",
-		image: "/assets/images/easyAlfred/tech.jpg",
-		icon: "battery_charging_full",
-		serviceOptions: {},
+		title: 'Apps & Development',
+		description: 'The world is now found in 01000001. Connect to the best local business tech experts.',
+		image: '/assets/images/easyAlfred/tech.jpg',
+		icon: 'battery_charging_full',
+		serviceOptions: {}
 	},
 	media: {
-		title: "Photographer, Videographer",
-		description: "Picture this: your local brand in all it’s visual glory. All connected to you by Local Links.",
-		image: "/assets/images/easyAlfred/media.jpg",
-		icon: "movie",
-		serviceOptions: {},
+		title: 'Photographer, Videographer',
+		description: 'Picture this: your local brand in all it’s visual glory connected to you by Local Links.',
+		image: '/assets/images/easyAlfred/media.jpg',
+		icon: 'movie',
+		serviceOptions: {}
 	},
 	optimize: {
-		title: "Business Consulting Services",
-		description: "Find order in the chaos. Allow us to introduce your office zen.",
-		image: "/assets/images/easyAlfred/optimize.jpg",
-		icon: "settings_applications",
-		serviceOptions: {},
+		title: 'Business Consulting',
+		description: 'Find order in the chaos. Allow us to introduce your office zen.',
+		image: '/assets/images/easyAlfred/optimize.jpg',
+		icon: 'settings_applications',
+		serviceOptions: {}
 	},
 	legal: {
-		title: "Legal Assistance",
-		description: "From contracts to disputes, businesses need the law on their side.",
-		image: "/assets/images/easyAlfred/legal.jpg",
-		icon: "assignment",
-		serviceOptions: {},
+		title: 'Legal Assistance',
+		description: 'From contracts to disputes, businesses need the law on their side.',
+		image: '/assets/images/easyAlfred/legal.jpg',
+		icon: 'assignment',
+		serviceOptions: {}
 	},
 	finance: {
-		title: "Finance",
-		description: "Keep your accounts and money in order with the best local business experts.",
-		image: "/assets/images/easyAlfred/finance.jpg",
-		icon: "account_balance",
-		serviceOptions: {},
+		title: 'Finance',
+		description: 'Keep your accounts and money in order with the best local business experts.',
+		image: '/assets/images/easyAlfred/finance.jpg',
+		icon: 'account_balance',
+		serviceOptions: {}
 	},
 	realEstate: {
-		title: "Real Estate",
+		title: 'Real Estate',
 		description: "Whether you're looking to buy or sell, commercial or residential, let us match you",
-		image: "/assets/images/easyAlfred/realEstate.jpg",
-		icon: "home",
-		serviceOptions: {},
+		image: '/assets/images/easyAlfred/realEstate.jpg',
+		icon: 'home',
+		serviceOptions: {}
 	},
 	insurance: {
-		title: "Insurance",
-		description: "Insurance saves you a headache when you most need it. We meet, greet and connect you with great agents",
-		image: "/assets/images/easyAlfred/insurance.jpg",
-		icon: "local_atm",
-		serviceOptions: {},
+		title: 'Insurance',
+		description:
+			'Insurance saves you a headache when you most need it. We meet, greet and connect you with great agents',
+		image: '/assets/images/easyAlfred/insurance.jpg',
+		icon: 'local_atm',
+		serviceOptions: {}
 	},
 	funAndAdventure: {
 		title: 'Fun & Adventure',
-		description: 'Explore the area with local guides, and adventures organized by Easy Alfred!',
+		description: 'Explore the area with local guides, and adventures organized by Local Links',
 		image: '/assets/images/easyAlfred/funAndAdventure.jpg',
 		icon: 'accessibility_new',
-		serviceOptions: {},
+		serviceOptions: {}
 	},
 	spaLuxuryAndWellness: {
-		title: 'Spa & Luxury',
-		description: 'Relaxation, rest, or beauty? Necessity or luxury… Rest Easy. Alfred’s here to help.',
+		title: 'Spa & Wellness',
+		description: "Relaxation, rest, or beauty? Necessity or luxury… Rest Easy. We're  here to help.",
 		image: 'assets/images/easyAlfred/spaAndLuxury.jpg',
 		icon: 'spa',
-		serviceOptions: {},
+		serviceOptions: {}
 	},
 	housekeeping: {
 		title: 'Housekeeping',
-		description: 'In need of a quick clean-up, launder, grocery run, or extra towels, let your Alfred know.',
+		description: 'In need of a quick clean-up, launder, grocery run, or extra towels, let us know.',
 		image: 'assets/images/easyAlfred/housekeeping.jpg',
 		icon: 'local_laundry_service',
-		serviceOptions: {},
+		serviceOptions: {}
 	},
 	foodAndBeverage: {
 		title: 'Food & Beverage',
-		description: 'Wine and dine with local chefs, caterers, and bartenders serving up their best cuisine without lifting a finger in the kitchen.',
+		description: 'Wine & dine by local chefs, caterers, & bartenders serving their best cuisine.',
 		image: 'assets/images/easyAlfred/foodAndBeverage.jpg',
 		icon: 'fastfood',
-		serviceOptions: {},
+		serviceOptions: {}
 	},
 	giftCards: {
 		title: 'Buy a gift card!',
-		description: 'Support South Bay (LA) Businesses! Help us test our full process. Purchase a gift card to a local business to give away or gift yourself!',
+		description:
+			'Support South Bay (LA) Businesses! Help us test our full process. Purchase a gift card to a local business to give away or gift yourself!',
 		image: 'assets/images/easyAlfred/giftCards.jpg',
 		icon: 'card_membership',
-		serviceOptions: {},
+		serviceOptions: {}
 	},
 	petCare: {
 		title: 'Pet Care',
 		description: 'Let your pets rest easy on this trip! We connect you to their premier care.',
 		image: 'assets/images/easyAlfred/petCare.jpg',
 		icon: 'pets',
-		serviceOptions: {},
+		serviceOptions: {}
 	}
-}
+};
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
 	appBar: {
-		position: 'relative',
+		position: 'relative'
 	},
 	title: {
 		marginLeft: theme.spacing(2),
-		flex: 1,
-	},
+		flex: 1
+	}
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
-
 
 function ContactDialog(props) {
 	const classes = useStyles();
@@ -196,7 +196,7 @@ function ContactDialog(props) {
 
 	const [state, setState] = React.useState({
 		csvString: '',
-		dataString: '',
+		dataString: ''
 	});
 
 	const initDialog = useCallback(() => {
@@ -225,7 +225,7 @@ function ContactDialog(props) {
 		 */
 		if (contactDialog.props.open) {
 			initDialog();
-			setState({ 
+			setState({
 				csvString: '',
 				dataString: '[]'
 			});
@@ -239,90 +239,88 @@ function ContactDialog(props) {
 	}
 
 	function canBeSubmitted() {
-		return form.name.length > 0 &&
-		state.csvString.length > 0
+		return form.name.length > 0 && state.csvString.length > 0;
 	}
 
 	function canBeSubmittedEdit() {
-		return form.name.length > 0
+		return form.name.length > 0;
 	}
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		console.log('form', !!state.csvString, contactDialog.type)
+		console.log('form', !!state.csvString, contactDialog.type);
 		if (contactDialog.type === 'new') {
 			console.log('zzz adding services');
 			csv({
 				noheader: true,
-				output: "csv"
+				output: 'csv'
 			})
-			.fromString(state.csvString)
-			.then((data) => {
-				const serviceObject = buildServiceData(data)
-				dispatch(Actions.addContact(serviceObject));
-				closeComposeDialog();
-			})
+				.fromString(state.csvString)
+				.then(data => {
+					const serviceObject = buildServiceData(data);
+					dispatch(Actions.addContact(serviceObject));
+					closeComposeDialog();
+				});
 		} else {
-			if (!!state.csvString){
+			if (!!state.csvString) {
 				console.log('zzz updated services');
 				csv({
 					noheader: true,
-					output: "csv"
+					output: 'csv'
 				})
 					.fromString(state.csvString)
-					.then((data) => {
-						const serviceObject = buildServiceData(data)
+					.then(data => {
+						const serviceObject = buildServiceData(data);
 						dispatch(Actions.updateServices(serviceObject));
 						closeComposeDialog();
-					})
+					});
 			} else {
 				console.log('zzz updated services meta');
 				dispatch(Actions.updateContact(form));
 				closeComposeDialog();
 			}
 		}
-		
 	}
 
-	function handleRemove(){
+	function handleRemove() {
 		dispatch(Actions.removeContact(form.id));
 		closeComposeDialog();
 	}
 
 	function buildServiceData(arr) {
-		const serviceMap = {}
-		const { name: serviceId, nickname: subRegion, lastName: region, notes } = form
+		const serviceMap = {};
+		const { name: serviceId, nickname: subRegion, lastName: region, notes } = form;
 
 		function buildSubServiceData(arr) {
-			if (!arr) return null
+			if (!arr) return null;
 			let obj = {};
-			arr.split(',').forEach((item) => {
-				const subServiceId = FuseUtils.generateGUID(item)
+			arr.split(',').forEach(item => {
+				const subServiceId = FuseUtils.generateGUID(item);
 				const subServiceTitle = item.trim();
 				obj[subServiceId] = {
 					subServiceId,
-					subServiceTitle,
-				}
-			})
-			return obj
+					subServiceTitle
+				};
+			});
+			return obj;
 		}
 
 		for (let i = 0; i < arr.length; i++) {
-			const element = arr[i]
-			if (i > 0){
-				const category = element[0]
+			const element = arr[i];
+			if (i > 0) {
+				const category = element[0];
 				if (!serviceMap[category]) {
-					serviceMap[category] = categoryMap[category]
+					serviceMap[category] = categoryMap[category];
 				}
-				const subCategory = element[1]
-				const serviceId =  i + FuseUtils.generateGUID(subCategory)
+				const subCategory = element[1];
+				const serviceId = i + FuseUtils.generateGUID(subCategory);
 				const subServiceOptions = buildSubServiceData(element[8]);
-				const priceQuantifier1 = element[6] === 'none' ? '' : element[6]
-				const priceQuantifier2 = element[7] === 'none' ? '' : element[7]
-				
-				if (subServiceOptions){
+				const priceQuantifier1 = element[6] === 'none' ? '' : element[6];
+				const priceQuantifier2 = element[7] === 'none' ? '' : element[7];
+
+				if (subServiceOptions) {
 					categoryMap[category]['serviceOptions'][serviceId] = {
-						price: element[4].replace('$','').trim(),
+						price: element[4].replace('$', '').trim(),
 						priceMax: element[3].replace('$', '').trim(),
 						priceMin: element[2].replace('$', '').trim(),
 						priceType: element[5],
@@ -339,15 +337,15 @@ function ContactDialog(props) {
 						priceQuantifier2,
 						serviceId: serviceId,
 						serviceTitle: subCategory,
-						subServiceOptions,
-					}
+						subServiceOptions
+					};
 				} else {
 					categoryMap[category]['serviceOptions'][serviceId] = {
-						price: element[4].replace('$','').trim(),
+						price: element[4].replace('$', '').trim(),
 						priceMax: element[3].replace('$', '').trim(),
 						priceMin: element[2].replace('$', '').trim(),
 						priceType: element[5],
-						
+
 						serviceLabel: element[9],
 						subServiceLabel: element[10],
 						priceQuantifier1Label: element[11],
@@ -359,8 +357,8 @@ function ContactDialog(props) {
 						priceQuantifier1,
 						priceQuantifier2,
 						serviceId: serviceId,
-						serviceTitle: subCategory,
-					}
+						serviceTitle: subCategory
+					};
 				}
 			}
 		}
@@ -372,7 +370,7 @@ function ContactDialog(props) {
 				notes,
 				data: serviceMap
 			}
-		}
+		};
 	}
 
 	function handleUploadChange(e) {
@@ -388,7 +386,7 @@ function ContactDialog(props) {
 			setState({ csvString: reader.result });
 		};
 
-		reader.onerror = (error) => {
+		reader.onerror = error => {
 			console.log('error on load csv', error);
 		};
 	}
@@ -404,197 +402,203 @@ function ContactDialog(props) {
 	};
 
 	return (
-		<div >
-		<Dialog
-			classes={{
-				paper: 'm-24'
-			}}
-			{...contactDialog.props}
-			onClose={closeComposeDialog}
-			fullWidth
-			maxWidth="xs"
-		>
-			<AppBar position="static" elevation={1}>
-				<Toolbar className="flex w-full">
-						{contactDialog.type === 'edit' && <Button
-							variant="contained"
-							color="secondary"
-							onClick={handleClickOpen}
-						>
-							View Data
-						</Button>}
-				</Toolbar>
-				<div className="flex flex-col items-center justify-center pb-24">
-					<Avatar className="w-96 h-96" alt="contact avatar" src='assets/images/avatars/profile.jpg' />
-					{contactDialog.type === 'edit' && (
-						<Typography variant="h6" color="inherit" className="pt-8">
-							{form.name}
-						</Typography>
-					)}
-				</div>
-				
-			</AppBar>
-			<form noValidate onSubmit={handleSubmit} className="flex flex-col md:overflow-hidden">
-				<DialogContent classes={{ root: 'p-24' }}>
-
-					<div className="flex">
-						<div className="min-w-48 pt-20">
-								{form.name ? <Icon className="text-green text-20">check_circle</Icon> : <Icon color="action">check</Icon>}
-						</div>
-						<TextField
-							className="mb-24"
-							label="Service Id"
-							autoFocus
-							id="name"
-							name="name"
-							value={form.name}
-							onChange={handleChange}
-							variant="outlined"
-							required
-							fullWidth
-							disabled={contactDialog.type !== 'new'}
-						/>
+		<div>
+			<Dialog
+				classes={{
+					paper: 'm-24'
+				}}
+				{...contactDialog.props}
+				onClose={closeComposeDialog}
+				fullWidth
+				maxWidth="xs"
+			>
+				<AppBar position="static" elevation={1}>
+					<Toolbar className="flex w-full">
+						{contactDialog.type === 'edit' && (
+							<Button variant="contained" color="secondary" onClick={handleClickOpen}>
+								View Data
+							</Button>
+						)}
+					</Toolbar>
+					<div className="flex flex-col items-center justify-center pb-24">
+						<Avatar className="w-96 h-96" alt="contact avatar" src="assets/images/avatars/profile.jpg" />
+						{contactDialog.type === 'edit' && (
+							<Typography variant="h6" color="inherit" className="pt-8">
+								{form.name}
+							</Typography>
+						)}
 					</div>
-
-					<div className="flex">
-						<div className="min-w-48 pt-2">
-								{form.lastName ? <Icon className="text-green text-20">check_circle</Icon> : <Icon color="action">check</Icon>}
+				</AppBar>
+				<form noValidate onSubmit={handleSubmit} className="flex flex-col md:overflow-hidden">
+					<DialogContent classes={{ root: 'p-24' }}>
+						<div className="flex">
+							<div className="min-w-48 pt-20">
+								{form.name ? (
+									<Icon className="text-green text-20">check_circle</Icon>
+								) : (
+									<Icon color="action">check</Icon>
+								)}
+							</div>
+							<TextField
+								className="mb-24"
+								label="Service Id"
+								autoFocus
+								id="name"
+								name="name"
+								value={form.name}
+								onChange={handleChange}
+								variant="outlined"
+								required
+								fullWidth
+								disabled={contactDialog.type !== 'new'}
+							/>
 						</div>
-						<TextField
-							className="mb-24"
-							label="Region"
-							id="lastName"
-							name="lastName"
-							value={form.lastName}
-							onChange={handleChange}
-							variant="outlined"
-							fullWidth
-						/>
-					</div>
 
-					<div className="flex">
-						<div className="min-w-48 pt-20">
-								{form.nickname ? <Icon className="text-green text-20">check_circle</Icon> : <Icon color="action">check</Icon>}
+						<div className="flex">
+							<div className="min-w-48 pt-2">
+								{form.lastName ? (
+									<Icon className="text-green text-20">check_circle</Icon>
+								) : (
+									<Icon color="action">check</Icon>
+								)}
+							</div>
+							<TextField
+								className="mb-24"
+								label="Region"
+								id="lastName"
+								name="lastName"
+								value={form.lastName}
+								onChange={handleChange}
+								variant="outlined"
+								fullWidth
+							/>
 						</div>
-						<TextField
-							className="mb-24"
-							label="Sub Region"
-							id="nickname"
-							name="nickname"
-							value={form.nickname}
-							onChange={handleChange}
-							variant="outlined"
-							fullWidth
-						/>
-					</div>
 
-					<div className="flex">
-						<div className="min-w-48 pt-20">
-								{form.notes ? <Icon className="text-green text-20">check_circle</Icon> : <Icon color="action">check</Icon>}
+						<div className="flex">
+							<div className="min-w-48 pt-20">
+								{form.nickname ? (
+									<Icon className="text-green text-20">check_circle</Icon>
+								) : (
+									<Icon color="action">check</Icon>
+								)}
+							</div>
+							<TextField
+								className="mb-24"
+								label="Sub Region"
+								id="nickname"
+								name="nickname"
+								value={form.nickname}
+								onChange={handleChange}
+								variant="outlined"
+								fullWidth
+							/>
 						</div>
-						<TextField
-							className="mb-24"
-							label="Notes"
-							id="notes"
-							name="notes"
-							value={form.notes}
-							onChange={handleChange}
-							variant="outlined"
-							multiline
-							rows={3}
-							fullWidth
-						/>
-					</div>
 
-					<div className="flex">
-						<div className="min-w-48 pt-20">
-								{state.csvString.length > 0 ? <Icon className="text-green text-20">check_circle</Icon> : <Icon color="action">check</Icon>}
+						<div className="flex">
+							<div className="min-w-48 pt-20">
+								{form.notes ? (
+									<Icon className="text-green text-20">check_circle</Icon>
+								) : (
+									<Icon color="action">check</Icon>
+								)}
+							</div>
+							<TextField
+								className="mb-24"
+								label="Notes"
+								id="notes"
+								name="notes"
+								value={form.notes}
+								onChange={handleChange}
+								variant="outlined"
+								multiline
+								rows={3}
+								fullWidth
+							/>
 						</div>
+
+						<div className="flex">
+							<div className="min-w-48 pt-20">
+								{state.csvString.length > 0 ? (
+									<Icon className="text-green text-20">check_circle</Icon>
+								) : (
+									<Icon color="action">check</Icon>
+								)}
+							</div>
 							<label htmlFor="button-file">
-								<input disabled={state.csvString.length > 0} accept=".csv" className="hidden" id="button-file" type="file" onChange={handleUploadChange} />
+								<input
+									disabled={state.csvString.length > 0}
+									accept=".csv"
+									className="hidden"
+									id="button-file"
+									type="file"
+									onChange={handleUploadChange}
+								/>
 								<IconButton disabled={state.csvString.length > 0} component="span">
-								<Icon fontSize="large">attach_file</Icon>
-								{contactDialog.type === 'new' ? 'Upload CSV' : 'Update CSV'} 
-							</IconButton>
-						</label>
-					</div>
-				</DialogContent>
-
-				{contactDialog.type === 'new' ? (
-					<DialogActions className="justify-between p-8">
-						<div className="px-16">
-							<Button
-								variant="contained"
-								color="primary"
-								// onClick={handleSubmit}
-								type="submit"
-								disabled={!canBeSubmitted()}
-							>
-								Add
-							</Button>
-							{' '}
-							<Button
-								variant="contained"
-								color="primary"
-								onClick={closeComposeDialog}
-								>
-								Cancel
-							</Button>
-								</div>
-					</DialogActions>
-				) : (
-
-					<DialogActions className="justify-between p-8">
-						<div className="px-16">
-							<Button
-								variant="contained"
-								
-								color="primary"
-								type="submit"
-								// onClick={handleSubmit}
-								disabled={!canBeSubmittedEdit()}
-								>
-								Save
-							</Button>
-							{' '}
-							<Button
-								variant="contained"
-								color="primary"
-								onClick={closeComposeDialog}
-								>
-								Cancel
-							</Button>
+									<Icon fontSize="large">attach_file</Icon>
+									{contactDialog.type === 'new' ? 'Upload CSV' : 'Update CSV'}
+								</IconButton>
+							</label>
 						</div>
-						<IconButton onClick={handleRemove}>
-							<Icon>delete</Icon>
-						</IconButton>
-					</DialogActions>
+					</DialogContent>
 
-				)}
-			</form>
-		</Dialog>
+					{contactDialog.type === 'new' ? (
+						<DialogActions className="justify-between p-8">
+							<div className="px-16">
+								<Button
+									variant="contained"
+									color="primary"
+									// onClick={handleSubmit}
+									type="submit"
+									disabled={!canBeSubmitted()}
+								>
+									Add
+								</Button>{' '}
+								<Button variant="contained" color="primary" onClick={closeComposeDialog}>
+									Cancel
+								</Button>
+							</div>
+						</DialogActions>
+					) : (
+						<DialogActions className="justify-between p-8">
+							<div className="px-16">
+								<Button
+									variant="contained"
+									color="primary"
+									type="submit"
+									// onClick={handleSubmit}
+									disabled={!canBeSubmittedEdit()}
+								>
+									Save
+								</Button>{' '}
+								<Button variant="contained" color="primary" onClick={closeComposeDialog}>
+									Cancel
+								</Button>
+							</div>
+							<IconButton onClick={handleRemove}>
+								<Icon>delete</Icon>
+							</IconButton>
+						</DialogActions>
+					)}
+				</form>
+			</Dialog>
 
-			<Dialog  fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+			<Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
 				<AppBar className={classes.appBar}>
 					<Toolbar>
 						<IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
 							<CloseIcon />
 						</IconButton>
 						<Typography variant="h6" className={classes.title}>
-						JSON service data
-            </Typography>
+							JSON service data
+						</Typography>
 						<Button autoFocus color="inherit" onClick={handleClose}>
-						close
-            </Button>
+							close
+						</Button>
 					</Toolbar>
 				</AppBar>
-				<ReactJson src={form.data} 
-				collapsed
-				name={false} 
-				displayDataTypes={false}
-				enableClipboard={false}/>
+				<ReactJson src={form.data} collapsed name={false} displayDataTypes={false} enableClipboard={false} />
 			</Dialog>
-			</div>
+		</div>
 	);
 }
 

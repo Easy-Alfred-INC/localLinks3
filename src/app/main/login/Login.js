@@ -52,7 +52,7 @@ function Login() {
 							title="test"
 							width="100%;"
 							height="100%;"
-							src="https://www.youtube.com/embed/Mo0RzH0VOfI"
+							src="https://www.youtube.com/embed/QzoRRO9wpZY"
 						/>
 					</Card>
 				) : (
@@ -62,11 +62,21 @@ function Login() {
 							title="test"
 							width="auto"
 							height="100%;"
-							src="https://www.youtube.com/embed/Mo0RzH0VOfI"
+							src="https://www.youtube.com/embed/QzoRRO9wpZY"
 						/>
 					</Card>
 				)}
 			</div>
+
+			{/* <iframe
+				width="1280"
+				height="720"
+				src="https://www.youtube.com/embed/QzoRRO9wpZY"
+				title="YouTube video player"
+				frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen
+			></iframe> */}
 
 			<FuseAnimate animation={{ translateX: [0, '100%'] }}>
 				<Card className="w-full max-w-400 mx-auto m-16 md:m-0" square>

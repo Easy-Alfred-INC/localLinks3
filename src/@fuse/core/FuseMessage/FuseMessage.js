@@ -67,30 +67,29 @@ function FuseMessage(props) {
 				message={
 					<div className="flex items-center">
 						{variantIcon[options.variant] && <Icon color="inherit">{variantIcon[options.variant]}</Icon>}
-						{options.isNewService && 
-							<Button 
-							size='large'
-							component={Link} 
-							to="/pages/coming-soon" 
-							variant="outlined" 
-							color="secondary" 
-							>
-							VIEW ITINERARY
-							</Button>
-						}
-						<Typography className={options.isNewService ? "mx-16" : "mx-8"}>{options.message}</Typography>
-						{options.isNewService &&
+						{options.isNewService && (
 							<Button
-								size='large'
+								size="large"
+								component={Link}
+								to="/pages/coming-soon"
+								variant="outlined"
+								color="secondary"
+							>
+								VIEW PLAN
+							</Button>
+						)}
+						<Typography className={options.isNewService ? 'mx-16' : 'mx-8'}>{options.message}</Typography>
+						{options.isNewService && (
+							<Button
+								size="large"
 								component={Link}
 								to="/pages/knowledge-base"
 								variant="outlined"
 								color="secondary"
 							>
-								 BOOK NOW
+								SCHEDULE NOW
 							</Button>
-						}
-						
+						)}
 					</div>
 				}
 				action={[

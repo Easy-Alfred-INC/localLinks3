@@ -272,8 +272,8 @@ function PricingStyle1Page() {
 							color="primary"
 							className="opacity-75 mt-8 sm:mt-16 mx-auto max-w-512"
 						>
-							Pick your service, budget, timeline & goals! We evaluate your plan, confirm, & coordinate a
-							pair of ideal service providers!
+							Pick the service you need, your budget, estimate your goals and timeline! We evaluate your
+							plan, confirm, & coordinate multiple ideal service providers for you!
 						</Typography>
 					</FuseAnimate>
 				</div>
