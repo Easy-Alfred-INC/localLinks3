@@ -189,7 +189,6 @@ function ContactDialog(props) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const contactDialog = useSelector(({ contactsApp }) => contactsApp.contacts.contactDialog);
-	// console.log('data1234', contactDialog);
 	// const getJsonIndented = (obj) => JSON.stringify(newObj, null, 4).replace(/["{[,\}\]]/g, "")
 	// const getJsonIndented = (obj) => JSON.stringify(newObj, null, 4).replace(/["{[,\}\]]/g, "")
 	const { form, handleChange, setForm } = useForm(defaultFormState);
@@ -248,34 +247,32 @@ function ContactDialog(props) {
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		console.log('form', !!state.csvString, contactDialog.type);
 		if (contactDialog.type === 'new') {
-			console.log('zzz adding services');
 			csv({
 				noheader: true,
-				output: 'csv'
+				output: 'json'
 			})
 				.fromString(state.csvString)
 				.then(data => {
-					const serviceObject = buildServiceData(data);
+					//const serviceObject = buildServiceData(data);
+					const serviceObject = uploadServiceCSV(data);
 					dispatch(Actions.addContact(serviceObject));
 					closeComposeDialog();
 				});
 		} else {
 			if (!!state.csvString) {
-				console.log('zzz updated services');
 				csv({
 					noheader: true,
-					output: 'csv'
+					output: 'json'
 				})
 					.fromString(state.csvString)
 					.then(data => {
-						const serviceObject = buildServiceData(data);
+						//const serviceObject = buildServiceData(data);
+						const serviceObject = uploadServiceCSV(data);
 						dispatch(Actions.updateServices(serviceObject));
 						closeComposeDialog();
 					});
 			} else {
-				console.log('zzz updated services meta');
 				dispatch(Actions.updateContact(form));
 				closeComposeDialog();
 			}
@@ -390,6 +387,76 @@ function ContactDialog(props) {
 			console.log('error on load csv', error);
 		};
 	}
+
+	const uploadServiceCSV = data => {
+		const { name: serviceId, nickname: subRegion, lastName: region, notes } = form;
+		const headerObject = data.shift();
+		const headers = Object.keys(data[0]);
+		const categoryString = 'category';
+		const fieldCategory = headers.find(element => headerObject[element] === categoryString);
+
+		const subCategoryString = 'subCategory';
+		const fieldSubCategory = headers.find(element => headerObject[element] === subCategoryString);
+
+		const allCategories = [...new Set(data.map(x => x[fieldCategory]))];
+		const newService = {};
+		for (const categorie of allCategories) {
+			const newCategorie = categoryMap[categorie];
+			const filterCategorieData = data.filter(x => x[fieldCategory] === categorie);
+			const allSubCategories = [...new Set(filterCategorieData.map(x => x[fieldSubCategory]))];
+
+			for (const subCategory of allSubCategories) {
+				const serviceOptionId = FuseUtils.generateGUID(subCategory);
+				const allSubCategoryByType = filterCategorieData.filter(x => x[fieldSubCategory] === subCategory);
+				const newServiceOption = {
+					isConfirmed: false,
+					serviceTitle: subCategory,
+					price: allSubCategoryByType[0]['field6'],
+					priceLabel: allSubCategoryByType[0]['field14'],
+					priceMax: allSubCategoryByType[0]['field5'].replace('$', '').trim(),
+					priceMin: allSubCategoryByType[0]['field5'].replace('$', '').trim(),
+					priceQuantifier1: allSubCategoryByType[0]['field8'],
+					priceQuantifier1Label: allSubCategoryByType[0]['field12'],
+					priceQuantifier2: allSubCategoryByType[0]['field9'],
+					priceQuantifier2Label: allSubCategoryByType[0]['field13'],
+					priceType: allSubCategoryByType[0]['field7'],
+					requestsLabel: allSubCategoryByType[0]['field15'],
+					serviceId: serviceOptionId,
+					serviceLabel: allSubCategoryByType[0]['field10'],
+					subServiceLabel: allSubCategoryByType[0]['field11'],
+					subServiceOptions: {}
+				};
+
+				for (const subServiceOptions of allSubCategoryByType) {
+					const subServiceOptionsId = FuseUtils.generateGUID(subServiceOptions);
+					const newSubServiceOptions = {
+						subServiceId: subServiceOptionsId,
+						subServiceTitle: subServiceOptions['field3']
+					};
+					if (subServiceOptions['field7'] === 'range') {
+						newSubServiceOptions['priceMax'] = subServiceOptions['field5'].replace('$', '').trim();
+						newSubServiceOptions['priceMin'] = subServiceOptions['field4'].replace('$', '').trim();
+					} else {
+						newSubServiceOptions['price'] = subServiceOptions['field6'].replace('$', '').trim();
+					}
+
+					newServiceOption['subServiceOptions'][subServiceOptionsId] = newSubServiceOptions;
+				}
+
+				newCategorie['serviceOptions'][serviceOptionId] = newServiceOption;
+			}
+			newService[categorie] = newCategorie;
+		}
+		return {
+			[serviceId]: {
+				serviceId,
+				region,
+				subRegion,
+				notes,
+				data: newService
+			}
+		};
+	};
 
 	const [open, setOpen] = React.useState(false);
 
