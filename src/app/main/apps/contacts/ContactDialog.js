@@ -143,7 +143,7 @@ const categoryMap = {
 	housekeeping: {
 		title: 'Housekeeping',
 		description: 'In need of a quick clean-up, launder, grocery run, or extra towels, let us know.',
-		image: 'assets/images/easyAlfred/housekeeping.jpg',
+		image: 'assets/images/easyAlfred/houseKeeping2.jpg',
 		icon: 'local_laundry_service',
 		serviceOptions: {}
 	},
