@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from 'app/auth/store/actions';
+import ZContacts from 'app/services/zohoService/contacts';
 // import {Link} from 'react-router-dom';
 
 const defaultFormState = {
@@ -23,13 +24,10 @@ const defaultFormState = {
 function GetUserDataDialog(props) {
 	const dispatch = useDispatch();
 	const userDataDialog = useSelector(({ auth }) => auth.user.data);
-	// console.log('-=>', userDataDialog);
+	const zohoContacts = new ZContacts();
 
 	const { form, handleChange, setForm } = useForm(defaultFormState);
-
 	const initDialog = useCallback(() => {
-		console.log('userDataDialog', userDataDialog);
-
 		setForm({
 			...defaultFormState,
 			...userDataDialog
@@ -43,8 +41,6 @@ function GetUserDataDialog(props) {
 	}, [userDataDialog.openDialog, initDialog]);
 
 	function canBeSubmitted() {
-		console.log('form', form);
-
 		return form.phone.length > 9 && form.displayName.length > 0;
 	}
 
@@ -52,7 +48,23 @@ function GetUserDataDialog(props) {
 		return dispatch(Actions.closeUpdateUserDataDialog());
 	}
 
-	function handleSubmit(event) {
+	async function handleSubmit(event) {
+		const contactID = await zohoContacts.getContactByEmail(userDataDialog.email).then(contact => {
+			if (contact) {
+				return contact.data[0].id;
+			}
+			return null;
+		});
+
+		const zPayload = {
+			Description: form.bio,
+			Phone: '1' + form.phone
+		};
+
+		if (contactID) {
+			await zohoContacts.updateContacts(zPayload, contactID);
+		}
+
 		event.preventDefault();
 		dispatch(Actions.updateUserDataWithModal(form));
 		closeComposeDialog();
@@ -154,13 +166,7 @@ function GetUserDataDialog(props) {
 								</Button>
 							</div> */}
 					<div className="px-16">
-						<Button
-							variant="contained"
-							color="primary"
-							onClick={handleSubmit}
-							type="submit"
-							disabled={!canBeSubmitted()}
-						>
+						<Button variant="contained" color="primary" onClick={handleSubmit} disabled={!canBeSubmitted()}>
 							OK
 						</Button>
 					</div>
