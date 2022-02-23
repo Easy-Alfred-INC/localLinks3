@@ -592,14 +592,31 @@ function EventDialog(props) {
 								onChange={handleChangeDropdown}
 							>
 								{serviceOptions &&
-									Object.keys(serviceOptions).map(item => {
-										let serviceTitle = serviceOptions[item]['serviceTitle'];
-										return (
-											<MenuItem key={item} value={item}>
-												{serviceTitle}
-											</MenuItem>
-										);
-									})}
+									Object.keys(serviceOptions)
+										.sort((a, b) => {
+											if (
+												serviceOptions[a]['serviceTitle'].slice(-1) <
+												serviceOptions[b]['serviceTitle'].slice(-1)
+											) {
+												return -1;
+											}
+											if (
+												serviceOptions[a]['serviceTitle'].slice(-1) >
+												serviceOptions[b]['serviceTitle'].slice(-1)
+											) {
+												return 1;
+											}
+
+											return 0;
+										})
+										.map(item => {
+											let serviceTitle = serviceOptions[item]['serviceTitle'];
+											return (
+												<MenuItem key={item} value={item}>
+													{serviceTitle}
+												</MenuItem>
+											);
+										})}
 							</Select>
 						</FormControl>
 
@@ -618,14 +635,31 @@ function EventDialog(props) {
 									onChange={handleChangeDropdownSubService}
 								>
 									{form.subServiceOptions &&
-										Object.keys(form.subServiceOptions).map(item => {
-											let subServiceTitle = form.subServiceOptions[item]['subServiceTitle'];
-											return (
-												<MenuItem key={item} value={item}>
-													{subServiceTitle}
-												</MenuItem>
-											);
-										})}
+										Object.keys(form.subServiceOptions)
+											.sort((a, b) => {
+												if (
+													serviceOptions[a]['subServiceTitle'].slice(-1) <
+													serviceOptions[b]['subServiceTitle'].slice(-1)
+												) {
+													return -1;
+												}
+												if (
+													serviceOptions[a]['subServiceTitle'].slice(-1) >
+													serviceOptions[b]['subServiceTitle'].slice(-1)
+												) {
+													return 1;
+												}
+
+												return 0;
+											})
+											.map(item => {
+												let subServiceTitle = form.subServiceOptions[item]['subServiceTitle'];
+												return (
+													<MenuItem key={item} value={item}>
+														{subServiceTitle}
+													</MenuItem>
+												);
+											})}
 								</Select>
 							</FormControl>
 						)}
@@ -778,14 +812,31 @@ function EventDialog(props) {
 							onChange={handleChangeDropdown}
 						>
 							{serviceOptions &&
-								Object.keys(serviceOptions).map(item => {
-									let serviceTitle = serviceOptions[item]['serviceTitle'];
-									return (
-										<MenuItem key={item} value={item}>
-											{serviceTitle}
-										</MenuItem>
-									);
-								})}
+								Object.keys(serviceOptions)
+									.sort((a, b) => {
+										if (
+											serviceOptions[a]['serviceTitle'].slice(-1) <
+											serviceOptions[b]['serviceTitle'].slice(-1)
+										) {
+											return -1;
+										}
+										if (
+											serviceOptions[a]['serviceTitle'].slice(-1) >
+											serviceOptions[b]['serviceTitle'].slice(-1)
+										) {
+											return 1;
+										}
+
+										return 0;
+									})
+									.map(item => {
+										let serviceTitle = serviceOptions[item]['serviceTitle'];
+										return (
+											<MenuItem key={item} value={item}>
+												{serviceTitle}
+											</MenuItem>
+										);
+									})}
 						</Select>
 					</FormControl>
 
@@ -808,14 +859,31 @@ function EventDialog(props) {
 								onChange={handleChangeDropdownSubService}
 							>
 								{form.subServiceOptions &&
-									Object.keys(form.subServiceOptions).map(item => {
-										let subServiceTitle = form.subServiceOptions[item]['subServiceTitle'];
-										return (
-											<MenuItem key={item} value={item}>
-												{subServiceTitle}
-											</MenuItem>
-										);
-									})}
+									Object.keys(form.subServiceOptions)
+										.sort((a, b) => {
+											if (
+												serviceOptions[a]['subServiceTitle'].slice(-1) <
+												serviceOptions[b]['subServiceTitle'].slice(-1)
+											) {
+												return -1;
+											}
+											if (
+												serviceOptions[a]['subServiceTitle'].slice(-1) >
+												serviceOptions[b]['subServiceTitle'].slice(-1)
+											) {
+												return 1;
+											}
+
+											return 0;
+										})
+										.map(item => {
+											let subServiceTitle = form.subServiceOptions[item]['subServiceTitle'];
+											return (
+												<MenuItem key={item} value={item}>
+													{subServiceTitle}
+												</MenuItem>
+											);
+										})}
 							</Select>
 						</FormControl>
 					)}
