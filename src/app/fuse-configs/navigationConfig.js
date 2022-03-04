@@ -34,7 +34,7 @@ const navigationConfig = [
 			},
 			{
 				id: 'test-link',
-				title: 'Speak to A Connector',
+				title: 'Schedule Local Guide',
 				type: 'item',
 				icon: 'phone',
 				// icon: 'perm_contact_calendar',

@@ -23,13 +23,14 @@ function ScheduleButton() {
 			onClick={handleClick}
 			rel="noreferrer noopener"
 			role="button"
-			className="normal-case"
+			className="normal-case px-4"
 			variant="contained"
 			color="secondary"
+			style={{ whiteSpace: 'nowrap' }}
 			// disabled={isCartLocked}
 		>
 			<Icon className="text-16">perm_contact_calendar</Icon>
-			<span className="mx-4">Schedule Local Guide!</span>
+			<span className="mx-2 text-xs">Schedule Local Guide!</span>
 			{/* <span className="mx-4">{isCartLocked ? 'Meeting Scheduled' : 'Ring Alfred Later'}</span> */}
 		</Button>
 	);

@@ -28,12 +28,13 @@ function CallButton() {
 			// target="_blank"
 			rel="noreferrer noopener"
 			role="button"
-			className="normal-case"
+			className="normal-case px-4"
 			variant="contained"
 			color="secondary"
+			style={{ whiteSpace: 'nowrap' }}
 		>
 			<Icon className="text-16">call</Icon>
-			<span className="mx-4">Ring Local Links Now</span>
+			<span className="mx-2 text-xs">Ring Local Links Now</span>
 		</Button>
 	);
 }
