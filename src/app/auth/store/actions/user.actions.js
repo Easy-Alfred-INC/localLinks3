@@ -75,6 +75,9 @@ export function createUserSettingsFirebase(authUser, utmLink = '') {
 					return dispatch(MessageActions.showMessage({ message: 'Trip not found, please try again' }));
 				}
 
+				trip.tripEndDate = tripEndDate.format();
+				trip.tripStartDate = tripStartDate.format();
+
 				const user = _.merge({}, guestUser, {
 					uid: authUser.uid,
 					from: 'firebase',
