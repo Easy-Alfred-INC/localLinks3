@@ -16,6 +16,9 @@ import AppContext from './AppContext';
 import { Auth } from './auth';
 import routes from './fuse-configs/routesConfig';
 import store from './store';
+import ReactGA from 'react-ga';
+
+const TRACKING_ID = process.env.REACT_APP_GA_KEY;
 
 const jss = create({
 	...jssPreset(),
@@ -24,9 +27,9 @@ const jss = create({
 });
 
 const generateClassName = createGenerateClassName();
+ReactGA.initialize(TRACKING_ID);
 
 const App = () => {
-
 	// window.addEventListener( 'message', function(event) {
 	// 	if ( event.origin == 'https://meetings.hubspot.com'){
 	// 		if ( event.data.meetingBookSucceeded ) {
