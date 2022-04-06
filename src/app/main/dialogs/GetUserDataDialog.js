@@ -138,7 +138,7 @@ function GetUserDataDialog(props) {
 							className="mb-24"
 							label="Bio"
 							// autoFocus
-							placeholder="Tell us about your business, your goals, your plans, and problems. How can we connect you today?"
+							placeholder="Tell us about yourself, your goals and plans. How can we connect you today?"
 							id="bio"
 							name="bio"
 							value={form.bio}
