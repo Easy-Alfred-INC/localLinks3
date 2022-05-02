@@ -31,8 +31,8 @@ export function submitRegister({ displayName, password, email }) {
 
 export function registerWithFirebase(model) {
 	console.log('in register');
-	const queryParams = new URLSearchParams(window.location.search); // this is for the utm_id we can get all the utm paramethers
-	const pathWitParamether = queryParams.get('utm_id') ? queryParams.get('utm_id') : '';
+	const queryParams = new URLSearchParams(window.location.search);
+	const pathWitParamether = queryParams.get('utm_id') ? queryParams.get('utm_id') : 'default';
 	if (!firebaseService.auth) {
 		console.warn("Firebase Service didn't initialize, check your configuration");
 		return () => false;

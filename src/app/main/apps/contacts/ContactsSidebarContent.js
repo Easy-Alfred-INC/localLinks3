@@ -67,7 +67,7 @@ function ContactsSidebarContent(props) {
 							<span className="hidden sm:flex">Add New Service</span>
 						</Button>
 					</div>
-					
+
 					{/* <div className="p-24 flex items-center">
 						<Button
 							onClick={() => dispatch(Actions.rehydrateServices())}
@@ -79,7 +79,7 @@ function ContactsSidebarContent(props) {
 							<span className="hidden sm:flex">Rehydrate All Trips</span>
 						</Button>
 					</div> */}
-				
+
 					{/* <List>
 						<ListItem
 							button

@@ -44,7 +44,7 @@ export function createUserSettingsFirebase(authUser, utmLink = '') {
 		/**
 		 * Merge with current Settings
 		 */
-		console.log('utml linkkkkk', utmLink === '');
+
 		if (utmLink === '') {
 			const user = _.merge({}, guestUser, {
 				uid: authUser.uid,
