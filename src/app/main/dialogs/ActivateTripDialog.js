@@ -19,7 +19,7 @@ const tripEndDate = moment().add(2000, 'days');
 const queryParams = new URLSearchParams(window.location.search); // this is for the utm_id we can get all the utm paramethers
 
 const defaultFormState = {
-	tid: queryParams.get('utm_id') ? queryParams.get('utm_id') : '',
+	tid: queryParams.get('utm_id') ? queryParams.get('utm_id') : 'default',
 	tripStartDate: tripStartDate,
 	tripEndDate: tripEndDate
 };
