@@ -78,11 +78,10 @@ const rows = [
 		disablePadding: false,
 		label: 'Status',
 		sort: true
-	},
+	}
 ];
 
 function OrdersTableHead(props) {
-
 	const createSortHandler = property => event => {
 		props.onRequestSort(event, property);
 	};
@@ -90,8 +89,7 @@ function OrdersTableHead(props) {
 	return (
 		<TableHead>
 			<TableRow className="h-64">
-				<TableCell padding="none" className="relative w-64 text-center">
-				</TableCell>
+				<TableCell padding="none" className="relative w-64 text-center"></TableCell>
 				{rows.map(row => {
 					// console.log('row', row);
 					return (

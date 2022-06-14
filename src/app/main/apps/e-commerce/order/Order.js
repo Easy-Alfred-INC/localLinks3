@@ -1,3 +1,4 @@
+import { useForm } from '@fuse/hooks';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import FusePageCarded from '@fuse/core/FusePageCarded';
 import Icon from '@material-ui/core/Icon';
@@ -16,7 +17,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Toolbar from '@material-ui/core/Toolbar';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import TextField from '@material-ui/core/TextField';
 import moment from 'moment';
+import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import EditIcon from '@material-ui/icons/Edit';
@@ -27,11 +33,34 @@ import * as Actions2 from 'app/auth/store/actions';
 import { handleTotalCostChip, handleCostColumn } from 'app/services/helper.js';
 
 function Order(props) {
+	const [tripIdDialog, setTripIdDialog] = useState(false);
 	const dispatch = useDispatch();
 	const order = useSelector(({ eCommerceApp }) => eCommerceApp.order);
-	console.log('order---', order);
 	const theme = useTheme();
 	const [tabValue, setTabValue] = useState(0);
+
+	const tripStartDate = moment();
+	const tripEndDate = moment().add(2000, 'days');
+
+	const defaultFormState = {
+		tid: '',
+		tripStartDate: tripStartDate,
+		tripEndDate: tripEndDate
+	};
+
+	const { form, handleChange } = useForm(defaultFormState);
+
+	function handleChangeMarketId(event) {
+		form['tripStartDate'] = tripStartDate;
+		form['tripEndDate'] = tripEndDate;
+		event.preventDefault();
+		dispatch(Actions2.updateUserTrip(form, order.user));
+		setTripIdDialog(false);
+	}
+
+	function canBeSubmitted() {
+		return form.tid.length > 0;
+	}
 
 	useEffect(() => {
 		dispatch(Actions.getOrder(props.match.params));
@@ -41,11 +70,11 @@ function Order(props) {
 		setTabValue(value);
 	}
 
-	function handleOpenEventDialoge(event, user){
-		event.user = user
+	function handleOpenEventDialoge(event, user) {
+		event.user = user;
 		dispatch(Actions2.openEditEventDialogFromAdmin(event, user));
 	}
-	
+
 	return (
 		<FusePageCarded
 			classes={{
@@ -79,9 +108,7 @@ function Order(props) {
 								</FuseAnimate>
 
 								<FuseAnimate animation="transition.slideLeftIn" delay={300}>
-									<Typography variant="caption">
-										{`From ${order.customer.firstName}`}
-									</Typography>
+									<Typography variant="caption">{`From ${order.customer.firstName}`}</Typography>
 								</FuseAnimate>
 							</div>
 						</div>
@@ -107,116 +134,221 @@ function Order(props) {
 			content={
 				order && (
 					<div className="p-16 sm:p-24 max-w-2xl w-full">
-
 						{tabValue === 0 && (
-						<div>
-							<div className="pb-48">
-								<div className="mb-24">
-									<div className="table-responsive mb-16">
-										<Card className="w-full mb-16">
-											<AppBar position="static" elevation={0}>
-												<Toolbar className="px-8">
-													<Typography variant="subtitle1" color="inherit" className="flex-1 px-12">
-														User Details
-													</Typography>
-												</Toolbar>
-											</AppBar>
+							<div>
+								<div className="pb-48">
+									<div className="mb-24">
+										<div className="table-responsive mb-16">
+											<Card className="w-full mb-16">
+												<AppBar position="static" elevation={0}>
+													<Toolbar className="px-8">
+														<Typography
+															variant="subtitle1"
+															color="inherit"
+															className="flex-1 px-12"
+														>
+															User Details
+														</Typography>
+													</Toolbar>
+												</AppBar>
 
-											<CardContent>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">User ID</Typography>
-													<Typography>{order.id}</Typography>
-												</div>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">User Role</Typography>
-													<Typography>{order.customer.role}</Typography>
-												</div>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Name</Typography>
-													<Typography>{order.customer.firstName}</Typography>
-												</div>
+												<CardContent>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															User ID
+														</Typography>
+														<Typography>{order.id}</Typography>
+													</div>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															User Role
+														</Typography>
+														<Typography>{order.customer.role}</Typography>
+													</div>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">Name</Typography>
+														<Typography>{order.customer.firstName}</Typography>
+													</div>
 
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Email</Typography>
-													<Typography>{order.customer.email}</Typography>
-												</div>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Phone</Typography>
-													<Typography>{order.customer.phone}</Typography>
-												</div>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Bio</Typography>
-													<Typography>{order.customer.bio}</Typography>
-												</div>
-											</CardContent>
-										</Card>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															Email
+														</Typography>
+														<Typography>{order.customer.email}</Typography>
+													</div>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															Phone
+														</Typography>
+														<Typography>{order.customer.phone}</Typography>
+													</div>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">Bio</Typography>
+														<Typography>{order.customer.bio}</Typography>
+													</div>
+												</CardContent>
+											</Card>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 						)}
 
 						{tabValue === 1 && (
-						<div>
-							<div className="pb-48">
-								<div className="mb-24">
-									<div className="table-responsive mb-16">
-										<Card className="w-full mb-16">
-											<AppBar position="static" elevation={0}>
-												<Toolbar className="px-8">
-													<Typography variant="subtitle1" color="inherit" className="flex-1 px-12">
-														Trip Details
-													</Typography>
-												</Toolbar>
-											</AppBar>
+							<div>
+								<div className="pb-48">
+									<div className="mb-24">
+										<div className="table-responsive mb-16">
+											<Card className="w-full mb-16">
+												<AppBar position="static" elevation={0}>
+													<Toolbar className="px-8">
+														<Typography
+															variant="subtitle1"
+															color="inherit"
+															className="flex-1 px-12"
+														>
+															Trip Details
+														</Typography>
+													</Toolbar>
+												</AppBar>
 
-											<CardContent>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Address Displayed</Typography>
-													<Typography>{order.isCartLocked.toString()}</Typography>
-												</div>
-												{/* <div className="mb-24">
+												<CardContent>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															Address Displayed
+														</Typography>
+														<Typography>{order.isCartLocked.toString()}</Typography>
+													</div>
+													{/* <div className="mb-24">
 													<Typography className="font-bold mb-4 text-15">Date</Typography>
 													<Typography>{order.date}</Typography>
 												</div> */}
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Location Name</Typography>
-													<Typography>{order.customer.locationName}</Typography>
-												</div>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Location Address</Typography>
-													<Typography>{order.customer.shippingAddress.address}</Typography>
-												</div>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Location Image</Typography>
-													<Typography>{order.customer.locationImage}</Typography>
-												</div>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Invoice Link</Typography>
-													<Typography>{order.invoiceLink}</Typography>
-												</div>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Last Updated</Typography>
-													<Typography>{moment(order.reference).format('MM/DD/YYYY, h:mm:ss')}</Typography>
-												</div>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Market ID</Typography>
-													<Typography>{order.tid}</Typography>
-												</div>
-												<div className="mb-24">
-													<Typography className="font-bold mb-4 text-15">Service ID</Typography>
-													<Typography>{order.sid}</Typography>
-												</div>
-											</CardContent>
-										</Card>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															Location Name
+														</Typography>
+														<Typography>{order.customer.locationName}</Typography>
+													</div>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															Location Address
+														</Typography>
+														<Typography>
+															{order.customer.shippingAddress.address}
+														</Typography>
+													</div>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															Location Image
+														</Typography>
+														<Typography>{order.customer.locationImage}</Typography>
+													</div>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															Invoice Link
+														</Typography>
+														<Typography>{order.invoiceLink}</Typography>
+													</div>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															Last Updated
+														</Typography>
+														<Typography>
+															{moment(order.reference).format('MM/DD/YYYY, h:mm:ss')}
+														</Typography>
+													</div>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															Market ID
+														</Typography>
+														<Typography>{order.tid}</Typography>
+													</div>
+													<div className="mb-24">
+														<Typography className="font-bold mb-4 text-15">
+															Service ID
+														</Typography>
+														<Typography>{order.sid}</Typography>
+													</div>
+
+													<div className="mb-24 px-16 d-flex flex-row-reverse w-100">
+														<Button
+															onClick={() => setTripIdDialog(true)}
+															size="large"
+															variant="outlined"
+															color="secondary"
+														>
+															Change Market ID
+														</Button>
+
+														<Dialog
+															classes={{
+																paper: 'm-24'
+															}}
+															open={tripIdDialog}
+															onClose={() => setTripIdDialog(false)}
+															fullWidth
+															maxWidth="xs"
+														>
+															<Toolbar className="flex w-full">
+																<Typography variant="subtitle1" color="inherit">
+																	Enter the new Market ID
+																</Typography>
+															</Toolbar>
+															<form
+																noValidate
+																onSubmit={handleChangeMarketId}
+																className="flex flex-col md:overflow-hidden"
+															>
+																<DialogContent classes={{ root: 'p-24' }}>
+																	<TextField
+																		fullWidth
+																		id="tid"
+																		name="tid"
+																		label="Market ID"
+																		variant="outlined"
+																		value={form.tid}
+																		onChange={handleChange}
+																		required
+																		autoFocus
+																	/>
+																</DialogContent>
+
+																<DialogActions className="justify-between p-8">
+																	<div className="px-16">
+																		<Button
+																			component={Link}
+																			variant="contained"
+																			color="primary"
+																			onClick={() => setTripIdDialog(false)}
+																		>
+																			Cancel
+																		</Button>
+																	</div>
+																	<div className="px-16">
+																		<Button
+																			type="submit"
+																			variant="contained"
+																			color="primary"
+																			onClick={handleChangeMarketId}
+																			disabled={!canBeSubmitted()}
+																		>
+																			Next
+																		</Button>
+																	</div>
+																</DialogActions>
+															</form>
+														</Dialog>
+													</div>
+												</CardContent>
+											</Card>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 						)}
 
 						{tabValue === 2 && (
-						<div>
+							<div>
 								<div className="table-responsive">
 									<table className="simple">
 										<thead>
@@ -233,59 +365,74 @@ function Order(props) {
 											</tr>
 										</thead>
 										<tbody>
-											{order.products.filter((product)=>product && !product.isLocked).map(product => (
-												
-												<tr key={product.id}>
-													<td className="w-64">
-														<ButtonGroup size="small" aria-label="small outlined button group">
-															{/* <IconButton aria-label="delete" size="small" onClick={()=>handleRemove(order.id, product.id)}>
+											{order.products
+												.filter(product => product && !product.isLocked)
+												.map(product => (
+													<tr key={product.id}>
+														<td className="w-64">
+															<ButtonGroup
+																size="small"
+																aria-label="small outlined button group"
+															>
+																{/* <IconButton aria-label="delete" size="small" onClick={()=>handleRemove(order.id, product.id)}>
 																<DeleteIcon fontSize="inherit" />
 															</IconButton> */}
-															<IconButton aria-label="delete" size="small" onClick={()=> handleOpenEventDialoge(product, order.user)}>
-																<EditIcon fontSize="inherit" />
-															</IconButton>
-														</ButtonGroup>
-													</td>
-													<td className="w-64">
-														{/* <span className="truncate">{product.isConfirmed.toString()}</span> */}
-														{product.isConfirmed ? (
-															<Icon className="text-green text-20">check_circle</Icon>
-														) : (
+																<IconButton
+																	aria-label="delete"
+																	size="small"
+																	onClick={() =>
+																		handleOpenEventDialoge(product, order.user)
+																	}
+																>
+																	<EditIcon fontSize="inherit" />
+																</IconButton>
+															</ButtonGroup>
+														</td>
+														<td className="w-64">
+															{/* <span className="truncate">{product.isConfirmed.toString()}</span> */}
+															{product.isConfirmed ? (
+																<Icon className="text-green text-20">check_circle</Icon>
+															) : (
 																<Icon className="text-red text-20">remove_circle</Icon>
 															)}
-													</td>
-													<td className="w-64">
-														<span className="truncate">{moment(product.start).format('MM/DD HH:mm')}</span>
-													</td>
-													<td className="w-64">
-														<span className="truncate">{product.serviceTitle} {product.subServiceTitle && `(${product.subServiceTitle})`}</span>
-													</td>
-													<td className="w-64">
-														<span className="truncate">{product.desc}</span>
-													</td>
-													<td className="w-64">
-														<span className="truncate">{product.guestCount}</span>
-													</td>
-													<td className="w-64">
-														<span className="truncate">{product.hourCount}</span>
-													</td>
-													<td className="w-64">
-														<span className="truncate">${product.budget}</span>
-													</td>
-													<td className="w-64">
-														<span className="truncate">${handleCostColumn(product)}</span>
-													</td>
-												</tr>
-											))}
+														</td>
+														<td className="w-64">
+															<span className="truncate">
+																{moment(product.start).format('MM/DD HH:mm')}
+															</span>
+														</td>
+														<td className="w-64">
+															<span className="truncate">
+																{product.serviceTitle}{' '}
+																{product.subServiceTitle &&
+																	`(${product.subServiceTitle})`}
+															</span>
+														</td>
+														<td className="w-64">
+															<span className="truncate">{product.desc}</span>
+														</td>
+														<td className="w-64">
+															<span className="truncate">{product.guestCount}</span>
+														</td>
+														<td className="w-64">
+															<span className="truncate">{product.hourCount}</span>
+														</td>
+														<td className="w-64">
+															<span className="truncate">${product.budget}</span>
+														</td>
+														<td className="w-64">
+															<span className="truncate">
+																${handleCostColumn(product)}
+															</span>
+														</td>
+													</tr>
+												))}
 										</tbody>
 									</table>
 								</div>
-								<br/>
+								<br />
 								<div className="flex flex-col items-center">
-									<Chip
-									size="medium"
-									label={handleTotalCostChip(order.products)}
-									color="primary"/>
+									<Chip size="medium" label={handleTotalCostChip(order.products)} color="primary" />
 								</div>
 							</div>
 						)}
@@ -293,7 +440,6 @@ function Order(props) {
 						{tabValue === 3 && <OrderInvoice order={order} />}
 
 						<EventDialog />
-
 					</div>
 				)
 			}
