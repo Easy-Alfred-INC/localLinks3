@@ -164,6 +164,46 @@ export function getAllUserData() {
 	};
 }
 
+export function updateUserTrip(form, user) {
+	const { tid, tripStartDate, tripEndDate } = form;
+	return dispatch => {
+		firebaseService
+			.getTripData(tid, form)
+			.then(trip => {
+				if (!trip) {
+					return dispatch(MessageActions.showMessage({ message: 'Trip not found, please try again' }));
+				}
+
+				trip.tripEndDate = tripEndDate.format();
+				trip.tripStartDate = tripStartDate.format();
+
+				const newUser = {
+					...user,
+					trip: {
+						active: true,
+						isCartLocked: false,
+						lastUpdated: moment().format(),
+						openDialog: false,
+						invoiceLink: '',
+						data: {
+							...trip,
+
+							email: user.data.email,
+							displayName: user.data.displayName
+						}
+					}
+				};
+
+				updateUserData(newUser, dispatch);
+
+				return dispatch(MessageActions.showMessage({ message: 'trip has been found' }));
+			})
+			.catch(error => {
+				dispatch(MessageActions.showMessage({ message: error.message }));
+			});
+	};
+}
+
 export function addTrip(form) {
 	return (dispatch, getState) => {
 		const { tid, tripStartDate, tripEndDate } = form;
